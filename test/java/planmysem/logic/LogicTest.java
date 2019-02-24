@@ -27,7 +27,7 @@ import planmysem.commands.HelpCommand;
 import planmysem.commands.ViewAllCommand;
 import planmysem.commands.ViewCommand;
 import planmysem.common.Messages;
-import planmysem.data.AddressBook;
+import planmysem.data.Planner;
 import planmysem.data.person.Address;
 import planmysem.data.person.Email;
 import planmysem.data.person.Name;
@@ -47,13 +47,13 @@ public class LogicTest {
     public TemporaryFolder saveFolder = new TemporaryFolder();
 
     private StorageFile saveFile;
-    private AddressBook addressBook;
+    private Planner addressBook;
     private Logic logic;
 
     @Before
     public void setup() throws Exception {
         saveFile = new StorageFile(saveFolder.newFile("testSaveFile.txt").getPath());
-        addressBook = new AddressBook();
+        addressBook = new Planner();
         saveFile.save(addressBook);
         logic = new Logic(saveFile, addressBook);
     }
@@ -77,10 +77,10 @@ public class LogicTest {
      * Executes the command and confirms that the result message is correct.
      * Both the 'address book' and the 'last shown list' are expected to be empty.
      *
-     * @see #assertCommandBehavior(String, String, AddressBook, boolean, List)
+     * @see #assertCommandBehavior(String, String, Planner, boolean, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
-        assertCommandBehavior(inputCommand, expectedMessage, AddressBook.empty(), false, Collections.emptyList());
+        assertCommandBehavior(inputCommand, expectedMessage, Planner.empty(), false, Collections.emptyList());
     }
 
     /**
@@ -92,7 +92,7 @@ public class LogicTest {
      */
     private void assertCommandBehavior(String inputCommand,
                                        String expectedMessage,
-                                       AddressBook expectedAddressBook,
+                                       Planner expectedAddressBook,
                                        boolean isRelevantPersonsExpected,
                                        List<? extends ReadOnlyPerson> lastShownList) throws Exception {
 
@@ -136,7 +136,7 @@ public class LogicTest {
         addressBook.addPerson(helper.generatePerson(2, true));
         addressBook.addPerson(helper.generatePerson(3, true));
 
-        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, AddressBook.empty(), false, Collections.emptyList());
+        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, Planner.empty(), false, Collections.emptyList());
     }
 
     @Test
@@ -170,7 +170,7 @@ public class LogicTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Person toBeAdded = helper.adam();
-        AddressBook expectedAB = new AddressBook();
+        Planner expectedAB = new Planner();
         expectedAB.addPerson(toBeAdded);
 
         // execute command and verify result
@@ -187,7 +187,7 @@ public class LogicTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Person toBeAdded = helper.adam();
-        AddressBook expectedAB = new AddressBook();
+        Planner expectedAB = new Planner();
         expectedAB.addPerson(toBeAdded);
 
         // setup starting state
@@ -207,7 +207,7 @@ public class LogicTest {
     public void execute_list_showsAllPersons() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
-        AddressBook expectedAB = helper.generateAddressBook(false, true);
+        Planner expectedAB = helper.generateAddressBook(false, true);
         List<? extends ReadOnlyPerson> expectedList = expectedAB.getAllPersons().immutableListView();
 
         // prepare address book state
@@ -245,9 +245,9 @@ public class LogicTest {
 
         logic.setLastShownList(lastShownList);
 
-        assertCommandBehavior(commandWord + " -1", expectedMessage, AddressBook.empty(), false, lastShownList);
-        assertCommandBehavior(commandWord + " 0", expectedMessage, AddressBook.empty(), false, lastShownList);
-        assertCommandBehavior(commandWord + " 3", expectedMessage, AddressBook.empty(), false, lastShownList);
+        assertCommandBehavior(commandWord + " -1", expectedMessage, Planner.empty(), false, lastShownList);
+        assertCommandBehavior(commandWord + " 0", expectedMessage, Planner.empty(), false, lastShownList);
+        assertCommandBehavior(commandWord + " 3", expectedMessage, Planner.empty(), false, lastShownList);
 
     }
 
@@ -258,7 +258,7 @@ public class LogicTest {
         Person p1 = helper.generatePerson(1, true);
         Person p2 = helper.generatePerson(2, false);
         List<Person> lastShownList = helper.generatePersonList(p1, p2);
-        AddressBook expectedAB = helper.generateAddressBook(lastShownList);
+        Planner expectedAB = helper.generateAddressBook(lastShownList);
         helper.addToAddressBook(addressBook, lastShownList);
 
         logic.setLastShownList(lastShownList);
@@ -283,7 +283,7 @@ public class LogicTest {
         Person p2 = helper.generatePerson(2, false);
         List<Person> lastShownList = helper.generatePersonList(p1, p2);
 
-        AddressBook expectedAB = new AddressBook();
+        Planner expectedAB = new Planner();
         expectedAB.addPerson(p2);
 
         addressBook.addPerson(p2);
@@ -314,7 +314,7 @@ public class LogicTest {
         Person p1 = helper.generatePerson(1, true);
         Person p2 = helper.generatePerson(2, false);
         List<Person> lastShownList = helper.generatePersonList(p1, p2);
-        AddressBook expectedAB = helper.generateAddressBook(lastShownList);
+        Planner expectedAB = helper.generateAddressBook(lastShownList);
         helper.addToAddressBook(addressBook, lastShownList);
 
         logic.setLastShownList(lastShownList);
@@ -339,7 +339,7 @@ public class LogicTest {
         Person p2 = helper.generatePerson(2, false);
         List<Person> lastShownList = helper.generatePersonList(p1, p2);
 
-        AddressBook expectedAB = new AddressBook();
+        Planner expectedAB = new Planner();
         expectedAB.addPerson(p1);
 
         addressBook.addPerson(p1);
@@ -373,7 +373,7 @@ public class LogicTest {
 
         List<Person> threePersons = helper.generatePersonList(p1, p2, p3);
 
-        AddressBook expectedAB = helper.generateAddressBook(threePersons);
+        Planner expectedAB = helper.generateAddressBook(threePersons);
         expectedAB.removePerson(p2);
 
 
@@ -397,7 +397,7 @@ public class LogicTest {
 
         List<Person> threePersons = helper.generatePersonList(p1, p2, p3);
 
-        AddressBook expectedAB = helper.generateAddressBook(threePersons);
+        Planner expectedAB = helper.generateAddressBook(threePersons);
         expectedAB.removePerson(p2);
 
         helper.addToAddressBook(addressBook, threePersons);
@@ -426,7 +426,7 @@ public class LogicTest {
         Person p2 = helper.generatePersonWithName("KEYKEYKEY sduauo");
 
         List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
-        AddressBook expectedAB = helper.generateAddressBook(fourPersons);
+        Planner expectedAB = helper.generateAddressBook(fourPersons);
         List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2);
         helper.addToAddressBook(addressBook, fourPersons);
 
@@ -446,7 +446,7 @@ public class LogicTest {
         Person p2 = helper.generatePersonWithName("KEy sduauo");
 
         List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
-        AddressBook expectedAB = helper.generateAddressBook(fourPersons);
+        Planner expectedAB = helper.generateAddressBook(fourPersons);
         List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2);
         helper.addToAddressBook(addressBook, fourPersons);
 
@@ -466,7 +466,7 @@ public class LogicTest {
         Person p2 = helper.generatePersonWithName("KEy sduauo");
 
         List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
-        AddressBook expectedAB = helper.generateAddressBook(fourPersons);
+        Planner expectedAB = helper.generateAddressBook(fourPersons);
         List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2);
         helper.addToAddressBook(addressBook, fourPersons);
 
@@ -533,41 +533,41 @@ public class LogicTest {
         }
 
         /**
-         * Generates an AddressBook with auto-generated persons.
+         * Generates an Planner with auto-generated persons.
          *
          * @param isPrivateStatuses flags to indicate if all contact details of respective persons should be set to
          *                          private.
          */
-        AddressBook generateAddressBook(Boolean... isPrivateStatuses) throws Exception {
-            AddressBook addressBook = new AddressBook();
+        Planner generateAddressBook(Boolean... isPrivateStatuses) throws Exception {
+            Planner addressBook = new Planner();
             addToAddressBook(addressBook, isPrivateStatuses);
             return addressBook;
         }
 
         /**
-         * Generates an AddressBook based on the list of Persons given.
+         * Generates an Planner based on the list of Persons given.
          */
-        AddressBook generateAddressBook(List<Person> persons) throws Exception {
-            AddressBook addressBook = new AddressBook();
+        Planner generateAddressBook(List<Person> persons) throws Exception {
+            Planner addressBook = new Planner();
             addToAddressBook(addressBook, persons);
             return addressBook;
         }
 
         /**
-         * Adds auto-generated Person objects to the given AddressBook
+         * Adds auto-generated Person objects to the given Planner
          *
-         * @param addressBook       The AddressBook to which the Persons will be added
+         * @param addressBook       The Planner to which the Persons will be added
          * @param isPrivateStatuses flags to indicate if all contact details of generated persons should be set to
          *                          private.
          */
-        void addToAddressBook(AddressBook addressBook, Boolean... isPrivateStatuses) throws Exception {
+        void addToAddressBook(Planner addressBook, Boolean... isPrivateStatuses) throws Exception {
             addToAddressBook(addressBook, generatePersonList(isPrivateStatuses));
         }
 
         /**
-         * Adds the given list of Persons to the given AddressBook
+         * Adds the given list of Persons to the given Planner
          */
-        void addToAddressBook(AddressBook addressBook, List<Person> personsToAdd) throws Exception {
+        void addToAddressBook(Planner addressBook, List<Person> personsToAdd) throws Exception {
             for (Person p : personsToAdd) {
                 addressBook.addPerson(p);
             }

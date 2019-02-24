@@ -5,14 +5,14 @@ import static planmysem.ui.Gui.DISPLAYED_INDEX_OFFSET;
 import java.util.List;
 
 import planmysem.common.Messages;
-import planmysem.data.AddressBook;
+import planmysem.data.Planner;
 import planmysem.data.person.ReadOnlyPerson;
 
 /**
  * Represents an executable command.
  */
 public abstract class Command {
-    protected AddressBook addressBook;
+    protected Planner addressBook;
     protected List<? extends ReadOnlyPerson> relevantPersons;
     private int targetIndex = -1;
 
@@ -49,7 +49,7 @@ public abstract class Command {
     /**
      * Supplies the data the command will operate on.
      */
-    public void setData(AddressBook addressBook, List<? extends ReadOnlyPerson> relevantPersons) {
+    public void setData(Planner addressBook, List<? extends ReadOnlyPerson> relevantPersons) {
         this.addressBook = addressBook;
         this.relevantPersons = relevantPersons;
     }

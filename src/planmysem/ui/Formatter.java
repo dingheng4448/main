@@ -11,7 +11,7 @@ import planmysem.data.person.ReadOnlyPerson;
 public class Formatter {
 
     /**
-     * A decorative prefix added to the beginning of lines printed by AddressBook
+     * A decorative prefix added to the beginning of lines printed by Planner
      */
     private static final String LINE_PREFIX = " ";
 

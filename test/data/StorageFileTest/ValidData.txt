@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<AddressBook>
+<Planner>
     <persons>
         <name>John Doe</name>
         <phone isPrivate="false">98765432</phone>
@@ -14,4 +14,4 @@
         <tagged>friend</tagged>
         <tagged>criminal</tagged>
     </persons>
-</AddressBook>
+</Planner>

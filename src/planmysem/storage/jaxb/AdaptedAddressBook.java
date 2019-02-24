@@ -6,7 +6,7 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import planmysem.data.AddressBook;
+import planmysem.data.Planner;
 import planmysem.data.exception.IllegalValueException;
 import planmysem.data.person.Person;
 import planmysem.data.person.UniquePersonList;
@@ -14,7 +14,7 @@ import planmysem.data.person.UniquePersonList;
 /**
  * JAXB-friendly adapted address book data holder class.
  */
-@XmlRootElement(name = "AddressBook")
+@XmlRootElement(name = "Planner")
 public class AdaptedAddressBook {
 
     @XmlElement
@@ -27,11 +27,11 @@ public class AdaptedAddressBook {
     }
 
     /**
-     * Converts a given AddressBook into this class for JAXB use.
+     * Converts a given Planner into this class for JAXB use.
      *
      * @param source future changes to this will not affect the created AdaptedAddressBook
      */
-    public AdaptedAddressBook(AddressBook source) {
+    public AdaptedAddressBook(Planner source) {
         persons = new ArrayList<>();
         source.getAllPersons().forEach(person -> persons.add(new AdaptedPerson(person)));
     }
@@ -51,15 +51,15 @@ public class AdaptedAddressBook {
 
 
     /**
-     * Converts this jaxb-friendly {@code AdaptedAddressBook} object into the corresponding(@code AddressBook} object.
+     * Converts this jaxb-friendly {@code AdaptedAddressBook} object into the corresponding(@code Planner} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
-    public AddressBook toModelType() throws IllegalValueException {
+    public Planner toModelType() throws IllegalValueException {
         final List<Person> personList = new ArrayList<>();
         for (AdaptedPerson person : persons) {
             personList.add(person.toModelType());
         }
-        return new AddressBook(new UniquePersonList(personList));
+        return new Planner(new UniquePersonList(personList));
     }
 }

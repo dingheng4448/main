@@ -9,14 +9,14 @@ import planmysem.data.person.UniquePersonList.PersonNotFoundException;
 /**
  * Represents the entire address book. Contains the data of the address book.
  */
-public class AddressBook {
+public class Planner {
 
     private final UniquePersonList allPersons;
 
     /**
      * Creates an empty address book.
      */
-    public AddressBook() {
+    public Planner() {
         allPersons = new UniquePersonList();
     }
 
@@ -25,12 +25,12 @@ public class AddressBook {
      *
      * @param persons external changes to this will not affect this address book
      */
-    public AddressBook(UniquePersonList persons) {
+    public Planner(UniquePersonList persons) {
         this.allPersons = new UniquePersonList(persons);
     }
 
-    public static AddressBook empty() {
-        return new AddressBook();
+    public static Planner empty() {
+        return new Planner();
     }
 
     /**
@@ -75,8 +75,8 @@ public class AddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && this.allPersons.equals(((AddressBook) other).allPersons));
+                || (other instanceof Planner // instanceof handles nulls
+                && this.allPersons.equals(((Planner) other).allPersons));
     }
 
     @Override

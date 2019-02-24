@@ -6,19 +6,19 @@ import java.util.Optional;
 
 import planmysem.commands.Command;
 import planmysem.commands.CommandResult;
-import planmysem.data.AddressBook;
+import planmysem.data.Planner;
 import planmysem.data.person.ReadOnlyPerson;
 import planmysem.parser.Parser;
 import planmysem.storage.StorageFile;
 
 /**
- * Represents the main Logic of the AddressBook.
+ * Represents the main Logic of the Planner.
  */
 public class Logic {
 
 
     private StorageFile storage;
-    private AddressBook addressBook;
+    private Planner addressBook;
 
     /**
      * The list of person shown to the user most recently.
@@ -30,7 +30,7 @@ public class Logic {
         setAddressBook(storage.load());
     }
 
-    Logic(StorageFile storageFile, AddressBook addressBook) {
+    Logic(StorageFile storageFile, Planner addressBook) {
         setStorage(storageFile);
         setAddressBook(addressBook);
     }
@@ -39,7 +39,7 @@ public class Logic {
         this.storage = storage;
     }
 
-    void setAddressBook(AddressBook addressBook) {
+    void setAddressBook(Planner addressBook) {
         this.addressBook = addressBook;
     }
 
