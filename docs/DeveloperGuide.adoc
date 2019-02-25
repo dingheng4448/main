@@ -813,13 +813,13 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
+* NUS students and staff
 * has a need to manage a significant number of categories, activites, timeslots, tags in a calendar
 * prefer desktop apps over other types
-* prefers having an offline calendar
+* prefers having a completely offline calendar
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
-* NUS students and staff
 
 *Value proposition*: manage personal planner faster than a typical mouse/GUI driven app and caters to users who prefer an offline solution due to the current technology climate where information privacy/data privacy/data protection has become an uncertainty
 
@@ -831,7 +831,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |new user |see usage instructions |refer to instructions if I do not know how to use the app
 |`* * *` |new user |initialize the calendar by year and semester |align the planner with the school's academic calendar
 |`* * *` |user |add a module |store all my modules in the calendar*
 |`* * *` |user |delete a module |remove all modules from my calendar that have been cancelled*
@@ -944,7 +944,7 @@ _{More to be added}_
 . The system should respond relatively quickly to user commands so as to not make the user wait around; this is an advantage of using PlanMySem.
 . The system should take up relatively little space on the local machine so as to cater to all students and OS.
 . The system should be easy to use, intuitive and simple, such that any student regardless of past experience with calendar/scheduling softwares is able to use it.
-. The system should be flexible to allow all kinds of schedules that all users, within the user target, might have. 
+. The system should be flexible to allow all kinds of schedules that target users might have. 
 
 [appendix]
 == Glossary
