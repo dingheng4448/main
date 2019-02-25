@@ -1,8 +1,8 @@
 package planmysem.data.slot;
 
+import java.time.LocalTime;
 import java.util.Set;
 
-import planmysem.data.person.Name;
 import planmysem.data.tag.Tag;
 
 /**
@@ -10,11 +10,11 @@ import planmysem.data.tag.Tag;
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlySlot {
-
     Name getName();
     Location getLocation();
     Description getDescription();
-    DateTime getDateTime();
+    int getDuration();
+    LocalTime getTime();
 
     /**
      * The returned {@code Set} is a deep copy of the internal {@code Set},
@@ -32,41 +32,38 @@ public interface ReadOnlySlot {
                 && other.getName().equals(this.getName()) // state checks here onwards
                 && other.getLocation().equals(this.getLocation())
                 && other.getDescription().equals(this.getDescription())
-                && other.getDateTime().equals(this.getDateTime()));
+                && other.getTime().equals(this.getTime()));
     }
 
     /**
-     * Formats the person as text, showing all contact details.
+     * Formats the slot as text, showing all contact details.
      */
     default String getAsTextShowAll() {
         final StringBuilder builder = new StringBuilder();
-        final String detailIsPrivate = "(private) ";
-        builder.append(getName())
-                .append(" Location: ");
-        if (getLocation().isPrivate()) {
-            builder.append(detailIsPrivate);
-        }
-        builder.append(getLocation())
-                .append(" DateTime: ");
-        if (getDescription().isPrivate()) {
-            builder.append(detailIsPrivate);
-        }
-        builder.append(getDateTime())
-                .append(" Tags: ");
-        if (getDateTime().isPrivate()) {
-            builder.append(detailIsPrivate);
-        }
-        builder.append(getDescription())
-                .append(" Tags: ");
+        builder.append(getName());
+
+        builder.append(" Location: ");
+        builder.append(getLocation());
+
+        builder.append(" Description: ");
+        builder.append(getDescription());
+
+        builder.append(" Start Time: ");
+        builder.append(getTime());
+
+        builder.append(" Duration: ");
+        builder.append(getDuration());
+
+        builder.append(" Tags: ");
         for (Tag tag : getTags()) {
             builder.append(tag);
         }
         return builder.toString();
     }
 
-    /**
-     * Formats a person as text, showing only non-private contact details.
-     */
+    //    /**
+    //     * Formats a person as text, showing only non-private contact details.
+    //     */
     //    default String getAsTextHidePrivate() {
     //        final StringBuilder builder = new StringBuilder();
     //        builder.append(getName());
@@ -76,7 +73,7 @@ public interface ReadOnlySlot {
     //        if (!getDescription().isPrivate()) {
     //            builder.append(" Email: ").append(getEmail());
     //        }
-    //        if (!getDateTime().isPrivate()) {
+    //        if (!getTime().isPrivate()) {
     //            builder.append(" Address: ").append(getAddress());
     //        }
     //        builder.append(" Tags: ");

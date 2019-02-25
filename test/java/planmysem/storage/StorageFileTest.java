@@ -12,7 +12,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
-import planmysem.data.Planner;
+import planmysem.data.AddressBook;
 import planmysem.data.exception.IllegalValueException;
 import planmysem.data.person.Address;
 import planmysem.data.person.Email;
@@ -45,7 +45,7 @@ public class StorageFileTest {
 
     @Test
     public void load_invalidFormat_exceptionThrown() throws Exception {
-        // The file contains valid xml data, but does not match the Planner class
+        // The file contains valid xml data, but does not match the AddressBook class
         StorageFile storage = getStorage("InvalidData.txt");
         thrown.expect(StorageOperationException.class);
         storage.load();
@@ -53,11 +53,11 @@ public class StorageFileTest {
 
     @Test
     public void load_validFormat() throws Exception {
-        Planner actualAB = getStorage("ValidData.txt").load();
-        Planner expectedAB = getTestAddressBook();
+        AddressBook actualAB = getStorage("ValidData.txt").load();
+        AddressBook expectedAB = getTestAddressBook();
 
-        // ensure loaded Planner is properly constructed with test data
-        // TODO: overwrite equals method in Planner class and replace with equals method below
+        // ensure loaded AddressBook is properly constructed with test data
+        // TODO: overwrite equals method in AddressBook class and replace with equals method below
         assertEquals(actualAB.getAllPersons(), expectedAB.getAllPersons());
     }
 
@@ -70,7 +70,7 @@ public class StorageFileTest {
 
     @Test
     public void save_validAddressBook() throws Exception {
-        Planner ab = getTestAddressBook();
+        AddressBook ab = getTestAddressBook();
         StorageFile storage = getTempStorage();
         storage.save(ab);
 
@@ -94,8 +94,8 @@ public class StorageFileTest {
         return new StorageFile(testFolder.getRoot().getPath() + "/" + "temp.txt");
     }
 
-    private Planner getTestAddressBook() throws Exception {
-        Planner ab = new Planner();
+    private AddressBook getTestAddressBook() throws Exception {
+        AddressBook ab = new AddressBook();
         ab.addPerson(new Person(new Name("John Doe"),
                 new Phone("98765432", false),
                 new Email("johnd@gmail.com", false),
