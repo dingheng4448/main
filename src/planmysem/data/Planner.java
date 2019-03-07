@@ -132,6 +132,7 @@ public class Planner {
                 break;
             default:
                 normalDays.add(date);
+                break;
             }
         }
         //System.out.println(recessDays);
