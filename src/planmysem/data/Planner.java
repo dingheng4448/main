@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.temporal.TemporalField;
+import java.time.temporal.WeekFields;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -42,17 +44,20 @@ public class Planner {
         Set<LocalDate> recessDays = new HashSet<>();
         Set<LocalDate> readingDays = new HashSet<>();
         Set<LocalDate> normalDays = new HashSet<>();
+        Map<String, String> acadCalMap = null;
 
         // Read AcademicCalendar.txt to get current academic week
         try {
             Stream<String> lines = Files.lines(Paths.get(filePath));
-            Map<String, String> acadCalMap = lines
+            acadCalMap = lines
                     .collect(Collectors.toMap(key -> key.split(":")[0], val -> val.split(":")[1]));
             acadWeek = acadCalMap.get(Integer.toString(currentWeekOfYear));
         } catch (IOException ioe) {
             // TODO: remove displaying of errors
+            // What if file is unable to be read?
             ioe.getMessage();
         }
+        //System.out.println(acadCalMap);
 
         // Set variables if it is currently vacation
         if (acadWeek != null && acadWeek.equals("Vacation")) {
@@ -113,9 +118,25 @@ public class Planner {
         HashMap<LocalDate, Day> days = new HashMap<>();
         List<LocalDate> datesList = startDate.datesUntil(endDate).collect(Collectors.toList());
         for (LocalDate date: datesList) {
-            days.put(date, new Day(date.getDayOfWeek(), ""));
+            TemporalField weekField = WeekFields.ISO.weekOfWeekBasedYear();
+            String weekOfYear = Integer.toString(date.get(weekField));
+            String weekType = acadCalMap.get(weekOfYear);
+            days.put(date, new Day(date.getDayOfWeek(), weekType));
             // TODO: Add type of the day here, recess/reading or normal
+            switch (weekType) {
+            case "Recess Week":
+                recessDays.add(date);
+                break;
+            case "Reading Week":
+                readingDays.add(date);
+                break;
+            default:
+                normalDays.add(date);
+            }
         }
+        //System.out.println(recessDays);
+        //System.out.println(readingDays);
+        //System.out.println(normalDays);
         semester = new Semester(acadSem, acadYear, days, startDate, endDate, noOfWeeks,
                 recessDays, readingDays, normalDays);
         // TODO: set constants for fixed numbers, simplify/optimise code, handle ioe exception

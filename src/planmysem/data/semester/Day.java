@@ -20,12 +20,12 @@ public class Day implements ReadOnlyDay {
      */
     public Day(DayOfWeek dayOfWeek, String weekType) {
         this.dayOfWeek = dayOfWeek;
-        this.type = null;
+        this.type = weekType;
     }
 
     public Day(DayOfWeek dayOfWeek, String weekType, ArrayList<Slot> slots) {
         this.dayOfWeek = dayOfWeek;
-        this.type = null;
+        this.type = weekType;
 
         for (Slot slot : slots) {
             this.slots.add(slot);
