@@ -31,7 +31,6 @@ public class Planner {
      * Creates an empty planner.
      */
     public Planner() {
-        String acadWeek;
         String acadSem;
         String acadYear;
         String[] semesterDetails;
@@ -44,18 +43,17 @@ public class Planner {
         Set<LocalDate> recessDays = new HashSet<>();
         Set<LocalDate> readingDays = new HashSet<>();
         Set<LocalDate> normalDays = new HashSet<>();
-        
+
         acadCalMap = getAcadCalMap();
         TemporalField weekField = WeekFields.ISO.weekOfWeekBasedYear();
         int currentWeekOfYear = LocalDate.now().get(weekField);
         semesterDetails = getSemesterDetails(currentWeekOfYear, acadCalMap);
-        acadWeek = semesterDetails[0];
         acadSem = semesterDetails[1];
         acadYear = semesterDetails[2];
         noOfWeeks = Integer.parseInt(semesterDetails[3]);
         startDate = LocalDate.parse(semesterDetails[4]);
         endDate = LocalDate.parse(semesterDetails[5]);
-        
+
         // Initialises HashMap and Sets of all days in current semester
         datesList = startDate.datesUntil(endDate).collect(Collectors.toList());
         for (LocalDate date: datesList) {
@@ -78,7 +76,7 @@ public class Planner {
                 break;
             }
         }
-        
+
         semester = new Semester(acadSem, acadYear, days, startDate, endDate, noOfWeeks,
                 recessDays, readingDays, normalDays);
     }
@@ -133,6 +131,8 @@ public class Planner {
         LocalDate startDate = LocalDate.now();
         LocalDate endDate = LocalDate.now();
         int currentYear = LocalDate.now().getYear();
+        int weekOfYear = currentWeekOfYear;
+
         // Initialise week numbers for certain weeks.
         int firstWeekSemOne = 32;
         int lastWeekSemOne = 49;
@@ -144,9 +144,10 @@ public class Planner {
         int lastWeekSemTwoHol = 31;
         int firstMonOfYear = LocalDate.of(currentYear, 1, 1)
                 .with(TemporalAdjusters.firstInMonth(DayOfWeek.MONDAY)).getDayOfMonth();
+
         // Readjust weeks if first Monday of the year falls on the 1st.
         if (firstMonOfYear == 1) {
-            currentWeekOfYear += 1;
+            weekOfYear += 1;
             firstWeekSemOne -= 1;
             lastWeekSemOne -= 1;
             firstWeekSemOneHol -= 1;
@@ -156,11 +157,12 @@ public class Planner {
             firstWeekSemTwoHol -= 1;
             lastWeekSemTwoHol -= 1;
         }
+
         // Set semester details.
-        acadWeekDetails = acadCalMap.get(Integer.toString(currentWeekOfYear)).split("_");
+        acadWeekDetails = acadCalMap.get(Integer.toString(weekOfYear)).split("_");
         acadWeek = acadWeekDetails[0];
         acadSem = acadWeekDetails[1];
-        if (acadWeek.equals("Vacation") && acadSem.equals("Sem 1")) {
+        if ("Vacation".equals(acadWeek) && "Sem 1".equals(acadSem)) {
             noOfWeeks = "5";
             acadYear = "AY" + currentYear + "/" + (currentYear + 1);
             startDate = startDate.with(WeekFields.ISO.weekOfWeekBasedYear(), firstWeekSemOneHol);
@@ -168,21 +170,21 @@ public class Planner {
             endDate = LocalDate.of(currentYear + 1, 1, 1);
             endDate = endDate.with(WeekFields.ISO.weekOfWeekBasedYear(), lastWeekSemOneHol);
             endDate = endDate.with(WeekFields.ISO.dayOfWeek(), 7);
-        } else if (acadWeek.equals("Vacation") && acadSem.equals("Sem 2")) {
+        } else if ("Vacation".equals(acadWeek) && "Sem 2".equals(acadSem)) {
             noOfWeeks = "12";
             acadYear = "AY" + (currentYear - 1) + "/" + currentYear;
             startDate = startDate.with(WeekFields.ISO.weekOfWeekBasedYear(), firstWeekSemTwoHol);
             startDate = startDate.with(WeekFields.ISO.dayOfWeek(), 1);
             endDate = endDate.with(WeekFields.ISO.weekOfWeekBasedYear(), lastWeekSemTwoHol);
             endDate = endDate.with(WeekFields.ISO.dayOfWeek(), 7);
-        } else if (acadSem.equals("Sem 1")) {
+        } else if ("Sem 1".equals(acadSem)) {
             noOfWeeks = "18";
             acadYear = "AY" + currentYear + "/" + (currentYear + 1);
             startDate = startDate.with(WeekFields.ISO.weekOfWeekBasedYear(), firstWeekSemOne);
             startDate = startDate.with(WeekFields.ISO.dayOfWeek(), 1);
             endDate = endDate.with(WeekFields.ISO.weekOfWeekBasedYear(), lastWeekSemOne);
             endDate = endDate.with(WeekFields.ISO.dayOfWeek(), 7);
-        } else if (acadSem.equals("Sem 2")) {
+        } else if ("Sem 2".equals(acadSem)) {
             noOfWeeks = "17";
             acadYear = "AY" + (currentYear - 1) + "/" + currentYear;
             startDate = startDate.with(WeekFields.ISO.weekOfWeekBasedYear(), firstWeekSemTwo);
@@ -192,7 +194,7 @@ public class Planner {
         }
         return new String[] {acadWeek, acadSem, acadYear, noOfWeeks, startDate.toString(), endDate.toString()};
     }
-    
+
     /**
      * Adds a day to the Planner.
      *
