@@ -43,7 +43,6 @@ public class Planner {
         Set<LocalDate> recessDays = new HashSet<>();
         Set<LocalDate> readingDays = new HashSet<>();
         Set<LocalDate> normalDays = new HashSet<>();
-        Map<String, String> acadCalMap = null;
 
         acadCalMap = getAcadCalMap();
         TemporalField weekField = WeekFields.ISO.weekOfWeekBasedYear();
