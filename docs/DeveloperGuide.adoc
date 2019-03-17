@@ -1,4 +1,4 @@
-= PlanMySem - Developer Guide
+﻿= PlanMySem - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -889,6 +889,14 @@ Use case ends.
 . System returns module name and it’s color attribute.
 . User renames the module or changes the color attribute.
 . System reflects the renamed module and/or the changed color for the module.
++
+Use case ends.
+
+=== Use Case: Export planner
+. User inputs command to export the planner.
+. System converts planner to .ics format.
+. System saves .ics file in the main directory as "PlanMySem.ics".
+. System displays confirmation message.
 +
 Use case ends.
 
