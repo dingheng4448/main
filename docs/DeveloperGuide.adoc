@@ -355,12 +355,36 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
 
-_{Explain here how the data encryption feature will be implemented}_
+=== Data Encryption
 
-// end::dataencryption[]
+The storage file "PlanMySem.txt" is encrypted to prevent easy access of the user's calendar. 
+We are encrypting and decrypting the data using the Java Cypher class.
+This feature is implemented through creating a Encryptor that contains encrypt and decrypt methods. The encrypt method takes a String object as an argument and returns a encrypted String object. The decrypt method takes in a String object as an argument and returns the decrypted message as a String object.
+
+Currently, the encryption is done using AES/ECB/PKCS5Padding. The key used for encryption is a placeholder key and the encrption mode is Electronic Codebook(ECB). In future updates, the key will be generated uniquely and Cipher Block Chaining(CBC) with a Initialization Vector(IV) will be used instead to improve security.
+
+Encryption of the data is done automatically before the file is saved. In the implmentation, the AdaptedPlanner object is first marshalled into a StringWriter before being encrypted and written into the file. This is to ensure that the data is JAXB formatted and the save algorithm is unaffected.
+Similarly, decryption of the data is done automatically before it is loaded. In the implementation, the file is read and decrypted and parsed into a StringReader object. The StringReader object is then unmarshalled and loaded. This is to ensure that the file is converted back into a JAXB object before being loaded and the load algorithm is unaffected.
+
+
+=== Exporting .ics file
+
+The user can export the current planner into a .ics file to use in external calendar applications. The .ics file will contain the names of the slots in the SUMMARY field and the descriptions in the DESCRIPTION field. This command automatically exports into the main directory and names the file “PlanMySem.ics”. Future updates can include user input to allow saving the file in another directory and naming the file. 
+We have chosen to use the iCalendar format due to its popularity and it’s use in applications such as Google Calendar, Microsoft Outlook and Nusmods. 
+
+In our implementation, we have chosen not to export the tags into the .ics file. This is because iCalendar does not have in-built tag fields. This means that other other applications that import .ics will not be able to use the tags. 
+
+===== Aspect: Exporting tags into .ics file.
+
+* **Alternative 1 (current choice):** Ignore tags when exporting.
+** Pros: Easier to implement as iCalendar does not have in-built tag fields.
+** Cons: Not all the information about the slots will be retained.
+** Reason for choice: We do not have much control over other applications, and importing and exporting .ics within PlanMySem can be done using the storage .txt file.
+* **Alternative 2:** Use the notes field and a tag identifier to save the tags.
+** Pros: All the information from the semester will be exported.
+** Cons: Requires other applications to be coded to read these tag identifiers and also to store and use the tags in their functions.
+
 
 === Logging
 
