@@ -226,6 +226,15 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in json format and read it back.
 
+[[Design-Planner]]
+=== Planner component
+
+*API* : link:{repoURL}/src/planmysem/data/Planner.java[`Planner.java`]
+
+The `Planner` component,
+
+* can initialise and hold a `Semester` object.
+
 [[Design-Commons]]
 === Common classes
 
@@ -234,6 +243,37 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+=== Month/Week/Day View feature
+==== Planned Implementation
+
+The month/week/day view mechanism is facilitated by `PlannerView`.
+It extends `Planner` with different calendar views, stored internally as `monthView`, `weekView` and `dayView`.
+Additionally, it implements the following operations:
+
+* `PlannerView.displayMonthView()` - Displays the current semester in a monthly calendar view.
+* `PlannerView.displayWeekView()` - Displays the current semester in a weekly calendar view.
+* `PlannerView.displayDayView()` - Displays the current semester in a daily calendar view.
+
+Given below is an example usage scenario and how the month/week/day view feature behaves at each step.
+
+Step 1. The user launches the application for the first time. The `PlannerView` will be initialized with the contents in the `Planner`. The `Planner` might contain a `Semester` which is empty or a `Semester` populated with slots after reading `PlanMySem.txt`.
+
+Step 2. The user executes `add n/CS2113T Tutorial ...` to add a new slot to the planner. The `add` command would add a new `Slot` to the `Semester` of the `Planner`.
+
+Step 3. The user executes `view month March` command to view the calendar for March. The `view` command calls `PlannerView.displayMonthView()`, which loads the data the updated `Semester` from the `Planner` into `monthView`.
+
+
+==== Design Considerations
+
+===== Aspect: How a type of view is initialised or updated
+
+* **Alternative 1 (current choice):** Initialised from `Planner` only upon `view` command.
+** Pros: Easy to implement. Less operations performed by the program.
+* **Alternative 2:** Updated upon any `add`/`edit`/`delete` slot command.
+** Pros: `PlannerView` is always updated.
+** Cons: Large amount of extra operations.
+
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -841,7 +881,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |view all slots on a certain day |conveniently view my planner for the day
 |`* * *` |user |view all slots on a certain week |conveniently view my planner for the week
 |`* * *` |user |view all slots on a certain month |conveniently view my planner for the month
-|`* * *` |user |add details to a slot |record information related to the slot 
+|`* * *` |user |add details to a slot |record information related to the slot
 |`* *` |user |view the planner in a graphic calendar format|easily view my schedule for the day/week/month/semester
 |`* *` |user |view a slot |view the details of a specific activity I am looking for
 |`* *` |user |remove tags on a time slot |remove unused/ unnecessary tags from an activity*
@@ -880,7 +920,7 @@ User case ends.
 === Use Case: List and Delete a Module
 . User inputs the command to list all modules he/she is enrolled in.
 . System lists all the modules.
-. User selects the intended module from the list and inputs the delete command along with the module name for deletion. 
+. User selects the intended module from the list and inputs the delete command along with the module name for deletion.
 +
 Use case ends.
 
@@ -948,7 +988,7 @@ _{More to be added}_
 . The system should respond relatively quickly to user commands so as to not make the user wait around; this is an advantage of using PlanMySem.
 . The system should take up relatively little space on the local machine so as to cater to all students and OS.
 . The system should be easy to use, intuitive and simple, such that any student regardless of past experience with calendar/scheduling softwares is able to use it.
-. The system should be flexible to allow all kinds of schedules that target users might have. 
+. The system should be flexible to allow all kinds of schedules that target users might have.
 . The data should be encrypted to prevent private data from being accessed.
 
 [appendix]
