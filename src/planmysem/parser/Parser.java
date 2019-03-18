@@ -18,6 +18,7 @@ import planmysem.commands.Command;
 import planmysem.commands.DeleteCommand;
 import planmysem.commands.EditCommand;
 import planmysem.commands.ExitCommand;
+import planmysem.commands.ExportCommand;
 import planmysem.commands.FindCommand;
 import planmysem.commands.HelpCommand;
 import planmysem.commands.IncorrectCommand;
@@ -87,6 +88,10 @@ public class Parser {
         case DeleteCommand.COMMAND_WORD_SHORT:
             return prepareDelete(arguments);
 
+        case FindCommand.COMMAND_WORD:
+        case FindCommand.COMMAND_WORD_SHORT:
+            return prepareFind(arguments);
+
         case ListCommand.COMMAND_WORD:
         case ListCommand.COMMAND_WORD_SHORT:
             return prepareList(arguments);
@@ -100,6 +105,9 @@ public class Parser {
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
+
+        case ExportCommand.COMMAND_WORD:
+            return new ExportCommand();
 
         case HelpCommand.COMMAND_WORD: // Fallthrough
 
@@ -302,6 +310,25 @@ public class Parser {
     }
 
     /**
+     * Parses arguments in the context of the find person command.
+     *
+     * @param args partial args string
+     * @return the arguments sorted by its relevant options
+     */
+    private Command prepareFind(String args) {
+        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    FindCommand.MESSAGE_USAGE));
+        }
+
+        // keywords delimited by whitespace
+        final String[] keywords = matcher.group("keywords").split("\\s+");
+        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
+        return new FindCommand(keywordSet);
+    }
+
+    /**
      * Parses arguments in the context of the list command.
      *
      * @param args full command args string
@@ -344,25 +371,6 @@ public class Parser {
         }
 
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE));
-    }
-
-    /**
-     * Parses arguments in the context of the find person command.
-     *
-     * @param args partial args string
-     * @return the arguments sorted by its relevant options
-     */
-    private Command prepareFind(String args) {
-        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    FindCommand.MESSAGE_USAGE));
-        }
-
-        // keywords delimited by whitespace
-        final String[] keywords = matcher.group("keywords").split("\\s+");
-        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new FindCommand(keywordSet);
     }
 
     /**
