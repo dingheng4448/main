@@ -22,6 +22,7 @@ import planmysem.commands.FindCommand;
 import planmysem.commands.HelpCommand;
 import planmysem.commands.IncorrectCommand;
 import planmysem.commands.ListCommand;
+import planmysem.commands.ViewCommand;
 import planmysem.common.Utils;
 import planmysem.data.exception.IllegalValueException;
 
@@ -89,6 +90,10 @@ public class Parser {
         case ListCommand.COMMAND_WORD:
         case ListCommand.COMMAND_WORD_SHORT:
             return prepareList(arguments);
+
+        case ViewCommand.COMMAND_WORD:
+        case ViewCommand.COMMAND_WORD_SHORT:
+            return prepareView(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -317,31 +322,28 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    //    private Command prepareView(String args) {
-    //
-    //        try {
-    //            final int targetIndex = parseArgsAsDisplayedIndex(args);
-    //            return new ViewCommand(targetIndex);
-    //        } catch (ParseException | NumberFormatException e) {
-    //            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-    //                    ViewCommand.MESSAGE_USAGE));
-    //        }
-    //    }
-
-    /**
-     * Parses the given arguments string as a single index number.
-     *
-     * @param args arguments string to parse as index number
-     * @return the parsed index number
-     * @throws ParseException        if no region of the args string could be found for the index
-     * @throws NumberFormatException the args string region is not a valid number
-     */
-    private int parseArgsAsDisplayedIndex(String args) throws ParseException, NumberFormatException {
-        final Matcher matcher = PERSON_INDEX_ARGS_FORMAT.matcher(args.trim());
-        if (!matcher.matches()) {
-            throw new ParseException("Could not find index number to parse");
+    private Command prepareView(String args) {
+        if (args == null || args.trim().isEmpty()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE));
         }
-        return Integer.parseInt(matcher.group("targetIndex"));
+
+        String[] viewArgs = args.split(" ");
+        if ("all".equals(viewArgs[1]) && viewArgs.length == 2) {
+            return new ViewCommand(viewArgs[1]);
+        } else if ("month".equals(viewArgs[1]) && viewArgs.length == 2) {
+            return new ViewCommand(viewArgs[1]);
+        } else if ("month".equals(viewArgs[1]) && viewArgs.length == 3) {
+            //TODO: ensure month arguments
+            return new ViewCommand(viewArgs[1] + " " + viewArgs[2]);
+        } else if ("week".equals(viewArgs[1]) && viewArgs.length == 3) {
+            //TODO: ensure week arguments
+            return new ViewCommand(viewArgs[1] + " " + viewArgs[2]);
+        } else if ("day".equals(viewArgs[1]) && viewArgs.length == 3) {
+            //TODO: ensure day arguments
+            return new ViewCommand(viewArgs[1] + " " + viewArgs[2]);
+        }
+
+        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE));
     }
 
     /**
