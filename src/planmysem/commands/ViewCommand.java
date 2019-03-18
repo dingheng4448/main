@@ -37,7 +37,7 @@ public class ViewCommand extends Command {
     @Override
     public CommandResult execute() {
         String viewType;
-        String viewSpecifier;
+        //String viewSpecifier;
         final Semester currentSemester = planner.getSemester();
         String output = null;
 
