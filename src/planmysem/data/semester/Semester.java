@@ -5,13 +5,14 @@ import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import planmysem.data.exception.DuplicateDataException;
 import planmysem.data.exception.IllegalValueException;
 import planmysem.data.slot.ReadOnlySlot;
 import planmysem.data.slot.Slot;
-import planmysem.data.tag.TagP;
+import planmysem.data.tag.Tag;
 
 /**
  * A list of days. Does not allow null elements or duplicates.
@@ -96,11 +97,12 @@ public class Semester implements ReadOnlySemester {
      *
      * @throws DateNotFoundException if a date is not found in the semester.
      */
-    public void addSlot(LocalDate date, Slot slot) throws DateNotFoundException {
+    public Day addSlot(LocalDate date, Slot slot) throws DateNotFoundException {
         if (date == null || (date.isBefore(startDate) || date.isAfter(endDate))) {
             throw new DateNotFoundException();
         }
         days.get(date).addSlot(slot);
+        return days.get(date);
     }
 
     /**
@@ -110,7 +112,7 @@ public class Semester implements ReadOnlySemester {
      * @throws IllegalValueException if a targetDate is not found in the semester.
      */
     public void editSlot(LocalDate targetDate, ReadOnlySlot targetSlot, LocalDate date, LocalTime startTime,
-                         int duration, String name, String location, String description, Set<TagP> tags)
+                         int duration, String name, String location, String description, Set<Tag> tags)
             throws DateNotFoundException, IllegalValueException {
         if (targetDate == null || (targetDate.isBefore(startDate) || targetDate.isAfter(endDate))) {
             throw new DateNotFoundException();
@@ -251,6 +253,28 @@ public class Semester implements ReadOnlySemester {
         return examDays;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Semester // instanceof handles nulls
+                && this.name.equals(((Semester) other).name)
+                && this.academicYear.equals(((Semester) other).academicYear)
+                && this.days.equals(((Semester) other).days)
+                && this.startDate.equals(((Semester) other).startDate)
+                && this.endDate.equals(((Semester) other).endDate)
+                && this.noOfWeeks == (((Semester) other).noOfWeeks)
+                && this.recessDays.equals(((Semester) other).recessDays)
+                && this.readingDays.equals(((Semester) other).readingDays)
+                && this.normalDays.equals(((Semester) other).normalDays)
+                && this.examDays.equals(((Semester) other).examDays));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, academicYear, days, startDate, endDate, noOfWeeks,
+                recessDays, readingDays, normalDays, examDays);
+    }
+
     /**
      * Signals that an operation would have violated the 'no duplicates' property.
      */
@@ -266,5 +290,4 @@ public class Semester implements ReadOnlySemester {
      */
     public static class DateNotFoundException extends Exception {
     }
-
 }

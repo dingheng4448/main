@@ -108,6 +108,11 @@ public class AdaptedSemester {
         final String academicYear = this.academicYear;
         final String startDate = this.startDate;
         final String endDate = this.endDate;
+
+        if (startDate == null || endDate == null) {
+            throw new IllegalValueException("");
+        }
+
         final int noOfWeeks = this.noOfWeeks;
 
         final HashMap<LocalDate, Day> days = new HashMap<>();

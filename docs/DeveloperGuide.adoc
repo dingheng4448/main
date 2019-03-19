@@ -56,7 +56,7 @@ This will generate all resources required by the application and tests.
 
 === Verifying the setup
 
-. Run the `seedu.address.MainApp` and try a few commands
+. Run the `planmysem.Main` and try a few commands
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
@@ -76,9 +76,9 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
+After forking the repo, the documentation will still have the SE-EDU branding and refer to the `https://github.com/CS2113-AY1819S2-T08-3/main` repo.
 
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `https://github.com/CS2113-AY1819S2-T08-3/main`), you should do the following:
 
 . Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
@@ -118,7 +118,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has only one class called link:{repoURL}/src/planmysem/Main.java[`Main`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -193,59 +193,157 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeletePersonSdForLogic.png[width="800"]
 
-[[Design-Model]]
-=== Model component
+[[Design-Planner]]
+=== Planner component
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/planmysem/data/Planner.java[`Planner.java`]
 
-The `Model`,
+The `Planner` component,
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* stores a `Planner` object that represents the entire Planner.
+* stores the data of the entire application.
+* stores the data of the current semester in an unmodifiable `Semester`.
+
+[[Design-Semester]]
+
+=== Semester component
+
+*API* : link:{repoURL}/src/planmysem/data/semester/Semester.java[`Semester.java`]
+
+The `Semester` component,
+
+* stores a `Semester` object that represents the an academic semester.
+* stores the data of the entire semester in an unmodifiable `HashMap<LocalDate, Day>`.
+* Semesters essentially hold "days" in which holds slots.
+
+[[Design-Slot]]
+
+=== Slot component
+
+*API* : link:{repoURL}/src/planmysem/data/slot/Slot.java[`Slot.java`]
+
+The `Slot` component,
+
+* stores a `Slot` object that represents a time-slot similar to traditional/conventional calendar/scheduling applications.
+** such as outlook or google calendar.
+* stores the data of the slot details as well as start time and duration.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
+Notice how `Slot` does not hold it's end time but rather it holds the `duration`. This is simply our design choice as it is meaningless to save both variables.
 
 [[Design-Storage]]
+
 === Storage component
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/planmysem/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in json format and read it back.
 
-[[Design-Planner]]
-=== Planner component
+[[Design-Common]]
 
-*API* : link:{repoURL}/src/planmysem/data/Planner.java[`Planner.java`]
-
-The `Planner` component,
-
-* can initialise and hold a `Semester` object.
-
-[[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `planmysem.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== Initializing of the Planner and it's Semesters
+
+==== Future Implementation
+
+=== Reinventing the Parser / Command Format and Structure
+
+Due to the flexibility and huge variation of the envisioned command format and structures, it was decided that it was more appropriate to create a new Parser
+instead of relying on the existing regex implementation in AB3 for heavy parsing.
+
+The AB3 parser was heavily modified to serve unordered command parameters as well as to allow more flexibility such that mistakes in commands will still be
+interpreted as valid as long as the "minimal" set of parameters are present. Regex is currently only used to retrieve the command keywords and arguments.
+Arguments are then parsed via 2 different methods/techniques according to the format and structure of the command keyword.
+
+==== Design Considerations
+
+* User's time, efficiency and productivity is of focus, such as in a planner/calendar/scheduling application.
+* Users are error prone when typing long commands.
+* Users may repeat parameters due to forgetting what was previously typed.
+* Users get frustrated when forced to retype commands or look for errors that they have made.
+
+==== Current Implementation
+
+* Ordering of parameters are ignored when possible.
+* Repeated parameters are ignored. The first parameter of the same "type" are taken as valid, the rest are discarded.
+* Alternate formats of commands are implemented to give freedom of choice and cater to different types of users such as different personalities and comfort levels.
+* Shortened versions of command keywords are implemented to give ways for users to shortened commands and be more efficient.
+
+Hence, parameters in PlanMySem can be categorised into 2 categories:
+
+1. Prepended parameters such as `n/NAME`, `st/START_TIME`, `des/DESCRIPTION`, etc.
+2. Non-prepended parameters, A.K.A. keywords, such as `INDEX`, `TYPE_OF_VIEW`. etc.
+
+===== Parsing Prepended Parameters
+
+To retrieve the set of parameters, the function `private static HashMap<String, Set<String>> getParametersWithArguments(String args)` can be called.
+The function returns a `Hashmap` data structure, specifically `HashMap<String, Set<String>>`, to hold parameters, allowing for easy, quick and efficient access to specific parameters.
+
+However, this means that exceptions have to be manually taken care of, at the stage of parsing, this exception would particularly be `IncorrectCommand`.
+
+The following are cases in which `IncorrectCommand` is invoked:
+
+* When the returned set is `null`, then the parameter was not keyed in at all.
+* When the returned set is not `null` but contains empty `strings` such that `string.isEmpty()`, then the paramter was keyed in but was left empty on purpose.
+
+===== Parsing Keywords
+
+Here, keywords are thought of as parameters that are not prepended.
+In PlanMySem, keywords are utilized in command structures when they are to be used alone or when order of parameters are important.
+In such cases, there is no logical need for prepending as the meaning of these parameters can be identified.
+
+The function `private String getStartingArgument(String args)` provides this functionality.
+Here, `IncorrectCommand` is invoked due to different circumstances:
+
+* When the keyword is null, then the parameter was not keyed in.
+* When the keyword data type does not match the intended, then the parameter was keyed in wrongly or is mis-ordered.
+
+[NOTE]
+Additional keywords are purposefully *not* handled to provide ease of use and cater to user mistakes.
+
+==== Future Implementation
+
+Though the current implementation has much flexibility, there is more that can be done to elevate user experience to the next level.
+These are some possible enhancements:
+
+1. Parse more formats of date and time.
+2. Parse time as a single parameter instead of two.
+3. Enhance function calls to retrieve prepended parameters and keywords to handle trivial cases that should invoke `IncorrectCommand`.
+
+=== Semester, Planner, Days and Slots
+
+==== Design Considerations
+
+==== Current Implementation
+
+===== Semester
+
+===== Planner
+
+===== Days
+
+===== Slots
+
+==== Future Implementation
+
 === Month/Week/Day View feature
-==== Planned Implementation
+==== Future Implementation
 
 The month/week/day view mechanism is facilitated by `PlannerView`.
 It extends `Planner` with different calendar views, stored internally as `monthView`, `weekView` and `dayView`.
@@ -263,7 +361,6 @@ Step 2. The user executes `add n/CS2113T Tutorial ...` to add a new slot to the 
 
 Step 3. The user executes `view month March` command to view the calendar for March. The `view` command calls `PlannerView.displayMonthView()`, which loads the data the updated `Semester` from the `Planner` into `monthView`.
 
-
 ==== Design Considerations
 
 ===== Aspect: How a type of view is initialised or updated
@@ -272,84 +369,64 @@ Step 3. The user executes `view month March` command to view the calendar for Ma
 ** Pros: Easy to implement. Less operations performed by the program.
 * **Alternative 2:** Updated upon any `add`/`edit`/`delete` slot command.
 ** Pros: `PlannerView` is always updated.
-** Cons: Large amount of extra operations.
+** Cons: Large amount of additional operations.
 
 
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedPlanner`.
+It extends `Planner` with an undo/redo history, stored internally as an `plannerStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedPlanner#commit()` -- Saves the current planner state in its history.
+* `VersionedPlanner#undo()` -- Restores the previous planner state from its history.
+* `VersionedPlanner#redo()` -- Restores a previously undone planner state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitPlanner()`, `Model#undoPlanner()` and `Model#redoPlanner()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedPlanner` will be initialized with the initial planner state, and the `currentStatePointer` pointing to that single planner state.
 
-image::UndoRedoStartingStateListDiagram.png[width="800"]
+Step 2. The user executes `delete 5` command to delete the 5th slot in the planner. The `delete` command calls `Model#commitPlanner()`, causing the modified state of the planner after the `delete 5` command executes to be saved in the `plannerStateList`, and the `currentStatePointer` is shifted to the newly inserted planner state.
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
+Step 3. The user executes `add n/CS2113T ...` to add a new slot. The `add` command also calls `Model#commitPlanner()`, causing another modified planner state to be saved into the `plannerStateList`.
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitPlanner()`, so the planner state will not be saved into the `plannerStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
+Step 4. The user now decides that adding the slot was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoPlanner()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous planner state, and restores the planner to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial planner state, then there are no previous planner states to restore. The `undo` command uses `Model#canUndoPlanner()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
-The following sequence diagram shows how the undo operation works:
-
-image::UndoRedoSequenceDiagram.png[width="800"]
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoPlanner()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the planner to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `plannerStateList.size() - 1`, pointing to the latest planner state, then there are no undone planner states to restore. The `redo` command uses `Model#canRedoPlanner()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the planner, such as `list`, will usually not call `Model#commitPlanner()`, `Model#undoPlanner()` or `Model#redoPlanner()`. Thus, the `plannerStateList` remains unchanged.
 
-image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::UndoRedoActivityDiagram.png[width="650"]
+Step 6. The user executes `clear`, which calls `Model#commitPlanner()`. Since the `currentStatePointer` is not pointing at the end of the `plannerStateList`, all planner states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/CS2113T ...` command. This is the behavior that most modern desktop applications follow.
 
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire planner.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the slot being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a list to store the history of planner states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedPlanner`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
@@ -358,8 +435,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 === Data Encryption
 
-
-The storage file "PlanMySem.txt" is encrypted to prevent easy access of the user calendar.
+The storage file "PlanMySem.txt" is encrypted to prevent easy access of the user's calendar.
 We are encrypting and decrypting the data using the Java Cypher class.
 This feature is implemented through creating a Encryptor that contains encrypt and decrypt methods. The encrypt method takes a String object as an argument and returns a encrypted String object. The decrypt method takes in a String object as an argument and returns the decrypted message as a String object.
 
@@ -372,8 +448,7 @@ Similarly, decryption of the data is done automatically before it is loaded. In 
 === Exporting .ics file
 
 The user can export the current planner into a .ics file to use in external calendar applications. The .ics file will contain the names of the slots in the SUMMARY field and the descriptions in the DESCRIPTION field. This command automatically exports into the main directory and names the file “PlanMySem.ics”. Future updates can include user input to allow saving the file in another directory and naming the file.
-
-We have chosen to use the iCalendar format due to its popularity and its use in applications such as Google Calendar, Microsoft Outlook and Nusmods.
+We have chosen to use the iCalendar format due to its popularity and it’s use in applications such as Google Calendar, Microsoft Outlook and Nusmods.
 
 In our implementation, we have chosen not to export the tags into the .ics file. This is because iCalendar does not have in-built tag fields. This means that other other applications that import .ics will not be able to use the tags.
 
@@ -583,7 +658,7 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 Here are the steps to create a new release.
 
-.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Update the version number in link:{repoURL}/src/planmysem/Main.java[`Main.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
@@ -935,33 +1010,78 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is `PlanMySem` and the *Actor* is the `user`, unless specified otherwise)
 
 === Use case: Initialize Calendar
+* MSS:
 . User inputs the first day of school as well as which semester, 1 or 2, that the planner is meant for.
 . System generates a new timetable which is aligned with the academic semester. Weeks 1 to 13 as well as the Recess and Reading Weeks are labelled.
+
 +
 Use case ends.
 
-=== Use Case: Add a Module
-. User selects the category “Module” and inputs the details related to the new module.
-. System reflects the addition made to the list of Modules.
+=== Use Case: Add a slot
+* MSS:
+. User inputs add command followed by all the mandatory parameters.
+. System reflects the additions to the planner.
++
+User case ends.
+* Extensions:
+:: 1a. System detects an error in the entered data.
+:::: 1a1. System outputs error message.
 +
 User case ends.
 
-=== Use Case: List and Delete a Module
-. User inputs the command to list all modules he/she is enrolled in.
-. System lists all the modules.
-. User selects the intended module from the list and inputs the delete command along with the module name for deletion.
+:: 1a. System detects insufficient parameters in the entered data.
+:::: 1a1. System outputs error message.
++
+User case ends.
+
+=== Use Case: List slots
+* MSS:
+. User inputs the command to list slots followed by the tag or name of the slot.
+. System displays all slots with the specified name or tag with their indexes.
++
+Use case ends.
+* Extensions:
+:: 1b. Planner is empty.
+:::: 1b1. System outputs error message.
++
+Use case ends.
+:: 1b. Tag or name does not exist in the planner.
+:::: 1b1. System outputs error message.
 +
 Use case ends.
 
-=== Use Case: Edit a Module
-. User inputs command to edit a module along with the module name.
-. System returns module name and it’s color attribute.
-. User renames the module or changes the color attribute.
-. System reflects the renamed module and/or the changed color for the module.
+=== Use Case: Delete a slot
+* MSS:
+. User inputs the delete command followed by the index or tag of the intended slot.
+. System deletes the intended slot from the planner and outputs confirmation message.
++
+Use case ends.
+* Extensions:
+:: 1a. Tag or index does not exist in the planner.
+:::: 1a1. System outputs error message.
++
+Use case ends.
+
+=== Use Case: Edit a slot
+* MSS:
+. User inputs command to edit a slot along with the tag or index, followed by the parameters to be changed.
+. System changes the specified parameters for the slot.
+. System reflects the slots as well as the perimeters changed.
++
+Use case ends.
+* Extensions:
+:: 1a. Tag or index does not exist in the planner.
+:::: 1a1. System outputs error message.
++
+Use case ends.
+
+:: 1b. System detects an error in the entered data.
+:::: 1b1. System outputs error message.
 +
 Use case ends.
 
 === Use Case: Export planner
+* MSS:
 . User inputs command to export the planner.
 . System converts planner to .ics format.
 . System saves .ics file in the main directory as "PlanMySem.ics".
@@ -970,41 +1090,25 @@ Use case ends.
 Use case ends.
 
 === Use Case: View all Activities in a Day
-. User inputs the command to view all activities along with the date.
-. System displays all the activities for that specified date.
+* MSS:
+. User inputs the command to view all slots along with the time frame.
+. System displays all the slots for that specified time frame.
 +
 Use case ends.
 
-=== Use Case: Add a Category
-. User inputs command to add a new category along with the name of the new category.
-. System reflects the addition made to the list of Categories.
-+
-Use case ends.
-
-=== Use Case: Filter by category
-. User inputs the command to list all categories (so he knows what categories exist).
-. User inputs the command to list all activities.
-. User inputs command to filter all the activities by an existing category.
-. System displays filtered activities.
-+
-Use case ends.
-
-////
-Include this if given feedback that this is necessary.
-*Extensions*
-
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
-////
+//=== Use Case: Add a Category
+//. User inputs command to add a new category along with the name of the new category.
+//. System reflects the addition made to the list of Categories.
+//+
+//Use case ends.
+//
+//=== Use Case: Filter by category
+//. User inputs the command to list all categories (so he knows what categories exist).
+//. User inputs the command to list all activities.
+//. User inputs command to filter all the activities by an existing category.
+//. System displays filtered activities.
+//+
+//Use case ends.
 
 _{More to be added}_
 

@@ -7,14 +7,14 @@ import java.util.Set;
 
 import planmysem.common.Utils;
 import planmysem.data.exception.IllegalValueException;
-import planmysem.data.tag.TagP;
+import planmysem.data.tag.Tag;
 
 /**
  * Represents a Person in the address book.
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Slot implements ReadOnlySlot {
-    private final Set<TagP> tags = new HashSet<>();
+    private final Set<Tag> tags = new HashSet<>();
     private Name name;
     private Location location;
     private Description description;
@@ -25,7 +25,7 @@ public class Slot implements ReadOnlySlot {
      * Assumption: Every field must be present and not null.
      */
     public Slot(Name name, Location location, Description description,
-                LocalTime startTime, LocalTime endTime, Set<TagP> tags) {
+                LocalTime startTime, LocalTime endTime, Set<Tag> tags) {
         this.name = name;
         this.location = location;
         this.description = description;
@@ -40,7 +40,7 @@ public class Slot implements ReadOnlySlot {
      * Assumption: Every field must be present and not null.
      */
     public Slot(Name name, Location location, Description description,
-                LocalTime startTime, int duration, Set<TagP> tags) {
+                LocalTime startTime, int duration, Set<Tag> tags) {
         this.name = name;
         this.location = location;
         this.description = description;
@@ -79,7 +79,7 @@ public class Slot implements ReadOnlySlot {
         if (value == null) {
             return;
         }
-        if (value.equals("")) {
+        if ("".equals(value)) {
             location = new Location(null);
         } else {
             location = new Location(value);
@@ -141,14 +141,14 @@ public class Slot implements ReadOnlySlot {
     }
 
     @Override
-    public Set<TagP> getTags() {
+    public Set<Tag> getTags() {
         return tags;
     }
 
     /**
      * Replaces this slot's tags with the tags in {@code replacement}.
      */
-    public void setTags(Set<TagP> tags) {
+    public void setTags(Set<Tag> tags) {
         this.tags.clear();
         this.tags.addAll(tags);
     }
@@ -163,7 +163,7 @@ public class Slot implements ReadOnlySlot {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, location, description, startTime, tags);
+        return Objects.hash(name, location, description, startTime, duration, tags);
     }
 
     @Override

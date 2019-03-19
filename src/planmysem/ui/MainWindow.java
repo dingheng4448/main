@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -39,7 +38,7 @@ public class MainWindow {
      * TODO: Add Javadoc comment.
      */
     @FXML
-    void onCommand(ActionEvent event) {
+    private void onCommand() {
         try {
             String userCommandText = commandInput.getText();
             CommandResult result = logic.execute(userCommandText);
@@ -51,7 +50,7 @@ public class MainWindow {
             clearCommandInput();
         } catch (Exception e) {
             display(e.getMessage());
-            throw new RuntimeException(e);
+            // throw new RuntimeException(e);
         }
     }
 

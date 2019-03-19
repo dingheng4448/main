@@ -1,6 +1,7 @@
 package planmysem.logic;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +25,7 @@ public class Logic {
     /**
      * The list of Slots shown to the user most recently.
      */
-    private List<Pair<LocalDate, ? extends ReadOnlySlot>> lastShownSlots;
+    private List<Pair<LocalDate, ? extends ReadOnlySlot>> lastShownSlots = Collections.emptyList();
 
     public Logic() throws Exception {
         setStorage(initializeStorage());
@@ -96,7 +97,6 @@ public class Logic {
 
     /**
      * Updates the {@link #lastShownSlots} if the result contains a list of Days.
-     * TODO:
      */
     private void recordResult(CommandResult result) {
         final Optional<List<Pair<LocalDate, ? extends ReadOnlySlot>>> slots = result.getRelevantSlots();

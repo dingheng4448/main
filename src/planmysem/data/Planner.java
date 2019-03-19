@@ -18,7 +18,7 @@ import planmysem.data.semester.ReadOnlyDay;
 import planmysem.data.semester.Semester;
 import planmysem.data.slot.ReadOnlySlot;
 import planmysem.data.slot.Slot;
-import planmysem.data.tag.TagP;
+import planmysem.data.tag.Tag;
 
 /**
  * Represents the entire Planner. Contains the data of the Planner.
@@ -40,10 +40,6 @@ public class Planner {
      */
     public Planner(Semester semester) {
         this.semester = new Semester(semester);
-    }
-
-    public static Planner empty() {
-        return new Planner();
     }
 
     /**
@@ -299,8 +295,8 @@ public class Planner {
      * Adds a slot to the Planner.
      *
      */
-    public void addSlot(LocalDate date, Slot slot) throws Semester.DateNotFoundException {
-        semester.addSlot(date, slot);
+    public Day addSlot(LocalDate date, Slot slot) throws Semester.DateNotFoundException {
+        return semester.addSlot(date, slot);
     }
 
     /**
@@ -311,7 +307,7 @@ public class Planner {
      */
     public void editSlot(LocalDate targetDate, ReadOnlySlot targetSlot, LocalDate date,
                          LocalTime startTime, int duration, String name, String location,
-                         String description, Set<TagP> tags)
+                         String description, Set<Tag> tags)
             throws Semester.DateNotFoundException, IllegalValueException {
         semester.editSlot(targetDate, targetSlot, date, startTime, duration, name, location, description, tags);
     }

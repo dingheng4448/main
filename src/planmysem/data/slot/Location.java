@@ -40,8 +40,8 @@ public class Location {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Description // instanceof handles nulls
-                && this.value.equals(((Description) other).value)); // state check
+                || (other instanceof Location // instanceof handles nulls
+                && this.value.equals(((Location) other).value)); // state check
     }
 
     @Override

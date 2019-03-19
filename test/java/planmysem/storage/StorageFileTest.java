@@ -1,8 +1,14 @@
 package planmysem.storage;
 
+import static planmysem.util.TestUtil.assertTextFilesEqual;
+
+import java.nio.file.Paths;
+
 import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
+import planmysem.data.exception.IllegalValueException;
 
 public class StorageFileTest {
     private static final String TEST_DATA_FOLDER = "test/data/StorageFileTest";
@@ -11,28 +17,28 @@ public class StorageFileTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Rule
-    public TemporaryFolder testFolder = new TemporaryFolder();
+    public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
-    //    @Test
-    //    public void constructor_nullFilePath_exceptionThrown() throws Exception {
-    //        thrown.expect(NullPointerException.class);
-    //        new StorageFile(null);
-    //    }
-    //
-    //    @Test
-    //    public void constructor_noTxtExtension_exceptionThrown() throws Exception {
-    //        thrown.expect(IllegalValueException.class);
-    //        new StorageFile(TEST_DATA_FOLDER + "/" + "InvalidfileName");
-    //    }
-    //
-    //    @Test
-    //    public void load_invalidFormat_exceptionThrown() throws Exception {
-    //        // The file contains valid xml data, but does not match the AddressBook class
-    //        StorageFile storage = getStorage("InvalidData.txt");
-    //        thrown.expect(StorageOperationException.class);
-    //        storage.load();
-    //    }
-    //
+    @Test
+    public void constructor_nullFilePath_exceptionThrown() throws Exception {
+        thrown.expect(NullPointerException.class);
+        new StorageFile(null);
+    }
+
+    @Test
+    public void constructor_noTxtExtension_exceptionThrown() throws Exception {
+        thrown.expect(IllegalValueException.class);
+        new StorageFile(TEST_DATA_FOLDER + "/" + "InvalidfileName");
+    }
+
+    @Test
+    public void load_invalidFormat_exceptionThrown() throws Exception {
+        // The file contains valid xml data, but does not match the Planner class
+        StorageFile storage = getStorage("InvalidData.txt");
+        thrown.expect(StorageFile.StorageOperationException.class);
+        storage.load();
+    }
+
     //    @Test
     //    public void load_validFormat() throws Exception {
     //        AddressBook actualAB = getStorage("ValidData.txt").load();
@@ -61,33 +67,33 @@ public class StorageFileTest {
     //
     //    // getPath() method in StorageFile class is trivial so it is not tested
     //
-    //    /**
-    //     * Asserts that the contents of two storage files are the same.
-    //     */
-    //    private void assertStorageFilesEqual(StorageFile sf1, StorageFile sf2) throws Exception {
-    //        assertTextFilesEqual(Paths.get(sf1.getPath()), Paths.get(sf2.getPath()));
-    //    }
-    //
-    //    private StorageFile getStorage(String fileName) throws Exception {
-    //        return new StorageFile(TEST_DATA_FOLDER + "/" + fileName);
-    //    }
-    //
-    //    private StorageFile getTempStorage() throws Exception {
-    //        return new StorageFile(testFolder.getRoot().getPath() + "/" + "temp.txt");
-    //    }
-    //
-    //    private AddressBook getTestAddressBook() throws Exception {
-    //        AddressBook ab = new AddressBook();
-    //        ab.addPerson(new Person(new Name("John Doe"),
+    /**
+     * Asserts that the contents of two storage files are the same.
+     */
+    private void assertStorageFilesEqual(StorageFile sf1, StorageFile sf2) throws Exception {
+        assertTextFilesEqual(Paths.get(sf1.getPath()), Paths.get(sf2.getPath()));
+    }
+
+    private StorageFile getStorage(String fileName) throws Exception {
+        return new StorageFile(TEST_DATA_FOLDER + "/" + fileName);
+    }
+
+    private StorageFile getTempStorage() throws Exception {
+        return new StorageFile(temporaryFolder.getRoot().getPath() + "/" + "temp.txt");
+    }
+
+    //    private Planner getTestAddressBook() throws Exception {
+    //        Planner planner = new Planner();
+    //        planner.addPerson(new Person(new Name("John Doe"),
     //                new Phone("98765432", false),
     //                new Email("johnd@gmail.com", false),
     //                new Address("John street, block 123, #01-01", false),
     //                Collections.emptySet()));
-    //        ab.addPerson(new Person(new Name("Betsy Crowe"),
+    //        planner.addPerson(new Person(new Name("Betsy Crowe"),
     //                new Phone("1234567", true),
     //                new Email("betsycrowe@gmail.com", false),
     //                new Address("Newgate Prison", true),
     //                new HashSet<>(Arrays.asList(new Tag("friend"), new Tag("criminal")))));
-    //        return ab;
+    //        return planner;
     //    }
 }

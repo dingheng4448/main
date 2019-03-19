@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlValue;
 
 import planmysem.common.Utils;
 import planmysem.data.exception.IllegalValueException;
-import planmysem.data.tag.TagP;
+import planmysem.data.tag.Tag;
 
 /**
  * JAXB-friendly adapted tag data holder class.
@@ -24,7 +24,7 @@ public class AdaptedTag {
      *
      * @param source future changes to this will not affect the created AdaptedTag
      */
-    public AdaptedTag(TagP source) {
+    public AdaptedTag(Tag source) {
         value = source.value;
     }
 
@@ -45,7 +45,7 @@ public class AdaptedTag {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
-    public TagP toModelType() throws IllegalValueException {
-        return new TagP(value);
+    public Tag toModelType() throws IllegalValueException {
+        return new Tag(value);
     }
 }

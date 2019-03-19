@@ -17,4 +17,17 @@ public interface ReadOnlyDay {
     String getType();
 
     ArrayList<Slot> getSlots();
+
+    /**
+     * Returns true if the values inside this object is same as those of the other
+     * (Note: interfaces cannot override .equals)
+     */
+    default boolean isSameStateAs(ReadOnlyDay other) {
+        return other == this // short circuit if same object
+                || (other != null // this is first to avoid NPE below
+                && other.getDayOfWeek().equals(this.getDayOfWeek()) // state checks here onwards
+                && other.getDay().equals(this.getDay())
+                && other.getType().equals(this.getType())
+                && other.getSlots().equals(this.getSlots()));
+    }
 }

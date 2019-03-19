@@ -15,9 +15,7 @@ public class Main extends Application implements Stoppable {
     /**
      * Version info of the program.
      */
-    public static final String VERSION = "PlanMySem - Version 1.0";
-
-    private Gui gui;
+    public static final String VERSION = "PlanMySem - Version 1.2";
 
     public static void main(String[] args) {
         launch(args);
@@ -25,7 +23,7 @@ public class Main extends Application implements Stoppable {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        gui = new Gui(new Logic(), VERSION);
+        Gui gui = new Gui(new Logic(), VERSION);
         gui.start(primaryStage, this);
     }
 
@@ -33,7 +31,6 @@ public class Main extends Application implements Stoppable {
     public void stop() throws Exception {
         super.stop();
         Platform.exit();
-        System.exit(0);
     }
 }
 

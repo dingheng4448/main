@@ -3,6 +3,7 @@ package planmysem.data.semester;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import planmysem.data.exception.IllegalValueException;
 import planmysem.data.slot.ReadOnlySlot;
@@ -100,6 +101,19 @@ public class Day implements ReadOnlyDay {
     @Override
     public ArrayList<Slot> getSlots() {
         return slots;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ReadOnlyDay // instanceof handles nulls
+                && this.isSameStateAs((ReadOnlyDay) other));
+    }
+
+    @Override
+    public int hashCode() {
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(dayOfWeek, type, slots);
     }
 
     /**

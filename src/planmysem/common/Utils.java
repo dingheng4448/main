@@ -14,7 +14,7 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 import planmysem.data.exception.IllegalValueException;
-import planmysem.data.tag.TagP;
+import planmysem.data.tag.Tag;
 
 /**
  * Utility methods
@@ -25,7 +25,7 @@ public class Utils {
     public static final Pattern DATE_FORMAT_NO_YEAR =
             Pattern.compile("(0?[1-9]|[12][0-9]|3[01])-(0?[1-9]|1[012])");
     public static final Pattern TWELVE_HOUR_FORMAT =
-            Pattern.compile("(1[012]|[1-9]):[0-5][0-9](\\s)?(?i)(am|pm)");
+            Pattern.compile("(1[012]|[1-9]):[0-5][0-9](\\s)?(AM|PM)");
     public static final Pattern TWENTY_FOUR_HOUR_FORMAT =
             Pattern.compile("([01]?[0-9]|2[0-3]):[0-5][0-9]");
     public static final Pattern INTEGER_FORMAT =
@@ -63,10 +63,10 @@ public class Utils {
      */
     public static int parseDay(String unknown) {
         if (unknown.trim().isEmpty()) {
-            return 0;
+            return -1;
         }
-        String day = unknown.toLowerCase();
-        int result = 0;
+        String day = unknown.trim().toLowerCase();
+        int result = -1;
         switch (day) {
         case "monday":
         case "mon":
@@ -98,8 +98,20 @@ public class Utils {
             result = 5;
             break;
 
+        case "saturday":
+        case "sat":
+        case "6":
+            result = 6;
+            break;
+
+        case "sunday":
+        case "sun":
+        case "7":
+            result = 7;
+            break;
+
         default:
-            result = 0;
+            result = -1;
             break;
         }
 
@@ -110,7 +122,7 @@ public class Utils {
      * Parse String LocalDate.
      */
     public static LocalDate parseDate(String date) {
-        if (DATE_FORMAT.matcher(date).matches()) {
+        if (date != null && DATE_FORMAT.matcher(date).matches()) {
             return LocalDate.parse(date, DateTimeFormatter.ofPattern("d-MM-yyyy"));
         } else if (DATE_FORMAT_NO_YEAR.matcher(date).matches()) {
             return LocalDate.parse(date + "-" + Year.now().getValue(), DateTimeFormatter.ofPattern("d-MM-yyyy"));
@@ -123,20 +135,20 @@ public class Utils {
      * Parse String to 12 hour or 24 hour time format.
      */
     public static LocalTime parseTime(String time) {
-        if (TWELVE_HOUR_FORMAT.matcher(time).matches()) {
-            return LocalTime.parse(time, DateTimeFormatter.ofPattern("hh:mm am"));
+        LocalTime result = null;
+        if (time != null && TWELVE_HOUR_FORMAT.matcher(time).matches()) {
+            result = LocalTime.parse(time, DateTimeFormatter.ofPattern("h[h]:mm a"));
         } else if (TWENTY_FOUR_HOUR_FORMAT.matcher(time).matches()) {
-            return LocalTime.parse(time, DateTimeFormatter.ofPattern("kk:mm"));
+            result = LocalTime.parse(time, DateTimeFormatter.ofPattern("H[H]:mm"));
         }
-
-        return null;
+        return result;
     }
 
     /**
      * Parse string into integer.
      */
     public static int parseInteger(String value) {
-        if (INTEGER_FORMAT.matcher(value).matches()) {
+        if (value != null && INTEGER_FORMAT.matcher(value).matches()) {
             try {
                 return Integer.parseInt(value);
             } catch (NumberFormatException nfe) {
@@ -152,10 +164,13 @@ public class Utils {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public static Set<TagP> parseTags(Set<String> tags) throws IllegalValueException {
-        Set<TagP> tagSet = new HashSet<>();
+    public static Set<Tag> parseTags(Set<String> tags) throws IllegalValueException {
+        if (tags == null) {
+            return null;
+        }
+        Set<Tag> tagSet = new HashSet<>();
         for (String tag : tags) {
-            tagSet.add(new TagP(tag));
+            tagSet.add(new Tag(tag));
         }
         return tagSet;
     }

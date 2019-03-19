@@ -16,7 +16,7 @@ import planmysem.data.semester.Day;
 import planmysem.data.semester.Semester;
 import planmysem.data.slot.ReadOnlySlot;
 import planmysem.data.slot.Slot;
-import planmysem.data.tag.TagP;
+import planmysem.data.tag.Tag;
 
 /**
  * Adds a person to the address book.
@@ -48,8 +48,8 @@ public class EditCommand extends Command {
     private final String name;
     private final String location;
     private final String description;
-    private final Set<TagP> tags = new HashSet<>();
-    private final Set<TagP> newTags = new HashSet<>();
+    private final Set<Tag> tags = new HashSet<>();
+    private final Set<Tag> newTags = new HashSet<>();
 
     /**
      * Convenience constructor using raw values.
@@ -64,7 +64,9 @@ public class EditCommand extends Command {
         this.name = name;
         this.location = location;
         this.description = description;
-        this.tags.addAll(Utils.parseTags(tags));
+        if (tags != null) {
+            this.tags.addAll(Utils.parseTags(tags));
+        }
         if (newTags != null) {
             this.newTags.addAll(Utils.parseTags(newTags));
         }
@@ -205,7 +207,7 @@ public class EditCommand extends Command {
         StringBuilder sb = new StringBuilder();
         sb.append("Selected Slots containing tags: \n");
 
-        for (TagP tag : tags) {
+        for (Tag tag : tags) {
             sb.append("\t");
             sb.append(tag.toString());
             sb.append("\n");

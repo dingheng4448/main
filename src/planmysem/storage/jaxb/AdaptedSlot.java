@@ -15,7 +15,7 @@ import planmysem.data.slot.Location;
 import planmysem.data.slot.Name;
 import planmysem.data.slot.ReadOnlySlot;
 import planmysem.data.slot.Slot;
-import planmysem.data.tag.TagP;
+import planmysem.data.tag.Tag;
 
 /**
  * JAXB-friendly adapted person data holder class.
@@ -53,7 +53,7 @@ public class AdaptedSlot {
         startTime = source.getStartTime().toString();
 
         tags = new ArrayList<>();
-        for (TagP tag : source.getTags()) {
+        for (Tag tag : source.getTags()) {
             tags.add(new AdaptedTag(tag));
         }
     }
@@ -83,7 +83,7 @@ public class AdaptedSlot {
         final LocalTime startTime = LocalTime.parse(this.startTime);
         final int duration = this.duration;
 
-        final Set<TagP> tags = new HashSet<>();
+        final Set<Tag> tags = new HashSet<>();
         for (AdaptedTag tag : this.tags) {
             tags.add(tag.toModelType());
         }

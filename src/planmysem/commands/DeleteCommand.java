@@ -14,7 +14,7 @@ import planmysem.data.exception.IllegalValueException;
 import planmysem.data.semester.Day;
 import planmysem.data.slot.ReadOnlySlot;
 import planmysem.data.slot.Slot;
-import planmysem.data.tag.TagP;
+import planmysem.data.tag.Tag;
 
 /**
  * Adds a person to the address book.
@@ -39,7 +39,7 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_FAIL_ILLEGAL_VALUE = MESSAGE_SUCCESS_NO_CHANGE
             + " Illegal characters were detected.";
 
-    private final Set<TagP> tags = new HashSet<>();
+    private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Convenience constructor using raw values.
@@ -133,7 +133,7 @@ public class DeleteCommand extends Command {
         StringBuilder sb = new StringBuilder();
         sb.append("Selected Slots containing tags: \n");
 
-        for (TagP tag : tags) {
+        for (Tag tag : tags) {
             sb.append("\t");
             sb.append(tag.toString());
             sb.append("\n");

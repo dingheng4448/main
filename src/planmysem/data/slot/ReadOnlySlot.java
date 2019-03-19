@@ -4,7 +4,7 @@ import java.time.LocalTime;
 import java.util.Set;
 
 import planmysem.common.Utils;
-import planmysem.data.tag.TagP;
+import planmysem.data.tag.Tag;
 
 /**
  * A read-only immutable interface for a Slot in the Planner.
@@ -21,7 +21,7 @@ public interface ReadOnlySlot {
      * The returned {@code Set} is a deep copy of the internal {@code Set},
      * changes on the returned list will not affect the person's internal tags.
      */
-    Set<TagP> getTags();
+    Set<Tag> getTags();
 
     /**
      * Returns true if the values inside this object is same as
@@ -33,7 +33,9 @@ public interface ReadOnlySlot {
                 && other.getName().equals(this.getName()) // state checks here onwards
                 && other.getLocation().equals(this.getLocation())
                 && other.getDescription().equals(this.getDescription())
-                && other.getStartTime().equals(this.getStartTime()));
+                && other.getStartTime().equals(this.getStartTime())
+                && other.getDuration() == this.getDuration()
+                && other.getTags().equals(this.getTags()));
     }
 
     /**
@@ -63,7 +65,7 @@ public interface ReadOnlySlot {
         sb.append(getDuration());
 
         sb.append("\n\tTags: ");
-        for (TagP tag : getTags()) {
+        for (Tag tag : getTags()) {
             sb.append("\n\t\t");
             sb.append(tag.toString());
         }
