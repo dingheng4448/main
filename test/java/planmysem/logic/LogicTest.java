@@ -167,6 +167,28 @@ public class LogicTest {
                 "e nl/COM2 04-01", expectedMessage);
     }
 
+    //    @Test
+    //    public void execute_delete_successful() throws Exception {
+    //        // setup expectations
+    //        TestDataHelper helper = new TestDataHelper();
+    //        Slot slotToBeAdded = helper.slotOne();
+    //        LocalDate dateToBeAdded = LocalDate.now();
+    //        HashMap<LocalDate, Day> days = new HashMap<>();
+    //        days.put(dateToBeAdded, planner.getSemester().getDays().get(dateToBeAdded));
+    //
+    //        Planner expectedPlanner = new Planner();
+    //        expectedPlanner.addSlot(dateToBeAdded, slotToBeAdded);
+    //        expectedPlanner.getSemester().removeSlot(dateToBeAdded, slotToBeAdded);
+    //        planner.addSlot(dateToBeAdded, slotToBeAdded);
+    //
+    //        // execute command and verify result
+    //        assertCommandBehavior(helper.generateAddCommand(dateToBeAdded, slotToBeAdded),
+    //                String.format(AddCommand.MESSAGE_SUCCESS, 1, AddCommand.craftSuccessMessage(days, slotToBeAdded)),
+    //                expectedPlanner,
+    //                false,
+    //                Collections.emptyList());
+    //    }
+
     /**
      * Test delete command
      */

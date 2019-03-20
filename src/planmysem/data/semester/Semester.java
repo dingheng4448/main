@@ -106,6 +106,13 @@ public class Semester implements ReadOnlySemester {
     }
 
     /**
+     * Removes a Slot to the Semester.
+     */
+    public void removeSlot(LocalDate date, ReadOnlySlot slot) {
+        days.get(date).removeSlot(slot);
+    }
+
+    /**
      * Edits a Slot in the Semester.
      *
      * @throws DateNotFoundException if a targetDate is not found in the semester.

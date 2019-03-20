@@ -24,3 +24,6 @@ build/
 
 PlanMySem.txt
 PlanMySem.ics
+
+# Reposense config file
+/config.json

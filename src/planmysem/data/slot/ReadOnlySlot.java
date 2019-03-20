@@ -46,28 +46,34 @@ public interface ReadOnlySlot {
 
         sb.append("Slot Details:");
 
-        sb.append("\n\tName: ");
+        sb.append("\nName: ");
         sb.append(getName());
 
-        sb.append("\n\tLocation: ");
+        sb.append("\nLocation: ");
         sb.append(getLocation());
 
-        sb.append("\n\tDescription: ");
+        sb.append("\nDescription: ");
         sb.append(getDescription());
 
-        sb.append("\n\tTime: ");
+        sb.append("\nTime: ");
         sb.append(getStartTime());
 
         sb.append(" to ");
         sb.append(Utils.getEndTime(getStartTime(), getDuration()));
 
-        sb.append("\n\tDuration: ");
+        sb.append("\nDuration: ");
         sb.append(getDuration());
 
-        sb.append("\n\tTags: ");
+        sb.append("\nTags: ");
+
+        int count = 1;
         for (Tag tag : getTags()) {
-            sb.append("\n\t\t");
+            sb.append("\n");
+            sb.append("\t");
+            sb.append(count);
+            sb.append(".\t");
             sb.append(tag.toString());
+            count++;
         }
         return sb.toString();
     }

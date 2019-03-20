@@ -1,0 +1,25 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "macchazuki",
+      "displayName": "JUL...REN",
+      "authorNames": ["macchazuki", "Julian"]
+    },
+    {
+      "githubId": "dingheng4448",
+      "displayName": "LIM...ENG",
+      "authorNames": ["dingheng4448", "Lim Ding Heng"]
+    },
+    {
+      "githubId": "marcus-pzj",
+      "displayName": "MAR...JIE",
+      "authorNames": ["marcus-pzj", "Marcus Phua Zheng Jie"]
+    },
+    {
+      "githubId": "seanieyap",
+      "displayName": "SEA...ONG",
+      "authorNames": ["seanieyap", "Sean Yap"]
+    }
+  ]
+}

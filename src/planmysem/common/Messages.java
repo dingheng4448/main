@@ -1,5 +1,9 @@
 package planmysem.common;
 
+import java.util.Set;
+
+import planmysem.data.tag.Tag;
+
 /**
  * Container for user visible messages.
  */
@@ -27,4 +31,26 @@ public class Messages {
             + "\n\t24-Hour in the form of “hh:mm”. e.g. \"23:00\""
             + "\n\t12-Hour in the form of `hh:mm+AM|PM`. e.g. \"12:30am\""
             + "\n\tOr perhaps type a duration in minutes. e.g. \"60\" to represent 60 minutes";
+
+
+    /**
+     * Craft selected message.
+     */
+    public static String craftSelectedMessage(Set<Tag> tags) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Selected Slots containing tags: \n");
+
+        int count = 1;
+        for (Tag tag : tags) {
+            sb.append(count);
+            sb.append(".\t");
+            sb.append(tag.toString());
+            sb.append("\n");
+            count++;
+        }
+
+        return sb.toString();
+    }
+
+
 }

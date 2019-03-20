@@ -323,7 +323,7 @@ public class Parser {
         HashMap<String, Set<String>> arguments = getParametersWithArguments(args);
         String name = getFirstInSet(arguments.get(PARAMETER_NAME));
         if (name == null || name.trim().isEmpty()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
         return new FindCommand(name);
     }

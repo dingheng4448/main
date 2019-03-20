@@ -58,6 +58,15 @@ public abstract class Command {
         this.relevantSlots = slots;
     }
 
+    public int getTargetIndex() {
+        return targetIndex;
+    }
+
+    public void setTargetIndex(int targetIndex) {
+        this.targetIndex = targetIndex;
+    }
+
+
     /**
      * Extracts the the target Day in the last shown list from the given arguments.
      *
@@ -73,13 +82,5 @@ public abstract class Command {
 
     protected Pair<LocalDate, ? extends ReadOnlySlot> getTargetSlot() throws IndexOutOfBoundsException {
         return relevantSlots.get(targetIndex - DISPLAYED_INDEX_OFFSET);
-    }
-
-    public int getTargetIndex() {
-        return targetIndex;
-    }
-
-    public void setTargetIndex(int targetIndex) {
-        this.targetIndex = targetIndex;
     }
 }

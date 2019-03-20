@@ -2,9 +2,9 @@ package planmysem.commands;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import planmysem.common.Utils;
 import planmysem.data.exception.IllegalValueException;
@@ -65,7 +65,7 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute() {
         Set<LocalDate> dates = recurrence.generateDates(planner.getSemester());
-        HashMap<LocalDate, Day> days = new HashMap<>();
+        Map<LocalDate, Day> days = new TreeMap<>();
 
         for (LocalDate date : dates) {
             try {
@@ -86,17 +86,21 @@ public class AddCommand extends Command {
     /**
      * Craft success message.
      */
-    public static String craftSuccessMessage(HashMap<LocalDate, Day> days, Slot slot) {
+    public static String craftSuccessMessage(Map<LocalDate, Day> days, Slot slot) {
         StringBuilder sb = new StringBuilder();
         sb.append("On dates:");
 
+        int count = 1;
         for (Map.Entry<LocalDate, Day> day : days.entrySet()) {
-            sb.append("\n\t");
+            sb.append("\n");
+            sb.append(count);
+            sb.append(".\t");
             sb.append(day.getValue().getType());
             sb.append(", ");
             sb.append(day.getKey().toString());
             sb.append(", ");
             sb.append(day.getKey().getDayOfWeek().toString());
+            count++;
         }
         sb.append("\n\n");
 

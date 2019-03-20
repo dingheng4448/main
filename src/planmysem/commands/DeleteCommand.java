@@ -70,7 +70,8 @@ public class DeleteCommand extends Command {
                 }
             }
             if (selectedSlots.size() == 0) {
-                return new CommandResult(String.format(MESSAGE_SUCCESS_NO_CHANGE, craftSelectedMessage()));
+                return new CommandResult(String.format(MESSAGE_SUCCESS_NO_CHANGE,
+                        Messages.craftSelectedMessage(tags)));
             }
         } else {
             try {
@@ -88,11 +89,11 @@ public class DeleteCommand extends Command {
 
         // perform deletion of slots from the planner
         for (Map.Entry<LocalDateTime, ? extends ReadOnlySlot> slot: selectedSlots.entrySet()) {
-            planner.getSemester().getDays().get(slot.getKey().toLocalDate()).removeSlot(slot.getValue());
+            planner.getSemester().removeSlot(slot.getKey().toLocalDate(), slot.getValue());
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, selectedSlots.size(),
-                craftSelectedMessage(), craftSuccessMessage(selectedSlots)));
+                Messages.craftSelectedMessage(tags), craftSuccessMessage(selectedSlots)));
     }
 
     /**
@@ -106,12 +107,10 @@ public class DeleteCommand extends Command {
 
         int count = 1;
         for (Map.Entry<LocalDateTime, ReadOnlySlot> editedSlot : selectedSlots.entrySet()) {
-            sb.append("\tItem: ");
             sb.append(count);
-            sb.append(": ");
-            sb.append("\n\t\t");
+            sb.append(".\t");
             sb.append(editedSlot.getValue().getName().toString());
-            sb.append("\n\t\t");
+            sb.append(", ");
             sb.append(editedSlot.getKey().toLocalDate().toString());
             sb.append(" ");
             sb.append(editedSlot.getKey().toLocalTime().toString());
@@ -120,25 +119,10 @@ public class DeleteCommand extends Command {
             sb.append(", ");
             sb.append(editedSlot.getKey().getDayOfWeek().toString());
             count++;
-            sb.append("\n\n");
-        }
-
-        return sb.toString();
-    }
-
-    /**
-     * Craft selected message.
-     */
-    private String craftSelectedMessage() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Selected Slots containing tags: \n");
-
-        for (Tag tag : tags) {
-            sb.append("\t");
-            sb.append(tag.toString());
             sb.append("\n");
         }
 
         return sb.toString();
     }
+
 }

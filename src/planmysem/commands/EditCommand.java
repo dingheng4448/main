@@ -103,7 +103,8 @@ public class EditCommand extends Command {
                 }
             }
             if (selectedSlots.size() == 0) {
-                return new CommandResult(String.format(MESSAGE_SUCCESS_NO_CHANGE, craftSelectedMessage()));
+                return new CommandResult(String.format(MESSAGE_SUCCESS_NO_CHANGE,
+                        Messages.craftSelectedMessage(tags)));
             }
         } else {
             try {
@@ -130,7 +131,7 @@ public class EditCommand extends Command {
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, selectedSlots.size(),
-                craftSelectedMessage(), craftSuccessMessage(selectedSlots)));
+                Messages.craftSelectedMessage(tags), craftSuccessMessage(selectedSlots)));
     }
 
     /**
@@ -142,19 +143,19 @@ public class EditCommand extends Command {
         sb.append("Details Edited: ");
 
         if (startTime != null) {
-            sb.append("\n\tStart Time: ");
+            sb.append("\nStart Time: ");
             sb.append("\"");
             sb.append(startTime.toString());
             sb.append("\"");
         }
         if (duration != -1) {
-            sb.append("\n\tDuration: ");
+            sb.append("\nDuration: ");
             sb.append("\"");
             sb.append(duration);
             sb.append("\"");
         }
         if (location != null) {
-            sb.append("\n\tLocation: ");
+            sb.append("\nLocation: ");
             sb.append("\"");
             if ("".equals(location)) {
                 sb.append("null");
@@ -164,7 +165,7 @@ public class EditCommand extends Command {
             sb.append("\"");
         }
         if (description != null) {
-            sb.append("\n\tDescription: ");
+            sb.append("\nDescription: ");
             sb.append("\"");
             if ("".equals(description)) {
                 sb.append("null");
@@ -178,14 +179,23 @@ public class EditCommand extends Command {
         sb.append("Edited Slots: ");
         sb.append("\n");
 
+        sb.append(craftSelectedMessage(selectedSlots));
+
+        return sb.toString();
+    }
+
+    /**
+     * Craft success message.
+     */
+    private String craftSelectedMessage(Map<LocalDateTime, ReadOnlySlot> selectedSlots) {
+        StringBuilder sb = new StringBuilder();
+
         int count = 1;
         for (Map.Entry<LocalDateTime, ReadOnlySlot> editedSlot : selectedSlots.entrySet()) {
-            sb.append("\tItem: ");
             sb.append(count);
-            sb.append(": ");
-            sb.append("\n\t\t");
+            sb.append(".\t");
             sb.append(editedSlot.getValue().getName().toString());
-            sb.append("\n\t\t");
+            sb.append(", ");
             sb.append(editedSlot.getKey().toLocalDate().toString());
             sb.append(" ");
             sb.append(editedSlot.getKey().toLocalTime().toString());
@@ -194,22 +204,6 @@ public class EditCommand extends Command {
             sb.append(", ");
             sb.append(editedSlot.getKey().getDayOfWeek().toString());
             count++;
-            sb.append("\n\n");
-        }
-
-        return sb.toString();
-    }
-
-    /**
-     * Craft selected message.
-     */
-    private String craftSelectedMessage() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Selected Slots containing tags: \n");
-
-        for (Tag tag : tags) {
-            sb.append("\t");
-            sb.append(tag.toString());
             sb.append("\n");
         }
 

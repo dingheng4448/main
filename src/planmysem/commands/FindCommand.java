@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import javafx.util.Pair;
-
 import planmysem.data.semester.Day;
 import planmysem.data.slot.ReadOnlySlot;
 import planmysem.data.slot.Slot;
@@ -21,13 +20,13 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
     public static final String COMMAND_WORD_SHORT = "f";
-    public static final String MESSAGE_SUCCESS = "%1$s Slots listed.\n%2$s";
-    public static final String MESSAGE_SUCCESS_NONE = "0 Slots listed.\n";
+    private static final String MESSAGE_SUCCESS = "%1$s Slots listed.\n%2$s";
+    private static final String MESSAGE_SUCCESS_NONE = "0 Slots listed.\n";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Finds all slots whose name "
 
             + "contains the specified keywords (not case-sensitive).\n\t"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n\t"
-            + "Example: " + COMMAND_WORD + "CS";
+            + "Example: " + COMMAND_WORD + "n/CS";
 
     private final String keyword;
 
@@ -46,7 +45,6 @@ public class FindCommand extends Command {
                     matchedSlots.add(slots);
                     date = entry.getKey();
                     relevantSlots.add(new Pair<>(date, slots));
-
                 }
             }
         }
