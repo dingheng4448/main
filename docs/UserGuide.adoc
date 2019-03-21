@@ -18,7 +18,7 @@ By: `Team T08-3`      Since: `Jan 2019`      Licence: `MIT`
 
 == Introduction
 
-Welcome to _PlanMySem_! Choose a topic from the table of contents to learn about available features with examples, find answers or view a summary of the commands.
+Welcome to _PlanMySem_!
 
 _PlanMySem_ is a text-based (Command Line Interface) scheduling/calendar application that targets NUS students and staff who prefer to use a desktop application for managing their schedule/calendar.
 _PlanMySem_ automatically creates a planner that is synchronised according to the NUS academic calendar for the current semester and enables easy creation, editing and deleting of items.
@@ -26,13 +26,28 @@ Special weeks such as recess week and reading week are taken into account within
 Items can then be efficiently managed via the intuitive tagging system.
 
 _PlanMySem_ is optimized for those who prefer to work with a Command Line Interface (CLI) and/or are learning to work more efficiently with CLI tools. Additionally, unlike traditional calendar/scheduling applications, _PlanMySem_ utilizes minimal resources on the user’s machine while still allowing the user to view their schedules swiftly and efficiently.
+{zwsp}
 
-This user guide provides a quick start guide for you to easily setup and install _PlanMySem_, documentation of all the various features _PlanMySem_ offers, frequently asked questions and a summary of the available commands.
+{zwsp}
+
+== About this User Guide
+This user guide provides a quick start guide for you to easily setup and install _PlanMySem_, documentation of all the various features _PlanMySem_ offers, frequently asked questions and a summary of the available commands. To navigate between the different sections, you could use the table of contents above.
+
+For ease of communication, this document will refer to lessons/activities/events/appointments that you might add into the Planner as _slots_.
+
+Throughout this user guide, there will be various icons used as described below.
+
+TIP: This is a tip. These tips will enhance your experience while using _PlanMySem_!
+
+NOTE: This is a note. These are things for you to take note of when using _PlanMySem_.
+
+WARNING: This is a warning. Ensure that you heed these warnings for a smooth experience while using _PlanMySem_.
 {zwsp}
 
 {zwsp}
 
 == Quick Start
+This section guides you through the installation of _PlanMySem_ and provides a few example commands you may try.
 
 .  Ensure you have Java version `9` or later installed in your Computer.
 .  Download the latest `planmysem.jar` link:{repoURL}/releases[here].
@@ -49,9 +64,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 
 * **`add`**`n/CS2113T d/mon st/08:00 et/09:00 des/Topic: Sequence Diagram t/CS2113T t/Tutorial` : +
-Add a slot, named "CS2113T" on the coming monday, from 0800hrs to 0900hrs with the tags "CS2113T" and "Tutorial".
-* *`list`*`n/CS2113T` : list all slots named "CS2113T"
-* **`delete`**`3` : delete the 3rd slot shown in the current list
+Add a _slot_, named "CS2113T" on the coming monday, from 0800hrs to 0900hrs with the tags "CS2113T" and "Tutorial".
+* *`list`*`n/CS2113T` : list all _slots_ named "CS2113T"
+* **`delete`**`3` : delete the 3rd _slot_ shown in the current list
 * *`exit`* : exit the app
 
 .  Refer to <<Features>> for details of each command.
@@ -62,18 +77,14 @@ Add a slot, named "CS2113T" on the coming monday, from 0800hrs to 0900hrs with t
 [[Features]]
 == Features
 
-This section displays the current implemented features as well as features that will be implemented in the future.
-
-[NOTE]
-*For ease of communication, this document will refer to lessons/activities/events/appointments that you might add into the Planner as _slots_.*
+This section displays the available features of _PlanMySem_ together with examples for you to refer to.
 
 ====
-
 *Tagging System*
 
-Unlike other commercial calendar/scheduling/planner software, PlanMySem makes use of a tagging system to manage slots.
+Unlike other commercial calendar/scheduling/planner software, PlanMySem makes use of a tagging system to manage _slots_.
 
-Using tags to tag slots will make tasks easier for you in the future. Performing tasks such as viewing, deleting and editing slots will be more efficient.
+Using tags to tag _slots_ will make tasks easier for you in the future. Performing tasks such as viewing, deleting and editing _slots_ will be more efficient.
 
 Recommended uses for tags:
 
@@ -84,9 +95,9 @@ Recommended uses for tags:
 
 *Recursion System*
 
-Recursion facilitates quick addition of multiple slots, similar to Microsoft Outlook's series of appointments.
+Recursion facilitates quick addition of multiple _slots_, similar to Microsoft Outlook's series of appointments.
 
-In NUS, academic semesters are split into weeks of several types. Recursion allows you to add slots to these types of weeks with ease through the use of the `r/`(recursion) parameter.
+In NUS, academic semesters are split into weeks of several types. Recursion allows you to add _slots_ to these types of weeks with ease through the use of the `r/`(recursion) parameter.
 
 *Command Format*
 
@@ -165,10 +176,10 @@ Add a _slot_, named "CS2113T Tutorial" on the coming monday, from 0800hrs to 090
 image::Add_Command_Output_1.png[width="790"]
 
 * `add n/CS2113T Tutorial d/mon st/08:00 et/09:00 des/Topic: Sequence Diagram t/CS2113T t/Tutorial r/recess r/reading` +
-Do the same but additionally, recurse the slot on recess and reading week.
+Do the same but additionally, recurse the _slot_ on recess and reading week.
 
 * `add n/CS2113T Tutorial d/mon st/08:00 et/09:00 des/Topic: Sequence Diagram t/CS2113T t/Tutorial r/normal` +
-Do the same but recurse the slot on "normal", instructional, weeks.
+Do the same but recurse the _slot_ on "normal", instructional, weeks.
 
 [TIP]
 ====
@@ -189,14 +200,14 @@ Format: `edit INDEX [nn/NEW_NAME] [nd/NEW_DATE] [nst/NEW_START_TIME] [net/NEW_EN
 
 [WARNING]
 ====
-You are not able to edit a slot's date when editing via _tags_.
+You are not able to edit a _slot_'s date when editing via _tags_.
 To edit a _slot_'s date, you may use the `list` or `find` command and edit specific _slot(s)_ via index.
 ====
 
 Examples:
 
 * `edit t/CS2113T t/Tutorial nl/COM2 04-01` +
-Edit slots that contain tags "CS2113T" and "Tutorial", set these _slot's_ location to "COM2 04-01".
+Edit _slots_ that contain tags "CS2113T" and "Tutorial", set these _slot's_ location to "COM2 04-01".
 
 [#img-edit]
 .[.underline]#Output after entering `edit t/CS2113T t/Tutorial nl/COM2 04-01`#
@@ -217,7 +228,7 @@ Format: `delete INDEX`
 
 [TIP]
 ====
-You may delete a specific slot by using the `list` or `find` command and select the specific _slot_ via index.
+You may delete a specific _slot_ by using the `list` or `find` command and select the specific _slot_ via index.
 ====
 
 Examples:
@@ -237,7 +248,7 @@ Delete the second _slot_ shown via the `list` command.
 
 === Listing Slots: `list` / `l`
 
-Lists all slots whose name directly matches the specified keyword (not case-sensitive). +
+Lists all _slots_ whose name directly matches the specified keyword (not case-sensitive). +
 Format: `list n/NAME`
 
 Examples:
@@ -436,30 +447,34 @@ This will overwrite the empty data file it creates with the file that contains t
 
 == Command Summary
 
-* *View help* : `help` +
-* *Add Slot* : `add n/NAME d/DATE_OR_DAY_OF_WEEK st/START_TIME et/END_TIME_OR_DURATION [l/LOCATION] [des/DESCRIPTION] [r/normal] [r/recess] [r/reading] [r/exam] [r/past] [t/TAG]…​` +
-e.g. `add n/CS2113T Tutorial d/mon st/08:00 et/09:00 des/Topic: Sequence Diagram t/CS2113T t/Tutorial` +
-* *List Slot(s)* : `list n/NAME` +
-eg. `list n/CS2113T`
-* *Edit Slot* : `edit` +
-1. Via tags: `edit t/TAG... [nn/NEW_NAME] [nst/NEW_START_TIME] [net/NEW_END_TIME|DURATION] [nl/NEW_LOCATION] [nd/NEW_DESCRIPTION] [nt/NEW_TAG]...` +
-e.g. `edit t/CS2113T t/Tutorial nl/COM2 04-01`
-2. Via `list` command: `edit INDEX [nn/NEW_NAME] [nd/NEW_DATE] [nst/NEW_START_TIME] [net/NEW_END_TIME|DURATION] [nl/NEW_LOCATION] [nd/NEW_DESCRIPTION] [nt/NEW_TAG]...` +
+[width=100%, cols="1,20"]
+|===
+| *Command* | *Syntax*
+| *View help* : `help` | `help`
+| *Add Slot* : `add` | `add n/NAME d/DATE_OR_DAY_OF_WEEK st/START_TIME et/END_TIME_OR_DURATION [l/LOCATION] [des/DESCRIPTION] [r/normal] [r/recess] [r/reading] [r/exam] [r/past] [t/TAG]…​` +
+e.g. `add n/CS2113T Tutorial d/mon st/08:00 et/09:00 des/Topic: Sequence Diagram t/CS2113T t/Tutorial`
+| *List Slot(s)* : `list` | `list n/NAME` +
+e.g. `list n/CS2113T`
+| *Edit Slot* : `edit` |
+1. Via tags: `edit t/TAG... [nn/NEW_NAME] [nst/NEW_START_TIME] [net/NEW_END_TIME\|DURATION] [nl/NEW_LOCATION] [nd/NEW_DESCRIPTION] [nt/NEW_TAG]...` +
+e.g. `edit t/CS2113T t/Tutorial nl/COM2 04-01` +
+2. Via `list` command: `edit INDEX [nn/NEW_NAME] [nd/NEW_DATE] [nst/NEW_START_TIME] [net/NEW_END_TIME\|DURATION] [nl/NEW_LOCATION] [nd/NEW_DESCRIPTION] [nt/NEW_TAG]...` +
 e.g. `edit 1 des/Topic: Sequence Diagram`
-* *Delete Slot* : `delete` +
+| *Delete Slot* : `delete` |
 1. Via tags: `delete t/TAG…​` +
-eg. `delete t/CS2113T t/Tutorial`
+e.g. `delete t/CS2113T t/Tutorial` +
 2. Via `list` command: `delete INDEX` +
-eg. `delete 2`
-* *Find Slots* : `find [KEYWORD]…​` +
+e.g. `delete 2`
+| *Find Slots* : `find` | `find [KEYWORD]…​` +
 e.g. `find CS`
-* *View planner* : `view day [DATE] | view week [WEEK] | view month [MONTH]` +
+| *View planner* : `view` | `view day [DATE] \| view week [WEEK] \| view month [MONTH]` +
 e.g.`view month`
-* *View all details* : `view all`
-* *View history* : `history`
-* *Undo previous command* : `undo`
-* *Redo previously undone command* : `redo`
-* *Clear all data* : `clear`
-* *Exit the program* : `exit`
-* *Export .ics  file* : `export`
-* *Import .ics  file* : `import FILENAME`
+| *View all details* : `view all` | `view all`
+| *View history* : `history` | `history`
+| *Undo previous command* : `undo` | `undo`
+| *Redo previously undone command* : `redo` | `redo`
+| *Clear all data* : `clear` | `clear`
+| *Exit the program* : `exit` | `exit`
+| *Export .ics  file* : `export` | `export`
+| *Import .ics  file* : `import` | `import FILENAME`
+|===
