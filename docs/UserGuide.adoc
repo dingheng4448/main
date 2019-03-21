@@ -36,15 +36,24 @@ _PlanMySem_ is optimized for those who prefer to work with a Command Line Interf
 == About this User Guide
 This user guide provides a quick start guide for you to easily setup and install _PlanMySem_, documentation of all the various features _PlanMySem_ offers, frequently asked questions and a summary of the available commands. To navigate between the different sections, you could use the table of contents above.
 
-For ease of communication, this document will refer to lessons/activities/events/appointments that you might add into the Planner as _slots_.
+For ease of communication, this document will refer to lessons/activities/events/appointments that you might add into the planner as _slots_.
 
-Throughout this user guide, there will be various icons used as described below.
+Additionally, throughout this user guide, there will be various icons used as described below.
 
-TIP: This is a tip. These tips will enhance your experience while using _PlanMySem_!
+[TIP]
+This is a tip. Follow these suggested tips to make your life much simpler when using _PlanMySem_!
 
-NOTE: This is a note. These are things for you to take note of when using _PlanMySem_.
+[NOTE]
+This is a note. These are things for you to take note of when using _PlanMySem_.
 
-WARNING: This is a warning. Ensure that you heed these warnings for a smooth experience while using _PlanMySem_.
+[IMPORTANT]
+This is a sign-post dictating important information. These are information that you will surely need to know to use _PlanMySem_ properly.
+
+[CAUTION]
+This is a sign-post informing caution. Please take note of these items and exercise some care.
+
+[WARNING]
+This is a rule. Ensure that you follow these rule to make your life using _PlanMySem_ a pleasant one.
 {zwsp}
 
 {zwsp}
@@ -62,9 +71,8 @@ This section guides you through the installation of _PlanMySem_ and provides a f
 image::Start_Screen.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+E.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
-
 
 * **`add`**`n/CS2113T d/mon st/08:00 et/09:00 des/Topic: Sequence Diagram t/CS2113T t/Tutorial` : +
 Add a _slot_, named "CS2113T" on the coming monday, from 0800hrs to 0900hrs with the tags "CS2113T" and "Tutorial".
@@ -82,19 +90,18 @@ Add a _slot_, named "CS2113T" on the coming monday, from 0800hrs to 0900hrs with
 
 This section displays the available features of _PlanMySem_ together with examples for you to refer to.
 
-====
 *Tagging System*
 
-Unlike other commercial calendar/scheduling/planner software, PlanMySem makes use of a tagging system to manage _slots_.
+Unlike other commercial calendar/scheduling/planner software, _PlanMySem_ makes use of a tagging system to manage _slots_.
 
 Using tags to tag _slots_ will make tasks easier for you in the future. Performing tasks such as viewing, deleting and editing _slots_ will be more efficient.
 
 Recommended uses for tags:
 
-1. Tag modules. e.g. "CS2113T", "CS2101".
-2. Tag type of lesson. e.g. "Lecture", "Tutorial", "Lab".
-3. Tag type of activities. e.g. "Sports", "Seminar", "Talk".
-4. Tag difficulty of task. e.g. "Tough", "Simple", "Trivial".
+1. Tag modules. E.g. "CS2113T", "CS2101".
+2. Tag type of lesson. E.g. "Lecture", "Tutorial", "Lab".
+3. Tag type of activities. E.g. "Sports", "Seminar", "Talk".
+4. Tag difficulty of task. E.g. "Tough", "Simple", "Trivial".
 
 *Recursion System*
 
@@ -106,52 +113,114 @@ In NUS, academic semesters are split into weeks of several types. Recursion allo
 
 * Words in UPPER_CASE are the parameters to be supplied by the user. E.g. in `t/TAG`, `TAG` is a parameter which can be used as the name of the tag.
 * Items in square brackets are optional. e.g in `add [l/LOCATION]`, `LOCATION` is a parameter that may be omitted.
-* Items with `…` after them can be used multiple times including zero times e.g. `[t/TAG]…` can be used 0 times, or as `t/lab`, `t/lecture`, `t/tutorial` etc.
-* Parameters can be in any order e.g. if the command specifies `st/START_TIME et/END_TIME d/DATE`, then both `et/09:00 st/08:00 d/2-13-2019` and `et/09:00 d/2-13-2019 st/08:00` are acceptable.
+* Items with `…` after them can be used multiple times including zero times. E.g. `[t/TAG]…` can be used 0 times, or as `t/lab`, `t/lecture`, `t/tutorial` etc.
+* Parameters can be in any order. E.g. if the command specifies `st/START_TIME et/END_TIME d/DATE`, then both `et/09:00 st/08:00 d/2-13-2019` and `et/09:00 d/2-13-2019 st/08:00` are acceptable.
 
-*Parameters*
+[TIP]
+You can save time by utilizing the alternate and shortcut commands. E.g. instead of using `delete`, you may also use `del` or simply `d`.
 
-Parameters in _PlanMySem_ are designed to be, short and easy to memorise. Once you are familarised with them, they should be intuitive to use.
-The table of parameters and their descriptions (Table 1) below is useful for your reference as you jump right into grasping the system.
+*Identifiers and Parameters*
 
-[horizontal]
-*Parameter*:: *Description*
-`n/`:: *Name of a _slot_.*
-`d/`:: *Date / Day of week.* +
-    Format: +
-    * Dates: `01-01`, `2019-01-02`
-    * Day of Week: `Monday`, `mon`, `1`
-`st/`:: *Start Time.* +
-    Format: +
-    * 24-Hour in the form of “hh:mm”. e.g. `23:00`
-    * 12-Hour in the form of `hh:mm+AM|PM`. e.g. `12:30 AM`
-`et/`:: *End Time / duration.* +
-    Format: +
-    * 24-Hour in the form of “hh:mm”. e.g. `23:00`
-    * 12-Hour in the form of `hh:mm+AM|PM`. e.g. `12:30 AM`
-    * Duration of the event in minutes. e.g. `60` represents 60 minutes
-`r/`:: *Specify recurrence of a _slot_.* +
-    Format: +
-    * Select normal weeks: `normal`
-    * Select recess week: `recess`
-    * Select reading week: `reading`
-    * Select examination weeks: `exam`
-    * Select past dates: `past`
-`l/`:: *Location.*
-`des/`:: *Description.*
-`t/`:: *Tag.*
-`nn/`:: *New name of a _slot_.*
-`nd/`:: *New Date.*
-`nst/`:: *New Start Time.*
-`net/`:: *New End Time.*
-`nl/`:: *New Location.*
-`ndes/`:: *New Description.*
+Identifiers in _PlanMySem_ are designed to be, short and easy to memorise.
+Once you are familiarised with them, they should be intuitive to use to add your parameters.
+The table of Identifiers and Parameters and their descriptions (Table 1) below is useful for your reference as you jump right into grasping the system.
+
+.Identifiers and their Parameters and descriptions.
+[width="100%",cols="5%,<10%,<30%,<30%,<25",options="header"]
+|=======================================================================
+|Identifier |Parameter |Description |Format |Example
+
+.2+|`n/`
+    |`NAME` |Name of a _slot_ |Text |`n/CS2113T`
+    |`KEYWORD` |Text that are part of the name of a _slot_ |Text |`n/CS`
+|`l/` |`LOCATION` |Location of a _slot_ |Text |`l/COM2 04-22`
+|`des/` |`DESCRIPTION` |Description of a _slot_ |Text |`des/Topic: Abstraction`
+|`t/` |`TAG` |Tag of a _slot_ |Text |`nt/Lab`
+
+.4+|`d/`
+    .2+|`DATE` .2+|Date
+        |`dd-mm-yyyy` |`d/01-02-2019`
+        |`dd-mm` |`d/01-02`
+    .2+|`DAY` .2+|Day of week
+        |Name of day |`d/Monday`
+        |Name of day (short-form) |`d/mon`
+
+.2+|`st/` .2+|`START_TIME` .2+|Start time
+    |Time in 24-Hour format, `hh:mm` |`st/23:00`
+    |Time in 12-Hour format, form of `hh:mm+AM\|PM` |`st/11:00 PM`
+
+.3+|`et/`
+    .2+|`END_TIME` .2+|End Time
+        |Time in 24-Hour format, `hh:mm` |`e/23:00`
+        |Time 12-Hour format, `hh:mm+AM\|PM` |`e/11:00 PM`
+        |`DURATION` |Duration from Start Time |Number of minutes |`et/60`
+
+.5+|`r/` .5+|`RECURRENCE`
+    |Recurse _slot_ on normal academic weeks |`normal` |`r/normal`
+    |Recurse _slot_ on recess week |`recess` |`r/recess`
+    |Recurse _slot_ on reading week |`reading` |`r/reading`
+    |Recurse _slot_ on examination weeks |`exam` |`r/exam`
+    |Recurse _slot_ on past dates |`past` |`r/past`
+|=======================================================================
+
+[TIP]
 ====
-Table 1. Parameters and their descriptions
+You may order identifiers and parameters in any fashion and you will still be able to achieve what you want!
+So, do not bother thinking about where to place parameters as ordering does not matter, instead become more efficient and save your time!
+====
+
+[IMPORTANT]
+====
+Identifiers may be appended with a `n` to dictate "new". +
+E.g. `nt/NEW_TAG` signifies new tags in which you want to replace existing tags with.
+====
+
+[CAUTION]
+====
+While this table 1 shows you all the identifiers and parameters that _PlanMySem_ uses, there are some commands that do not make use of identifiers nor parameters.
+The view command is one such exception that make use of keywords that must be typed in a specific order.
+====
+//
+//[horizontal]
+//====
+//*Parameter*:: *Description*
+//`n/`:: *Name of a _slot_.*
+//`d/`:: *Date / Day of week.* +
+//    Format: +
+//    * Dates: `01-01`, `2019-01-02`
+//    * Day of Week: `Monday`, `mon`, `1`
+//`st/`:: *Start Time.* +
+//    Format: +
+//    * 24-Hour in the form of “hh:mm”. E.g. `23:00`
+//    * 12-Hour in the form of `hh:mm+AM|PM`. E.g. `12:30 AM`
+//`et/`:: *End Time / duration.* +
+//    Format: +
+//    * 24-Hour in the form of “hh:mm”. E.g. `23:00`
+//    * 12-Hour in the form of `hh:mm+AM|PM`. E.g. `12:30 AM`
+//    * Duration of the event in minutes. E.g. `60` represents 60 minutes
+//`r/`:: *Specify recurrence of a _slot_.* +
+//    Format: +
+//    * Select normal weeks: `normal`
+//    * Select recess week: `recess`
+//    * Select reading week: `reading`
+//    * Select examination weeks: `exam`
+//    * Select past dates: `past`
+//`l/`:: *Location.*
+//`des/`:: *Description.*
+//`t/`:: *Tag.*
+//`nn/`:: *New name of a _slot_.*
+//`nd/`:: *New Date.*
+//`nst/`:: *New Start Time.*
+//`net/`:: *New End Time.*
+//`nl/`:: *New Location.*
+//`ndes/`:: *New Description.*
+//====
+//Table 1. Parameters and their descriptions
 {zwsp}
 
 {zwsp}
 
+[[help]]
 === Viewing help : `help`
 Displays all the available commands with the syntax and examples. +
 Format: `help`
@@ -163,6 +232,7 @@ image::Help_Command_Output.png[width="790"]
 
 {zwsp}
 
+[[add]]
 === Adding Slots : `add` / `a`
 
 Add _slot(s)_ to the planner. +
@@ -186,12 +256,13 @@ Do the same but recurse the _slot_ on "normal", instructional, weeks.
 
 [TIP]
 ====
-You may add single _slots_ by omitting the recurrence parameter.
+You may add single _slots_ by omitting the `r/` identifiers and its parameters.
 ====
 {zwsp}
 
 {zwsp}
 
+[[edit]]
 === Editing Slots: `edit` / `e`
 
 Edit _slot(s)_.
@@ -201,9 +272,9 @@ Format: `edit t/TAG... [nn/NEW_NAME] [nst/NEW_START_TIME] [net/NEW_END_TIME|DURA
 2. Edit specific _slot_ via the `list` command. +
 Format: `edit INDEX [nn/NEW_NAME] [nd/NEW_DATE] [nst/NEW_START_TIME] [net/NEW_END_TIME|DURATION] [nl/NEW_LOCATION] [nd/NEW_DESCRIPTION] [nt/NEW_TAG]...`
 
-[WARNING]
+[NOTE]
 ====
-You are not able to edit a _slot_'s date when editing via _tags_.
+You will not be able to edit a _slot_'s date when editing via _tags_. +
 To edit a _slot_'s date, you may use the `list` or `find` command and edit specific _slot(s)_ via index.
 ====
 
@@ -222,6 +293,7 @@ Edit the first item from the previous result of the `list` or `find` command.
 
 {zwsp}
 
+[[delete]]
 === Delete Slots: `delete` / `del` / `d`
 
 1. Delete _slot(s)_ which contains certain _tag_(s). +
@@ -230,9 +302,7 @@ Format: `delete t/TAG...`
 Format: `delete INDEX`
 
 [TIP]
-====
 You may delete a specific _slot_ by using the `list` or `find` command and select the specific _slot_ via index.
-====
 
 Examples:
 
@@ -249,6 +319,7 @@ Delete the second _slot_ shown via the `list` command.
 
 {zwsp}
 
+[[list]]
 === Listing Slots: `list` / `l`
 
 Lists all _slots_ whose name directly matches the specified keyword (not case-sensitive). +
@@ -266,6 +337,7 @@ image::List_Command_Output_1.png[width="790"]
 
 {zwsp}
 
+[[find]]
 === Locating Slots: `find` / `f`
 
 Find all _slots_ whose part of their name contains the specified keyword and displays them as a list. +
@@ -283,6 +355,7 @@ image::Find_Command_Output_1.png[width="790"]
 
 {zwsp}
 
+[[view]]
 === View the Planner : `view` / `v`
 
 View the planner in a month/week/day view.
@@ -296,9 +369,10 @@ Format: `view day [DATE]`
 4. View all the details in the planner. +
 Format: `view all`
 
-[NOTE]
+[TIP]
 ====
-If MONTH/WEEK/DATE is not specified, the current date is assumed.
+You may omit `[MONTH]`/`[WEEK]`/`[DATE]` to view the format chosen in respect to the current day! +
+E.g. `view month` will allow you to view the current month and `view day` will allow you to view the current day!
 ====
 
 Examples:
@@ -324,6 +398,7 @@ View all the details in the planner.
 
 {zwsp}
 
+[[history]]
 === Listing previous input commands : `history` `[coming in v2.0]`
 
 Lists all the commands that you have entered in reverse chronological order. +
@@ -332,19 +407,20 @@ Format: `history`
 
 {zwsp}
 
+[[undo]]
 === Undoing previous command : `undo` `[coming in v2.0]`
 
 Restores the planner to the state before the previous command was executed. +
 Format: `undo`
 
-[WARNING]
-====
+[TIP]
 The `clear` command cannot be undone.
-====
-{zwsp}
 
 {zwsp}
 
+{zwsp}
+
+[[redo]]
 === Redoing the previously undone command : `redo` `[coming in v2.0]`
 
 Reverses the most recent `undo` command. +
@@ -353,40 +429,7 @@ Format: `redo`
 
 {zwsp}
 
-=== Clear all data : `clear`
-
-Clear all data stored on the planner. +
-Format: `clear`
-
-[#img-find]
-.[.underline]#Output after entering `clear`#
-image::Clear_Command_Output_1.png[width="790"]
-{zwsp}
-
-[WARNING]
-====
-The `clear` command cannot be undone! Your data will be permanently removed once `clear` is executed.
-====
-{zwsp}
-
-{zwsp}
-
-=== Exiting the program : `exit`
-
-Exits the program. +
-Format: `exit`
-{zwsp}
-
-{zwsp}
-
-=== Saving the data
-
-Planner data is saved in the hard disk automatically after any command that changes the data is executed. +
-There is no need to save manually.
-{zwsp}
-
-{zwsp}
-
+[[encrypt]]
 === Encrypting/decrypting data files
 
 Planner data is automatically encrypted before saving and decrypted before loading. You do not need to encrypt or decrypt he data manually.
@@ -394,6 +437,7 @@ Planner data is automatically encrypted before saving and decrypted before loadi
 
 {zwsp}
 
+[[import]]
 === Importing .ics formatted files `[coming in v2.0]`
 
 You can import an .ics file into the planner.
@@ -402,6 +446,7 @@ Format: `import FILENAME`
 
 {zwsp}
 
+[[export]]
 === Exporting .ics formatted files: `export`
 
 You can export the planner as a .ics file.
@@ -409,10 +454,6 @@ You can export the planner as a .ics file.
 [#img-export]
 .[.underline]#Output after entering `export`#
 image::Export_Command_Output_1.png[width="420"]
-
-{zwsp}
-
-{zwsp}
 
 [NOTE]
 ====
@@ -423,17 +464,53 @@ The .ics file can be imported into other calendar apps that support .ics files s
 .[.underline]#Location of PlanMySem.ics file#
 image::Export_Command_Directory_1.png[width="790"]
 ====
-{zwsp}
+
 [TIP]
-====
 A file with the ICS file extension is an iCalendar file.
 These are plain text files that include calendar event details like a description, beginning and ending times, location, etc.
+{zwsp}
+
+{zwsp}
+{zwsp}
+
+{zwsp}
+
+[[clear]]
+=== Clear all data : `clear`
+
+Clear all data stored on the planner. +
+Format: `clear`
+
+[#img-find]
+.[.underline]#Output after entering `clear`#
+image::Clear_Command_Output_1.png[width="790"]
+{zwsp}
+
+[NOTE]
+====
+The `clear` command cannot be undone! Your data will be permanently removed once `clear` is executed.
 ====
 {zwsp}
 
 {zwsp}
 
+[[exit]]
+=== Exiting the program : `exit`
 
+Exits the program. +
+Format: `exit`
+{zwsp}
+
+{zwsp}
+
+[[save]]
+=== Saving the data
+
+Planner data is saved in the hard disk automatically after any command that changes the data is executed. +
+There is no need to save manually.
+{zwsp}
+
+{zwsp}
 
 == FAQ
 
@@ -450,34 +527,97 @@ This will overwrite the empty data file it creates with the file that contains t
 
 == Command Summary
 
-[width=100%, cols="1,20"]
-|===
-| *Command* | *Syntax*
-| *View help* : `help` | `help`
-| *Add Slot* : `add` | `add n/NAME d/DATE_OR_DAY_OF_WEEK st/START_TIME et/END_TIME_OR_DURATION [l/LOCATION] [des/DESCRIPTION] [r/normal] [r/recess] [r/reading] [r/exam] [r/past] [t/TAG]…​` +
-e.g. `add n/CS2113T Tutorial d/mon st/08:00 et/09:00 des/Topic: Sequence Diagram t/CS2113T t/Tutorial`
-| *List Slot(s)* : `list` | `list n/NAME` +
-e.g. `list n/CS2113T`
-| *Edit Slot* : `edit` |
-1. Via tags: `edit t/TAG... [nn/NEW_NAME] [nst/NEW_START_TIME] [net/NEW_END_TIME\|DURATION] [nl/NEW_LOCATION] [nd/NEW_DESCRIPTION] [nt/NEW_TAG]...` +
-e.g. `edit t/CS2113T t/Tutorial nl/COM2 04-01` +
-2. Via `list` command: `edit INDEX [nn/NEW_NAME] [nd/NEW_DATE] [nst/NEW_START_TIME] [net/NEW_END_TIME\|DURATION] [nl/NEW_LOCATION] [nd/NEW_DESCRIPTION] [nt/NEW_TAG]...` +
-e.g. `edit 1 des/Topic: Sequence Diagram`
-| *Delete Slot* : `delete` |
-1. Via tags: `delete t/TAG…​` +
-e.g. `delete t/CS2113T t/Tutorial` +
-2. Via `list` command: `delete INDEX` +
-e.g. `delete 2`
-| *Find Slots* : `find` | `find [KEYWORD]…​` +
-e.g. `find CS`
-| *View planner* : `view` | `view day [DATE] \| view week [WEEK] \| view month [MONTH]` +
-e.g.`view month`
-| *View all details* : `view all` | `view all`
-| *View history* : `history` | `history`
-| *Undo previous command* : `undo` | `undo`
-| *Redo previously undone command* : `redo` | `redo`
-| *Clear all data* : `clear` | `clear`
-| *Exit the program* : `exit` | `exit`
-| *Export .ics  file* : `export` | `export`
-| *Import .ics  file* : `import` | `import FILENAME`
-|===
+//* *Add Slot* : `add n/NAME d/DATE_OR_DAY_OF_WEEK st/START_TIME et/END_TIME_OR_DURATION [l/LOCATION] [des/DESCRIPTION] [r/normal] [r/recess] [r/reading] [r/exam] [r/past] [t/TAG]…​` +
+//E.g. `add n/CS2113T Tutorial d/mon st/08:00 et/09:00 des/Topic: Sequence Diagram t/CS2113T t/Tutorial` +
+//* *List Slot(s)* : `list n/NAME` +
+//eg. `list n/CS2113T`
+//* *Edit Slot* : `edit` +
+//1. Via tags: `edit t/TAG... [nn/NEW_NAME] [nst/NEW_START_TIME] [net/NEW_END_TIME|DURATION] [nl/NEW_LOCATION] [nd/NEW_DESCRIPTION] [nt/NEW_TAG]...` +
+//E.g. `edit t/CS2113T t/Tutorial nl/COM2 04-01`
+//2. Via `list` command: `edit INDEX [nn/NEW_NAME] [nd/NEW_DATE] [nst/NEW_START_TIME] [net/NEW_END_TIME|DURATION] [nl/NEW_LOCATION] [nd/NEW_DESCRIPTION] [nt/NEW_TAG]...` +
+//E.g. `edit 1 des/Topic: Sequence Diagram`
+//* *Delete Slot* : `delete` +
+//1. Via tags: `delete t/TAG…​` +
+//eg. `delete t/CS2113T t/Tutorial`
+//2. Via `list` command: `delete INDEX` +
+//eg. `delete 2`
+//* *Find Slots* : `find [KEYWORD]…​` +
+//E.g. `find CS`
+//* *View planner* : `view day [DATE] | view week [WEEK] | view month [MONTH]` +
+//E.g.`view month`
+//* *View all details* : `view all`
+//* *Clear all data* : `clear`
+//* *Exit the program* : `exit`
+//* *Export .ics  file* : `export`
+//* *Import .ics  file* : `import FILENAME`
+
+=== General Commands
+General commands that you might find useful in helping you to navigate and configure _PlanMySem_:
+[width="100%",cols="20%,<30%,<20%,<30",options="header"]
+|=======================================================================
+|Task |Purpose |Command |Example
+
+|_<<help, Help>>_ |Shows you the user guide |`help` | `help`
+
+|_<<history, History>>_ |Shows you a history of all commands used |`history` | `history`
+
+|_<<undo, Undo>>_ |Undo your previous command |`undo` | `undo`
+
+|_<<redo, Redo>>_ |Redo your undo | `redo` | `redo`
+
+|_<<clear, Clear>>_ |Clear your planner | `clear` | `clear`
+
+|_<<exit, Exit>>_ |Exit the _PlanMySem_ | `exit` | `exit`
+|=======================================================================
+{zwsp}
+
+{zwsp}
+
+=== Manipulating the Planner
+Commands to manage _slots_:
+[width="100%",cols="20%,<30%,<20%,<30",options="header"]
+|=======================================================================
+|Task |Purpose |Command |Example
+
+|_<<add, Add slot(s)>>_ |Add _slot(s)_ into the planner
+|`add` | `add n/CS2113T Tutorial d/mon st/08:00 et/09:00 t/CS2113T`
+|_<<edit, Edit slot(s)>>_ |Edit _slot(s)_
+|`edit` | `edit t/CS2113T nl/COM2 04-01`
+|_<<delete, Delete slot(s)>>_ |Delete _slot(s)_
+|`delete` | `delete t/CS2113T`
+|=======================================================================
+{zwsp}
+
+{zwsp}
+
+=== Viewing the Planner
+Commands to view _slots_:
+[width="100%",cols="20%,<30%,<20%,<30",options="header"]
+|=======================================================================
+|Task |Purpose |Command |Example
+
+|_<<view, View the planner>>_ |view the planner in a chosen format/layout |
+`view` | `view month`
+|_<<list, List slot(s)>>_ |list _slot(s)_ of a certain name |
+`list` | `list n/CS2113T`
+|_<<find, Find slot(s)>>_ |find _slot(s)_ containing certain keywords |
+`find` | `find CS`
+|=======================================================================
+{zwsp}
+
+{zwsp}
+
+=== Import/Exporting the Planner
+Commands to view _slots_:
+[width="100%",cols="20%,<30%,<20%,<30",options="header"]
+|=======================================================================
+|Task |Purpose |Command |Example
+
+|_<<export, Export your planner>>_ |Export all your slots into a .ics file|
+`export` | `export`
+|_<<import, Import into your planner>>_ |Import into your planner from a .ics file |
+`import` | `import`
+|=======================================================================
+{zwsp}
+
+{zwsp}

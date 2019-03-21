@@ -1,12 +1,14 @@
 package planmysem.data.semester;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeMap;
 
 import planmysem.data.exception.DuplicateDataException;
 import planmysem.data.exception.IllegalValueException;
@@ -90,6 +92,23 @@ public class Semester implements ReadOnlySemester {
             throw new DuplicateDayException();
         }
         days.put(date, day);
+    }
+
+    /**
+     * Get set of slots which contain all specified tags.
+     */
+    public Map<LocalDateTime, ReadOnlySlot> getSlots(Set<Tag> tags) {
+        Map<LocalDateTime, ReadOnlySlot> selectedSlots = new TreeMap<>();
+
+        for (Map.Entry<LocalDate, Day> day : days.entrySet()) {
+            for (Slot slot : day.getValue().getSlots()) {
+                if (slot.getTags().containsAll(tags)) {
+                    selectedSlots.put(LocalDateTime.of(day.getKey(), slot.getStartTime()), slot);
+                }
+            }
+        }
+
+        return selectedSlots;
     }
 
     /**

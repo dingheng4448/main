@@ -12,10 +12,8 @@ import javafx.util.Pair;
 import planmysem.common.Messages;
 import planmysem.common.Utils;
 import planmysem.data.exception.IllegalValueException;
-import planmysem.data.semester.Day;
 import planmysem.data.semester.Semester;
 import planmysem.data.slot.ReadOnlySlot;
-import planmysem.data.slot.Slot;
 import planmysem.data.tag.Tag;
 
 /**
@@ -95,13 +93,8 @@ public class EditCommand extends Command {
         Map<LocalDateTime, ReadOnlySlot> selectedSlots = new TreeMap<>();
 
         if (getTargetIndex() == -1) {
-            for (Map.Entry<LocalDate, Day> day : planner.getSemester().getDays().entrySet()) {
-                for (Slot slot : day.getValue().getSlots()) {
-                    if (slot.getTags().containsAll(tags)) {
-                        selectedSlots.put(LocalDateTime.of(day.getKey(), slot.getStartTime()), slot);
-                    }
-                }
-            }
+            planner.getSlots(tags);
+
             if (selectedSlots.size() == 0) {
                 return new CommandResult(String.format(MESSAGE_SUCCESS_NO_CHANGE,
                         Messages.craftSelectedMessage(tags)));
