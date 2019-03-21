@@ -20,7 +20,6 @@ endif::[]
 By: `Team T08-3`      Since: `Jan 2019`      Licence: `MIT`
 
 == Introduction
-
 Welcome to _PlanMySem_!
 
 _PlanMySem_ is a text-based (Command Line Interface) scheduling/calendar application that targets NUS students and staff who prefer to use a desktop application for managing their schedule/calendar.
@@ -87,7 +86,6 @@ Add a _slot_, named "CS2113T" on the coming monday, from 0800hrs to 0900hrs with
 
 [[Features]]
 == Features
-
 This section displays the available features of _PlanMySem_ together with examples for you to refer to.
 
 *Tagging System*
@@ -135,7 +133,7 @@ The table of Identifiers and Parameters and their descriptions (Table 1) below i
     |`KEYWORD` |Text that are part of the name of a _slot_ |Text |`n/CS`
 |`l/` |`LOCATION` |Location of a _slot_ |Text |`l/COM2 04-22`
 |`des/` |`DESCRIPTION` |Description of a _slot_ |Text |`des/Topic: Abstraction`
-|`t/` |`TAG` |Tag of a _slot_ |Text |`nt/Lab`
+|`t/` |`TAG` |Tag of a _slot_ |Text |`t/Lab`
 
 .4+|`d/`
     .2+|`DATE` .2+|Date
@@ -151,8 +149,8 @@ The table of Identifiers and Parameters and their descriptions (Table 1) below i
 
 .3+|`et/`
     .2+|`END_TIME` .2+|End Time
-        |Time in 24-Hour format, `hh:mm` |`e/23:00`
-        |Time 12-Hour format, `hh:mm+AM\|PM` |`e/11:00 PM`
+        |Time in 24-Hour format, `hh:mm` |`et/23:00`
+        |Time 12-Hour format, `hh:mm+AM\|PM` |`et/11:00 PM`
         |`DURATION` |Duration from Start Time |Number of minutes |`et/60`
 
 .5+|`r/` .5+|`RECURRENCE`
@@ -164,22 +162,17 @@ The table of Identifiers and Parameters and their descriptions (Table 1) below i
 |=======================================================================
 
 [TIP]
-====
 You may order identifiers and parameters in any fashion and you will still be able to achieve what you want!
 So, do not bother thinking about where to place parameters as ordering does not matter, instead become more efficient and save your time!
-====
 
 [IMPORTANT]
-====
 Identifiers may be appended with a `n` to dictate "new". +
 E.g. `nt/NEW_TAG` signifies new tags in which you want to replace existing tags with.
-====
 
 [CAUTION]
-====
-While this table 1 shows you all the identifiers and parameters that _PlanMySem_ uses, there are some commands that do not make use of identifiers nor parameters.
+While table 1 shows you all the identifiers and parameters that _PlanMySem_ uses, there are some commands that do not make use of identifiers nor parameters.
 The view command is one such exception that make use of keywords that must be typed in a specific order.
-====
+
 //
 //[horizontal]
 //====
@@ -234,7 +227,6 @@ image::Help_Command_Output.png[width="790"]
 
 [[add]]
 === Adding Slots : `add` / `a`
-
 Add _slot(s)_ to the planner. +
 Format: `add n/NAME d/DATE_OR_DAY_OF_WEEK st/START_TIME et/END_TIME_OR_DURATION +
 [l/LOCATION] [des/DESCRIPTION] [r/normal] [r/recess] [r/reading] [r/exam] [r/past] [t/TAG]...`
@@ -255,16 +247,13 @@ Do the same but additionally, recurse the _slot_ on recess and reading week.
 Do the same but recurse the _slot_ on "normal", instructional, weeks.
 
 [TIP]
-====
 You may add single _slots_ by omitting the `r/` identifiers and its parameters.
-====
 {zwsp}
 
 {zwsp}
 
 [[edit]]
 === Editing Slots: `edit` / `e`
-
 Edit _slot(s)_.
 
 1. Edit _slot(s)_ which contains certain _tag_(s). +
@@ -273,10 +262,8 @@ Format: `edit t/TAG... [nn/NEW_NAME] [nst/NEW_START_TIME] [net/NEW_END_TIME|DURA
 Format: `edit INDEX [nn/NEW_NAME] [nd/NEW_DATE] [nst/NEW_START_TIME] [net/NEW_END_TIME|DURATION] [nl/NEW_LOCATION] [nd/NEW_DESCRIPTION] [nt/NEW_TAG]...`
 
 [NOTE]
-====
 You will not be able to edit a _slot_'s date when editing via _tags_. +
 To edit a _slot_'s date, you may use the `list` or `find` command and edit specific _slot(s)_ via index.
-====
 
 Examples:
 
@@ -295,7 +282,6 @@ Edit the first item from the previous result of the `list` or `find` command.
 
 [[delete]]
 === Delete Slots: `delete` / `del` / `d`
-
 1. Delete _slot(s)_ which contains certain _tag_(s). +
 Format: `delete t/TAG...`
 2. Delete _slot_ via the `list` command. +
@@ -321,7 +307,6 @@ Delete the second _slot_ shown via the `list` command.
 
 [[list]]
 === Listing Slots: `list` / `l`
-
 Lists all _slots_ whose name directly matches the specified keyword (not case-sensitive). +
 Format: `list n/NAME`
 
@@ -339,7 +324,6 @@ image::List_Command_Output_1.png[width="790"]
 
 [[find]]
 === Locating Slots: `find` / `f`
-
 Find all _slots_ whose part of their name contains the specified keyword and displays them as a list. +
 Format: `find n/KEYWORD`
 
@@ -357,7 +341,6 @@ image::Find_Command_Output_1.png[width="790"]
 
 [[view]]
 === View the Planner : `view` / `v`
-
 View the planner in a month/week/day view.
 
 1. View the monthly calendar view of the current academic semester. +
@@ -370,10 +353,8 @@ Format: `view day [DATE]`
 Format: `view all`
 
 [TIP]
-====
 You may omit `[MONTH]`/`[WEEK]`/`[DATE]` to view the format chosen in respect to the current day! +
 E.g. `view month` will allow you to view the current month and `view day` will allow you to view the current day!
-====
 
 Examples:
 
@@ -400,7 +381,6 @@ View all the details in the planner.
 
 [[history]]
 === Listing previous input commands : `history` `[coming in v2.0]`
-
 Lists all the commands that you have entered in reverse chronological order. +
 Format: `history`
 {zwsp}
@@ -409,20 +389,17 @@ Format: `history`
 
 [[undo]]
 === Undoing previous command : `undo` `[coming in v2.0]`
-
 Restores the planner to the state before the previous command was executed. +
 Format: `undo`
 
 [TIP]
 The `clear` command cannot be undone.
-
 {zwsp}
 
 {zwsp}
 
 [[redo]]
 === Redoing the previously undone command : `redo` `[coming in v2.0]`
-
 Reverses the most recent `undo` command. +
 Format: `redo`
 {zwsp}
@@ -431,7 +408,6 @@ Format: `redo`
 
 [[encrypt]]
 === Encrypting/decrypting data files
-
 Planner data is automatically encrypted before saving and decrypted before loading. You do not need to encrypt or decrypt he data manually.
 {zwsp}
 
@@ -439,7 +415,6 @@ Planner data is automatically encrypted before saving and decrypted before loadi
 
 [[import]]
 === Importing .ics formatted files `[coming in v2.0]`
-
 You can import an .ics file into the planner.
 Format: `import FILENAME`
 {zwsp}
@@ -448,7 +423,6 @@ Format: `import FILENAME`
 
 [[export]]
 === Exporting .ics formatted files: `export`
-
 You can export the planner as a .ics file.
 
 [#img-export]
@@ -471,32 +445,24 @@ These are plain text files that include calendar event details like a descriptio
 {zwsp}
 
 {zwsp}
-{zwsp}
-
-{zwsp}
 
 [[clear]]
 === Clear all data : `clear`
-
 Clear all data stored on the planner. +
 Format: `clear`
 
 [#img-find]
 .[.underline]#Output after entering `clear`#
 image::Clear_Command_Output_1.png[width="790"]
-{zwsp}
 
 [NOTE]
-====
 The `clear` command cannot be undone! Your data will be permanently removed once `clear` is executed.
-====
 {zwsp}
 
 {zwsp}
 
 [[exit]]
 === Exiting the program : `exit`
-
 Exits the program. +
 Format: `exit`
 {zwsp}
@@ -505,7 +471,6 @@ Format: `exit`
 
 [[save]]
 === Saving the data
-
 Planner data is saved in the hard disk automatically after any command that changes the data is executed. +
 There is no need to save manually.
 {zwsp}
@@ -513,7 +478,6 @@ There is no need to save manually.
 {zwsp}
 
 == FAQ
-
 *Q*: How do I transfer my data to another Computer? +
 *A*: In order to transfer your data to another Computer, you should:
 
