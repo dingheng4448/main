@@ -25,21 +25,21 @@ public class PlannerTest {
         Semester expectedSemester;
 
         // Assert Semester One generation
-        generatedSemester = Planner.generateSemester(LocalDate.of(2018, 8, 6));
+        generatedSemester = Semester.generateSemester(LocalDate.of(2018, 8, 6));
         LocalDate semOneDate = LocalDate.of(2018, 8, 6);
         expectedSemester = helper.generateSemesterFromDate(semOneDate, "Sem 1");
         assertSameSemester(generatedSemester, expectedSemester);
 
-        expectedSemester = Planner.generateSemester(LocalDate.of(2018, 10, 6));
+        expectedSemester = Semester.generateSemester(LocalDate.of(2018, 10, 6));
         assertSameSemester(generatedSemester, expectedSemester);
 
         // Assert Semester Two generation
-        generatedSemester = Planner.generateSemester(LocalDate.of(2019, 1, 14));
+        generatedSemester = Semester.generateSemester(LocalDate.of(2019, 1, 14));
         LocalDate semTwoDate = LocalDate.of(2019, 1, 14);
         expectedSemester = helper.generateSemesterFromDate(semTwoDate, "Sem 2");
         assertSameSemester(generatedSemester, expectedSemester);
 
-        expectedSemester = Planner.generateSemester(LocalDate.of(2019, 3, 17));
+        expectedSemester = Semester.generateSemester(LocalDate.of(2019, 3, 17));
         assertSameSemester(generatedSemester, expectedSemester);
     }
 
@@ -48,15 +48,7 @@ public class PlannerTest {
      */
     private void assertSameSemester(Semester generatedSemester, Semester expectedSemester) {
         //Confirm the state of data is as expected
-        assertEquals(generatedSemester.getName(), expectedSemester.getName());
-        assertEquals(generatedSemester.getAcademicYear(), expectedSemester.getAcademicYear());
-        assertEquals(generatedSemester.getNoOfWeeks(), expectedSemester.getNoOfWeeks());
-        assertEquals(generatedSemester.getStartDate(), expectedSemester.getStartDate());
-        assertEquals(generatedSemester.getEndDate(), expectedSemester.getEndDate());
-        assertEquals(generatedSemester.getDays().size(), expectedSemester.getDays().size());
-        assertEquals(generatedSemester.getRecessDays().size(), expectedSemester.getRecessDays().size());
-        assertEquals(generatedSemester.getReadingDays().size(), expectedSemester.getReadingDays().size());
-        assertEquals(generatedSemester.getExamDays().size(), expectedSemester.getExamDays().size());
+        assertEquals(generatedSemester.hashCode(), expectedSemester.hashCode());
     }
 
     /**
