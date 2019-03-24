@@ -384,10 +384,7 @@ public class Semester implements ReadOnlySemester {
      */
     public void editSlot(LocalDate targetDate, ReadOnlySlot targetSlot, LocalDate date, LocalTime startTime,
                          int duration, String name, String location, String description, Set<Tag> tags)
-            throws DateNotFoundException, IllegalValueException {
-        if (targetDate == null || (targetDate.isBefore(startDate) || targetDate.isAfter(endDate))) {
-            throw new DateNotFoundException();
-        }
+            throws IllegalValueException {
 
         Slot editingSlot = days.get(targetDate).getSlots().stream()
             .filter(s -> s.equals(targetSlot)).findAny().orElse(null);

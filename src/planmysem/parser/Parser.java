@@ -275,9 +275,6 @@ public class Parser {
         } else {
             String nd = getFirstInSet(arguments.get(PARAMETER_NEW_DATE));
             LocalDate date = Utils.parseDate(nd);
-            if (date == null) {
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-            }
 
             try {
                 return new EditCommand(index, name, date, startTime, duration, location, description, newTags);

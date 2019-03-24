@@ -1,14 +1,15 @@
 package planmysem.commands;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.regex.Pattern;
 
 import javafx.util.Pair;
+import planmysem.common.Messages;
 import planmysem.data.semester.Day;
+import planmysem.data.semester.ReadOnlyDay;
 import planmysem.data.slot.ReadOnlySlot;
 import planmysem.data.slot.Slot;
 import planmysem.data.tag.Tag;
@@ -32,92 +33,38 @@ public class FindCommand extends Command {
     private final String keyword;
     private final boolean isFindByName;
 
-    public FindCommand(String name, String tag ) {
+    public FindCommand(String name, String tag) {
         this.keyword = (name == null) ? tag.trim() : name.trim();
         this.isFindByName = (name != null);
     }
 
     @Override
     public CommandResult execute() {
-        final List<Pair<LocalDate, ? extends ReadOnlySlot>> relevantSlots = new ArrayList<>();
-        List<Slot> matchedSlots = new ArrayList<>();
-        LocalDate date;
+        Map<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> selectedSlots = new TreeMap<>();
 
-        for (Map.Entry<LocalDate, Day> entry : planner.getSemester().getDays().entrySet()) {
-            for (Slot slots : entry.getValue().getSlots()) {
+        for (Map.Entry<LocalDate, Day> entry : planner.getAllDays().entrySet()) {
+            for (Slot slot : entry.getValue().getSlots()) {
                 if (isFindByName) {
-                    if (Pattern.matches(".*" + keyword + ".*", slots.getName().value)) {
-                        matchedSlots.add(slots);
-                        date = entry.getKey();
-                        relevantSlots.add(new Pair<>(date, slots));
+                    if (Pattern.matches(".*" + keyword + ".*", slot.getName().value)) {
+                        selectedSlots.put(entry.getKey(), new Pair<>(entry.getValue(), slot));
                     }
                 } else {
-                    Set<Tag> tagSet = slots.getTags();
+                    Set<Tag> tagSet = slot.getTags();
                     for (Tag tag : tagSet) {
                         if (Pattern.matches(".*" + keyword + ".*", tag.value)) {
-                            matchedSlots.add(slots);
-                            date = entry.getKey();
-                            relevantSlots.add(new Pair<>(date, slots));
+                            selectedSlots.put(entry.getKey(), new Pair<>(entry.getValue(), slot));
                         }
                     }
                 }
             }
         }
 
-        if (matchedSlots.isEmpty()) {
+        if (selectedSlots.isEmpty()) {
             return new CommandResult(MESSAGE_SUCCESS_NONE);
         }
-        setData(this.planner, relevantSlots);
+        setData(planner, selectedSlots);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, matchedSlots.size(),
-                craftSuccessMessage(relevantSlots)));
-//        final List<Pair<LocalDate, ? extends ReadOnlySlot>> relevantSlots = new ArrayList<>();
-//        List<Slot> matchedSlots = new ArrayList<>();
-//        LocalDate date;
-//
-//        for (Map.Entry<LocalDate, Day> entry : planner.getSemester().getDays().entrySet()) {
-//            for (Slot slots : entry.getValue().getSlots()) {
-//                if (Pattern.matches(".*" + keyword + ".*", slots.getName().value)) {
-//                    matchedSlots.add(slots);
-//                    date = entry.getKey();
-//                    relevantSlots.add(new Pair<>(date, slots));
-//                }
-//            }
-//        }
-//
-//        if (matchedSlots.isEmpty()) {
-//            return new CommandResult(MESSAGE_SUCCESS_NONE);
-//        }
-//        setData(this.planner, relevantSlots);
-//
-//        return new CommandResult(String.format(MESSAGE_SiUCCESS, matchedSlots.size(),
-//                craftSuccessMessage(rele
-    }
-
-    /**
-     * Craft success message.
-     */
-    private String craftSuccessMessage(List<Pair<LocalDate, ? extends ReadOnlySlot>> result) {
-        int count = 1;
-        StringBuilder sb = new StringBuilder();
-
-        for (Pair<LocalDate, ? extends ReadOnlySlot> pair : result) {
-            sb.append("\n");
-            sb.append(count + ".\t");
-            sb.append("Name: ");
-            sb.append(pair.getValue().getName().toString());
-            sb.append(",\n\t");
-            sb.append("Date: ");
-            sb.append(pair.getKey().toString());
-            sb.append(",\n\t");
-            sb.append("Start Time: ");
-            sb.append(pair.getValue().getStartTime());
-            sb.append("\n\t");
-            sb.append("Tags: ");
-            sb.append(pair.getValue().getTags());
-            sb.append("\n");
-            count++;
-        }
-        return sb.toString();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, selectedSlots.size(),
+                Messages.craftSelectedMessage(selectedSlots)));
     }
 }
