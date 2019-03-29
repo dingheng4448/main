@@ -3,7 +3,11 @@ package planmysem;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-import planmysem.logic.Logic;
+import planmysem.logic.LogicManager;
+import planmysem.model.Model;
+import planmysem.model.ModelManager;
+import planmysem.storage.Storage;
+import planmysem.storage.StorageFile;
 import planmysem.ui.Gui;
 import planmysem.ui.Stoppable;
 
@@ -23,7 +27,9 @@ public class Main extends Application implements Stoppable {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Gui gui = new Gui(new Logic(), VERSION);
+        Storage storageFile = new StorageFile();
+        Model modelManager = new ModelManager();
+        Gui gui = new Gui(new LogicManager(storageFile, modelManager), VERSION);
         gui.start(primaryStage, this);
     }
 

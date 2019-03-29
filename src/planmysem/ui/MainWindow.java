@@ -8,27 +8,27 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.util.Pair;
-import planmysem.commands.CommandResult;
-import planmysem.commands.ExitCommand;
 import planmysem.common.Messages;
-import planmysem.data.semester.ReadOnlyDay;
-import planmysem.data.slot.ReadOnlySlot;
-import planmysem.logic.Logic;
+import planmysem.logic.LogicManager;
+import planmysem.logic.commands.CommandResult;
+import planmysem.logic.commands.ExitCommand;
+import planmysem.model.semester.ReadOnlyDay;
+import planmysem.model.slot.ReadOnlySlot;
 
 /**
  * Main Window of the GUI.
  */
 public class MainWindow {
 
-    private Logic logic;
+    private LogicManager logicManager;
     private Stoppable mainApp;
     @FXML
     private TextArea outputConsole;
     @FXML
     private TextField commandInput;
 
-    public void setLogic(Logic logic) {
-        this.logic = logic;
+    public void setLogicManager(LogicManager logicManager) {
+        this.logicManager = logicManager;
     }
 
     public void setMainApp(Stoppable mainApp) {
@@ -42,7 +42,7 @@ public class MainWindow {
     private void onCommand() {
         try {
             String userCommandText = commandInput.getText();
-            CommandResult result = logic.execute(userCommandText);
+            CommandResult result = logicManager.execute(userCommandText);
             if (isExitCommand(result)) {
                 exitApp();
                 return;
@@ -105,7 +105,6 @@ public class MainWindow {
      * Private contact details are hidden.
      */
     private void display(Map<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> slots) {
-        // TODO: rename function call when AddressBook is fully removed from project
         display(new Formatter().formatSlots(slots));
     }
 
@@ -113,6 +112,7 @@ public class MainWindow {
      * Displays the given messages on the output display area, after formatting appropriately.
      */
     private void display(String... messages) {
+        clearOutputConsole();
         outputConsole.setText(outputConsole.getText() + new Formatter().format(messages));
     }
 }

@@ -6,8 +6,8 @@ import java.util.Map;
 
 import javafx.util.Pair;
 import planmysem.common.Messages;
-import planmysem.data.semester.ReadOnlyDay;
-import planmysem.data.slot.ReadOnlySlot;
+import planmysem.model.semester.ReadOnlyDay;
+import planmysem.model.slot.ReadOnlySlot;
 
 /**
  * Used for formatting text for display. e.g. for adding text decorations.

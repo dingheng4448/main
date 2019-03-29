@@ -17,14 +17,15 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import planmysem.data.Planner;
-import planmysem.data.exception.IllegalValueException;
+import planmysem.common.exceptions.IllegalValueException;
+import planmysem.model.Model;
+import planmysem.model.ModelManager;
 import planmysem.storage.jaxb.AdaptedPlanner;
 
 /**
- * Represents the file used to store Planner data.
+ * Represents the file used to store Planner model.
  */
-public class StorageFile {
+public class StorageFile implements Storage {
     /**
      * Default file path used if the user doesn't provide the file name.
      */
@@ -35,7 +36,7 @@ public class StorageFile {
      */
     public final Path path;
     private final JAXBContext jaxbContext;
-    private final boolean isEncrypted = false; //set to true to encrypt data
+    private final boolean isEncrypted = false; //set to true to encrypt model
 
     /**
      * @throws InvalidStorageFilePathException if the default path is invalid
@@ -68,19 +69,15 @@ public class StorageFile {
         return filePath.toString().endsWith(".txt");
     }
 
-    /**
-     * Saves all data to this storage file.
-     *
-     * @throws StorageOperationException if there were errors converting and/or storing data to file.
-     */
-    public void save(Planner planner) throws StorageOperationException {
+    @Override
+    public void save(Model model) throws StorageOperationException {
         /* Note: Note the 'try with resource' statement below.
          * More info: https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html
          */
         try (final Writer fileWriter =
                      new BufferedWriter(new FileWriter(path.toFile()))) {
 
-            final AdaptedPlanner toSave = new AdaptedPlanner(planner);
+            final AdaptedPlanner toSave = new AdaptedPlanner(model.getPlanner());
             final Marshaller marshaller = jaxbContext.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             if (isEncrypted) {
@@ -98,12 +95,8 @@ public class StorageFile {
         }
     }
 
-    /**
-     * Loads data from this storage file.
-     *
-     * @throws StorageOperationException if there were errors reading and/or converting data from file.
-     */
-    public Planner load() throws StorageOperationException {
+    @Override
+    public Model load() throws StorageOperationException {
         try (final BufferedReader fileReader =
                      new BufferedReader(new FileReader(path.toFile()))) {
 
@@ -119,9 +112,9 @@ public class StorageFile {
 
             // manual check for missing elements
             if (loaded.isAnyRequiredFieldMissing()) {
-                throw new StorageOperationException("File data missing some elements");
+                throw new StorageOperationException("File model missing some elements");
             }
-            return loaded.toModelType();
+            return new ModelManager(loaded.toModelType());
 
             /* Note: Here, we are using an exception to create the file if it is missing or empty. However, we should
              * minimize using exceptions to facilitate normal paths of execution. If we consider the missing file as a
@@ -130,7 +123,7 @@ public class StorageFile {
 
             // create empty file if not found or is empty
         } catch (FileNotFoundException | NullPointerException ex) {
-            final Planner empty = new Planner();
+            final Model empty = new ModelManager();
             save(empty);
             return empty;
 
@@ -138,32 +131,14 @@ public class StorageFile {
         } catch (IOException ioe) {
             throw new StorageOperationException("Error writing to file: " + path);
         } catch (JAXBException jaxbe) {
-            throw new StorageOperationException("Error parsing file data format");
+            throw new StorageOperationException("Error parsing file model format");
         } catch (IllegalValueException ive) {
             throw new StorageOperationException("File contains illegal data values; data type constraints not met");
         }
     }
 
+    @Override
     public String getPath() {
         return path.toString();
-    }
-
-    /**
-     * Signals that the given file path does not fulfill the storage filepath constraints.
-     */
-    public static class InvalidStorageFilePathException extends IllegalValueException {
-        public InvalidStorageFilePathException(String message) {
-            super(message);
-        }
-    }
-
-    /**
-     * Signals that some error has occured while trying to convert and read/write data between the application
-     * and the storage file.
-     */
-    public static class StorageOperationException extends Exception {
-        public StorageOperationException(String message) {
-            super(message);
-        }
     }
 }

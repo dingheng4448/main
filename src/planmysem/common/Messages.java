@@ -5,9 +5,8 @@ import java.util.Map;
 import java.util.Set;
 
 import javafx.util.Pair;
-import planmysem.data.semester.ReadOnlyDay;
-import planmysem.data.slot.ReadOnlySlot;
-import planmysem.data.tag.Tag;
+import planmysem.model.semester.ReadOnlyDay;
+import planmysem.model.slot.ReadOnlySlot;
 
 /**
  * Container for user visible messages.
@@ -16,10 +15,8 @@ public class Messages {
 
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT_ADDITIONAL = "Invalid command format! \n%1$s\n\n%2$s";
-    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
     public static final String MESSAGE_INVALID_MULTIPLE_PARAMS = "Either search by NAME or by TAG only, not both.";
     public static final String MESSAGE_INVALID_SLOT_DISPLAYED_INDEX = "The slot index provided is invalid";
-    public static final String MESSAGE_PERSON_NOT_IN_ADDRESSBOOK = "Person could not be found in address book";
     public static final String MESSAGE_SLOT_NOT_IN_PLANNER = "Slot could not be found in Planner";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_SLOTS_LISTED_OVERVIEW = "%1$d slots listed!";
@@ -38,22 +35,36 @@ public class Messages {
             + "\n\t12-Hour in the form of `hh:mm+AM|PM`. e.g. \"12:30am\""
             + "\n\tOr perhaps type a duration in minutes. e.g. \"60\" to represent 60 minutes";
 
+    public static final String MESSAGE_INVALID_TAG = "Tags cannot be empty !";
+
+    public static final String MESSAGE_ILLEGAL_VALUE = "Illegal value detected!";
 
     /**
-     * Craft selected message.
+     * Craft selected message via tags.
      */
-    public static String craftSelectedMessage(Set<Tag> tags) {
+    public static String craftSelectedMessage(Set<String> tags) {
         StringBuilder sb = new StringBuilder();
         sb.append("Selected Slots containing tags: \n");
 
         int count = 1;
-        for (Tag tag : tags) {
+        for (String tag : tags) {
             sb.append(count);
             sb.append(".\t");
-            sb.append(tag.toString());
+            sb.append(tag);
             sb.append("\n");
             count++;
         }
+
+        return sb.toString();
+    }
+
+    /**
+     * Craft selected message via index.
+     */
+    public static String craftSelectedMessage(int index) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Selected index: ");
+        sb.append(index);
 
         return sb.toString();
     }
@@ -89,7 +100,7 @@ public class Messages {
             sb.append("\n");
             sb.append(count + ".\t");
             sb.append("Name: ");
-            sb.append(entry.getValue().getValue().getName().toString());
+            sb.append(entry.getValue().getValue().getName());
             sb.append(",\n\t");
             sb.append("Date: ");
             sb.append(entry.getKey().toString());

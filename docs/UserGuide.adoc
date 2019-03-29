@@ -20,45 +20,45 @@ endif::[]
 By: `Team T08-3`      Since: `Jan 2019`      Licence: `MIT`
 
 == Introduction
-Welcome to _PlanMySem_!
+Welcome to *PlanMySem*!
 
-_PlanMySem_ is a text-based (Command Line Interface) scheduling/calendar application that targets NUS students and staff who prefer to use a desktop application for managing their schedule/calendar.
-_PlanMySem_ automatically creates a planner that is synchronised according to the NUS academic calendar for the current semester and enables easy creation, editing and deleting of items.
+*PlanMySem* is a text-based (Command Line Interface) scheduling/calendar application that targets NUS students and staff who prefer to use a desktop application for managing their schedule/calendar.
+*PlanMySem* automatically creates a planner that is synchronised according to the NUS academic calendar for the current semester and enables easy creation, editing and deleting of items.
 Special weeks such as recess week and reading week are taken into account within our unique recursion system.
 Items can then be efficiently managed via the intuitive tagging system.
 
-_PlanMySem_ is optimized for those who prefer to work with a Command Line Interface (CLI) and/or are learning to work more efficiently with CLI tools. Additionally, unlike traditional calendar/scheduling applications, _PlanMySem_ utilizes minimal resources on the user’s machine while still allowing the user to view their schedules swiftly and efficiently.
+*PlanMySem* is optimized for those who prefer to work with a Command Line Interface (CLI) and/or are learning to work more efficiently with CLI tools. Additionally, unlike traditional calendar/scheduling applications, *PlanMySem* utilizes minimal resources on the user’s machine while still allowing the user to view their schedules swiftly and efficiently.
 {zwsp}
 
 {zwsp}
 
 == About this User Guide
-This user guide provides a quick start guide for you to easily setup and install _PlanMySem_, documentation of all the various features _PlanMySem_ offers, frequently asked questions and a summary of the available commands. To navigate between the different sections, you could use the table of contents above.
+This user guide provides a quick start guide for you to easily setup and install *PlanMySem*, documentation of all the various features *PlanMySem* offers, frequently asked questions and a summary of the available commands. To navigate between the different sections, you could use the table of contents above.
 
 For ease of communication, this document will refer to lessons/activities/events/appointments that you might add into the planner as _slots_.
 
 Additionally, throughout this user guide, there will be various icons used as described below.
 
 [TIP]
-This is a tip. Follow these suggested tips to make your life much simpler when using _PlanMySem_!
+This is a tip. Follow these suggested tips to make your life much simpler when using *PlanMySem*!
 
 [NOTE]
-This is a note. These are things for you to take note of when using _PlanMySem_.
+This is a note. These are things for you to take note of when using *PlanMySem*.
 
 [IMPORTANT]
-This is a sign-post dictating important information. These are information that you will surely need to know to use _PlanMySem_ properly.
+This is a sign-post dictating important information. These are information that you will surely need to know to use *PlanMySem* efficiently.
 
 [CAUTION]
 This is a sign-post informing caution. Please take note of these items and exercise some care.
 
 [WARNING]
-This is a rule. Ensure that you follow these rule to make your life using _PlanMySem_ a pleasant one.
+This is a rule. Ensure that you follow these rules to ensure proper usage of *PlanMySem*.
 {zwsp}
 
 {zwsp}
 
 == Quick Start
-This section guides you through the installation of _PlanMySem_ and provides a few example commands you may try.
+This section guides you through the installation of *PlanMySem* and provides a few example commands you may try.
 
 .  Ensure you have Java version `9` or later installed in your Computer.
 .  Download the latest `planmysem.jar` link:{repoURL}/releases[here].
@@ -86,11 +86,11 @@ Add a _slot_, named "CS2113T" on the coming monday, from 0800hrs to 0900hrs with
 
 [[Features]]
 == Features
-This section displays the available features of _PlanMySem_ together with examples for you to refer to.
+This section displays the available features of *PlanMySem* together with examples for you to refer to.
 
 *Tagging System*
 
-Unlike other commercial calendar/scheduling/planner software, _PlanMySem_ makes use of a tagging system to manage _slots_.
+Unlike other commercial calendar/scheduling/planner software, *PlanMySem* makes use of a tagging system to manage _slots_.
 
 Using tags to tag _slots_ will make tasks easier for you in the future. Performing tasks such as viewing, deleting and editing _slots_ will be more efficient.
 
@@ -119,7 +119,7 @@ You can save time by utilizing the alternate and shortcut commands. E.g. instead
 
 *Identifiers and Parameters*
 
-Identifiers in _PlanMySem_ are designed to be, short and easy to memorise.
+Identifiers in *PlanMySem* are designed to be, short and easy to memorise.
 Once you are familiarised with them, they should be intuitive to use to add your parameters.
 The table of Identifiers and Parameters and their descriptions (Table 1) below is useful for your reference as you jump right into grasping the system.
 
@@ -170,7 +170,7 @@ Identifiers may be appended with a `n` to dictate "new". +
 E.g. `nt/NEW_TAG` signifies new tags in which you want to replace existing tags with.
 
 [CAUTION]
-While table 1 shows you all the identifiers and parameters that _PlanMySem_ uses, there are some commands that do not make use of identifiers nor parameters.
+While table 1 shows you all the identifiers and parameters that *PlanMySem* uses, there are some commands that do not make use of identifiers nor parameters.
 The view command is one such exception that make use of keywords that must be typed in a specific order.
 
 //
@@ -478,13 +478,13 @@ There is no need to save manually.
 {zwsp}
 
 == FAQ
-*Q*: How do I transfer my data to another Computer? +
-*A*: In order to transfer your data to another Computer, you should:
+*Q*: How do I transfer my data to another computer? +
+*A*: In order to transfer your data to another computer, you should:
 
 1. Install the app on the other computer +
-2. Copy _PlanMySem.txt_ from your old _PlanMySem_ folder and paste it into the new _PlanMySem_ folder. +
+2. Transfer _PlanMySem.txt_ from your old *PlanMySem* folder and place it into the new *PlanMySem* folder. +
 
-This will overwrite the empty data file it creates with the file that contains the data of your previous _PlanMySem_ folder.
+This will overwrite the empty data file it creates with the file that contains the data of your previous *PlanMySem* folder.
 {zwsp}
 
 {zwsp}
@@ -510,13 +510,13 @@ This will overwrite the empty data file it creates with the file that contains t
 //* *View planner* : `view day [DATE] | view week [WEEK] | view month [MONTH]` +
 //E.g.`view month`
 //* *View all details* : `view all`
-//* *Clear all data* : `clear`
+//* *Clear all model* : `clear`
 //* *Exit the program* : `exit`
 //* *Export .ics  file* : `export`
 //* *Import .ics  file* : `import FILENAME`
 
 === General Commands
-General commands that you might find useful in helping you to navigate and configure _PlanMySem_:
+General commands that you might find useful in helping you to navigate and configure *PlanMySem*:
 [width="100%",cols="20%,<30%,<20%,<30",options="header"]
 |=======================================================================
 |Task |Purpose |Command |Example
@@ -531,7 +531,7 @@ General commands that you might find useful in helping you to navigate and confi
 
 |_<<clear, Clear>>_ |Clear your planner | `clear` | `clear`
 
-|_<<exit, Exit>>_ |Exit the _PlanMySem_ | `exit` | `exit`
+|_<<exit, Exit>>_ |Exit the *PlanMySem* | `exit` | `exit`
 |=======================================================================
 {zwsp}
 

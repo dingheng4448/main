@@ -6,12 +6,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import planmysem.Main;
-import planmysem.logic.Logic;
+import planmysem.logic.LogicManager;
 
 /**
  * The GUI of the App
  */
-public class Gui {
+public class Gui implements Ui {
 
     /**
      * Offset required to convert between 1-indexing and 0-indexing.
@@ -20,22 +20,20 @@ public class Gui {
 
     public static final int INITIAL_WINDOW_WIDTH = 800;
     public static final int INITIAL_WINDOW_HEIGHT = 600;
-    private final Logic logic;
+    private final LogicManager logicManager;
 
     private MainWindow mainWindow;
     private String version;
 
-    public Gui(Logic logic, String version) {
-        this.logic = logic;
+    public Gui(LogicManager logicManager, String version) {
+        this.logicManager = logicManager;
         this.version = version;
     }
 
-    /**
-     * TODO: Add Javadoc comment.
-     */
+    @Override
     public void start(Stage stage, Stoppable mainApp) throws IOException {
         mainWindow = createMainWindowP(stage, mainApp);
-        mainWindow.displayWelcomeMessage(version, logic.getStorageFilePath());
+        mainWindow.displayWelcomeMessage(version, logicManager.getStorageFilePath());
     }
 
     /**
@@ -49,7 +47,7 @@ public class Gui {
         stage.setScene(new Scene(loader.load(), INITIAL_WINDOW_WIDTH, INITIAL_WINDOW_HEIGHT));
         stage.show();
         mainWindow = loader.getController();
-        mainWindow.setLogic(logic);
+        mainWindow.setLogicManager(logicManager);
         mainWindow.setMainApp(mainApp);
         return mainWindow;
     }

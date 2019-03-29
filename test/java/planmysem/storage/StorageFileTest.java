@@ -8,10 +8,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
-import planmysem.data.exception.IllegalValueException;
+import planmysem.common.exceptions.IllegalValueException;
 
 public class StorageFileTest {
-    private static final String TEST_DATA_FOLDER = "test/data/StorageFileTest";
+    private static final String TEST_DATA_FOLDER = "test/model/StorageFileTest";
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -33,7 +33,7 @@ public class StorageFileTest {
 
     @Test
     public void load_invalidFormat_exceptionThrown() throws Exception {
-        // The file contains valid xml data, but does not match the Planner class
+        // The file contains valid xml model, but does not match the Planner class
         StorageFile storage = getStorage("InvalidData.txt");
         thrown.expect(StorageFile.StorageOperationException.class);
         storage.load();
@@ -44,7 +44,7 @@ public class StorageFileTest {
     //        AddressBook actualAB = getStorage("ValidData.txt").load();
     //        AddressBook expectedAB = getTestAddressBook();
     //
-    //        // ensure loaded AddressBook is properly constructed with test data
+    //        // ensure loaded AddressBook is properly constructed with test model
     //        // TODO: overwrite equals method in AddressBook class and replace with equals method below
     //        assertEquals(actualAB.getAllPersons(), expectedAB.getAllPersons());
     //    }

@@ -5,13 +5,13 @@ import java.util.ArrayList;
 
 import javax.xml.bind.annotation.XmlElement;
 
-import planmysem.data.exception.IllegalValueException;
-import planmysem.data.semester.Day;
-import planmysem.data.semester.ReadOnlyDay;
-import planmysem.data.slot.Slot;
+import planmysem.common.exceptions.IllegalValueException;
+import planmysem.model.semester.Day;
+import planmysem.model.semester.ReadOnlyDay;
+import planmysem.model.slot.Slot;
 
 /**
- * JAXB-friendly adapted Day data holder class.
+ * JAXB-friendly adapted Day model holder class.
  */
 public class AdaptedDay {
     @XmlElement(required = true)
@@ -46,7 +46,7 @@ public class AdaptedDay {
      * Returns true if any required field is missing.
      * <p>
      * JAXB does not enforce (required = true) without a given XML schema.
-     * Since we do most of our validation using the data class constructors, the only extra logic we need
+     * Since we do most of our validation using the model class constructors, the only extra logic we need
      * is to ensure that every xml element in the document is present. JAXB sets missing elements as null,
      * so we check for that.
      */
@@ -64,7 +64,7 @@ public class AdaptedDay {
     /**
      * Converts this jaxb-friendly adapted Day object into the Day object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted Day
+     * @throws IllegalValueException if there were any model constraints violated in the IcsSemester
      */
     public Day toModelType() throws IllegalValueException {
         final ArrayList<Slot> slots = new ArrayList<>();

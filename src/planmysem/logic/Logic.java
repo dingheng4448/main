@@ -2,106 +2,38 @@ package planmysem.logic;
 
 import java.time.LocalDate;
 import java.util.Map;
-import java.util.Optional;
 
-import javax.xml.bind.JAXBException;
-
+import javafx.collections.ObservableList;
 import javafx.util.Pair;
-import planmysem.commands.Command;
-import planmysem.commands.CommandResult;
-import planmysem.data.Planner;
-import planmysem.data.semester.ReadOnlyDay;
-import planmysem.data.slot.ReadOnlySlot;
-import planmysem.parser.Parser;
-import planmysem.storage.StorageFile;
+import planmysem.logic.commands.CommandResult;
+import planmysem.logic.commands.exceptions.CommandException;
+import planmysem.logic.parser.exceptions.ParseException;
+import planmysem.model.semester.ReadOnlyDay;
+import planmysem.model.slot.ReadOnlySlot;
 
 /**
- * Represents the main Logic of the Planner.
+ * API of the Logic component
  */
-public class Logic {
-    private StorageFile storage;
-    private Planner planner;
+public interface Logic {
 
     /**
-     * The list of Slots shown to the user most recently.
+     * Execute command.
      */
-    private Map<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> lastShownSlots;
-
-    public Logic() throws Exception {
-        setStorage(initializeStorage());
-        setPlanner(storage.load());
-    }
-
-    public Logic(StorageFile storageFile, Planner planner) {
-        setStorage(storageFile);
-        setPlanner(planner);
-    }
-
-    public void setStorage(StorageFile storage) {
-        this.storage = storage;
-    }
-
-    public void setPlanner(Planner planner) {
-        this.planner = planner;
-    }
+    CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Creates the StorageFile object based on the user specified path (if any) or the default storage path.
-     *
-     * @throws StorageFile.InvalidStorageFilePathException if the target file path is incorrect.
+     * Gets the storage file's path.
      */
-    private StorageFile initializeStorage() throws JAXBException, StorageFile.InvalidStorageFilePathException {
-        return new StorageFile();
-    }
-
-    public String getStorageFilePath() {
-        return storage.getPath();
-    }
+    String getStorageFilePath();
 
     /**
-     * Unmodifiable view of the current last shown list.
+     * Gets unmodifiable view of the current last shown list.
      */
-    public Map<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> getLastShownSlots() {
-        return lastShownSlots;
-    }
-
-    protected void setLastShownSlots(Map<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> slots) {
-        lastShownSlots = slots;
-    }
+    Map<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> getLastShownSlots();
 
     /**
-     * Parses the user command, executes it, and returns the result.
-     *
-     * @throws Exception if there was any problem during command execution.
+     * Returns an unmodifiable view of the list of commands entered by the user.
+     * The list is ordered from the least recent command to the most recent command.
      */
-    public CommandResult execute(String userCommandText) throws Exception {
-        Command command = new Parser().parseCommand(userCommandText);
-        CommandResult result = execute(command);
-        recordResult(result);
-        return result;
-    }
-
-    /**
-     * Executes the command, updates storage, and returns the result.
-     *
-     * @param command user command
-     * @return result of the command
-     * @throws Exception if there was any problem during command execution.
-     */
-    private CommandResult execute(Command command) throws Exception {
-        command.setData(planner, lastShownSlots);
-        CommandResult result = command.execute();
-        storage.save(planner);
-        return result;
-    }
-
-    /**
-     * Updates the {@link #lastShownSlots} if the result contains a list of Days.
-     */
-    private void recordResult(CommandResult result) {
-        final Optional<Map<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>>> slots = result.getRelevantSlots();
-        if (slots.isPresent()) {
-            lastShownSlots = slots.get();
-        }
-    }
+    ObservableList<String> getHistory();
 }

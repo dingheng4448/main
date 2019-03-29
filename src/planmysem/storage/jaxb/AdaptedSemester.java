@@ -8,13 +8,13 @@ import java.util.Set;
 
 import javax.xml.bind.annotation.XmlElement;
 
-import planmysem.data.exception.IllegalValueException;
-import planmysem.data.semester.Day;
-import planmysem.data.semester.ReadOnlySemester;
-import planmysem.data.semester.Semester;
+import planmysem.common.exceptions.IllegalValueException;
+import planmysem.model.semester.Day;
+import planmysem.model.semester.ReadOnlySemester;
+import planmysem.model.semester.Semester;
 
 /**
- * JAXB-friendly adapted person data holder class.
+ * JAXB-friendly adapted person model holder class.
  */
 public class AdaptedSemester {
     @XmlElement(required = true)
@@ -81,7 +81,7 @@ public class AdaptedSemester {
      * Returns true if any required field is missing.
      * <p>
      * JAXB does not enforce (required = true) without a given XML schema.
-     * Since we do most of our validation using the data class constructors, the only extra logic we need
+     * Since we do most of our validation using the model class constructors, the only extra logic we need
      * is to ensure that every xml element in the document is present. JAXB sets missing elements as null,
      * so we check for that.
      */
@@ -101,7 +101,7 @@ public class AdaptedSemester {
     /**
      * Converts this jaxb-friendly adapted person object into the Person object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person
+     * @throws IllegalValueException if there were any model constraints violated in the IcsSemester
      */
     public Semester toModelType() throws IllegalValueException {
         final String name = this.name;
