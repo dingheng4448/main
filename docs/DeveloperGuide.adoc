@@ -516,7 +516,7 @@ FindCommand will be enhanced by using Levenshtein Distance to generate an ordere
 ** Cons: Large amount of additional operations.
 
 ==== Future Implementation
-
+// to be edited
 The month/week/day view mechanism is facilitated by `PlannerView`.
 It extends `Planner` with different calendar views, stored internally as `monthView`, `weekView` and `dayView`.
 Additionally, it implements the following operations:
