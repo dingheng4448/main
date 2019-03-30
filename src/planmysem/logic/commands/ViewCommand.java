@@ -4,9 +4,13 @@ import static planmysem.common.Utils.getNearestDayOfWeek;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import planmysem.common.Clock;
 import planmysem.common.Utils;
@@ -64,20 +68,17 @@ public class ViewCommand extends Command {
             output = "all";
         } else if ("month".equals(viewArgs)) {
             output = displayMonthView(currentSemester);
+        } else if ("week".equals(viewArgs)) {
+            output = displayWeekView(currentSemester, null);
         } else if ("day".equals(viewArgs)) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-            String currentDate = LocalDate.now().format(formatter);
-            output = displayDayView(currentSemester, currentDate);
+            output = displayDayView(currentSemester, null);
         } else {
             viewType = viewArgs.split(" ")[0];
             viewSpecifier = viewArgs.split(" ")[1];
 
             switch (viewType) {
-            case "month":
-                //TODO: month view
-                break;
             case "week":
-                //TODO: week view
+                output = displayWeekView(currentSemester, viewSpecifier);
                 break;
             case "day":
                 output = displayDayView(currentSemester, viewSpecifier);
@@ -157,6 +158,68 @@ public class ViewCommand extends Command {
     }
 
     /**
+     * Display all slots for a given week.
+     */
+    private String displayWeekView(Semester currentSemester, String week) {
+        HashMap<LocalDate, Day> allDays = currentSemester.getDays();
+        StringBuilder sb = new StringBuilder();
+
+        if (week == null) {
+            System.out.println(allDays.get(LocalDate.now()).getType());
+
+        } else {
+            HashMap<Integer, String> acadCal = currentSemester.getAcadCal();
+            //System.out.println(currentSemester.getAcadCal());
+            String key;
+            int[] weekOfYear = {0, 0};
+            List<LocalDate> datesList;
+
+            if ("Recess".equals(week) || "Reading".equals(week) || "Examination".equals(week)
+                    || "Orientation".equals(week)) {
+                key = week + " Week" + "_" + currentSemester.getName();
+                sb.append(week + "Week" + " of " + currentSemester.getName() + "\n");
+            } else {
+                key = "Week " + week + "_" + currentSemester.getName();
+                sb.append("Week " + week + " of " + currentSemester.getName() + "\n");
+            }
+            //System.out.println(key);
+
+            for (Map.Entry<Integer, String> entry: acadCal.entrySet()) {
+                if (key.equals(entry.getValue())) {
+                    if (weekOfYear[0] == 0) {
+                        weekOfYear[0] = entry.getKey();
+                    } else {
+                        weekOfYear[1] = entry.getKey();
+                    }
+                }
+            }
+            //System.out.println(weekOfYear[0] + ", " + weekOfYear[1]);
+
+            LocalDate weekStart = LocalDate.now().with(WeekFields.ISO.weekOfWeekBasedYear(), weekOfYear[0]);
+            weekStart = weekStart.with(WeekFields.ISO.dayOfWeek(), 1);
+            LocalDate weekEnd = weekStart.with(WeekFields.ISO.weekOfWeekBasedYear(), weekOfYear[0] + 1);
+            datesList = weekStart.datesUntil(weekEnd).collect(Collectors.toList());
+            //System.out.println(datesList);
+
+            sb.append("__________________________________________________________________________\n\n");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            for (LocalDate date : datesList) {
+                sb.append(displayDayView(currentSemester, date.format(formatter)));
+                sb.append("__________________________________________________________________________\n\n");
+            }
+
+            // get acad cal map
+            // swap key and value
+            // find week of year from acad week
+            // get all dates for week of year
+            // get all slots for all dates found
+            // format and print out all slots
+        }
+
+        return sb.toString();
+    }
+
+    /**
      * Display all slots for a given day/date.
      */
     private String displayDayView(Semester currentSemester, String dateOrDay) {
@@ -164,16 +227,21 @@ public class ViewCommand extends Command {
         StringBuilder sb = new StringBuilder();
 
         // Parse different formats of given day/date.
-        int day = -1;
-        LocalDate givenDate = Utils.parseDate(dateOrDay);
-        if (givenDate == null) {
-            day = Utils.parseDay(dateOrDay);
-        }
-        if (day == -1 && givenDate == null) {
-            return MESSAGE_USAGE;
-        }
-        if (day != -1) {
-            givenDate = getNearestDayOfWeek(LocalDate.now(Clock.get()), day);
+        LocalDate givenDate;
+        if (dateOrDay == null) {
+            givenDate = LocalDate.now();
+        } else {
+            int day = -1;
+            givenDate = Utils.parseDate(dateOrDay);
+            if (givenDate == null) {
+                day = Utils.parseDay(dateOrDay);
+            }
+            if (day == -1 && givenDate == null) {
+                return MESSAGE_USAGE;
+            }
+            if (day != -1) {
+                givenDate = getNearestDayOfWeek(LocalDate.now(Clock.get()), day);
+            }
         }
         sb.append(givenDate.getDayOfWeek().name() + " , " + givenDate + "\n\n");
 
