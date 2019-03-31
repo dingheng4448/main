@@ -354,12 +354,13 @@ public class ViewCommand extends Command {
      * Center aligns text.
      */
     private String centerAlignText(int width, String text) {
-        int padSize = width - text.length();
-        int padStart = text.length() + padSize / 2;
-        text = String.format("%" + padStart + "s", text);
-        text = String.format("%-" + width + "s", text);
+        String formattedString = text;
+        int padSize = width - formattedString.length();
+        int padStart = formattedString.length() + padSize / 2;
+        formattedString = String.format("%" + padStart + "s", formattedString);
+        formattedString = String.format("%-" + width + "s", formattedString);
 
-        return text;
+        return formattedString;
     }
 
     /**
