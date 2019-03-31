@@ -467,7 +467,10 @@ public class Semester implements ReadOnlySemester {
     @Override
     public void setDays(HashMap<LocalDate, Day> days) {
         this.days.clear();
-        this.days.putAll(days);
+
+        for (Map.Entry<LocalDate, Day> entry : days.entrySet()) {
+            this.days.put(entry.getKey(), new Day(entry.getValue()));
+        }
     }
 
     @Override

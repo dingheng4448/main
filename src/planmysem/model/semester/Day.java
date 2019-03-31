@@ -24,7 +24,7 @@ public class Day implements ReadOnlyDay {
         this.dayOfWeek = day.getDayOfWeek();
         this.type = day.getType();
         for (Slot slot : day.getSlots()) {
-            this.slots.add(slot);
+            this.slots.add(new Slot(slot));
         }
     }
 
@@ -38,7 +38,7 @@ public class Day implements ReadOnlyDay {
         this.type = weekType;
 
         for (Slot slot : slots) {
-            this.slots.add(slot);
+            this.slots.add(new Slot(slot));
         }
     }
 
@@ -46,7 +46,7 @@ public class Day implements ReadOnlyDay {
      * Add a slot to the day.
      */
     public void addSlot(Slot slot) {
-        slots.add(slot);
+        slots.add(new Slot(slot));
     }
 
     /**
