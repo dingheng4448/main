@@ -347,13 +347,12 @@ View the planner in a month/week/day view.
 Format: `view month`
 2. View the weekly calendar view of the current academic week. +
 Format: `view week [WEEK]`
+3. View the day view of a particular day in the academic semester. +
+Format: `view day [DATE_OR_DAY_OF_WEEK]`
 
 [TIP]
 You may add in the parameter `details` after `[WEEK]` to view the details of all _slots_ with respect to `[WEEK]`. +
 E.g. `view week details` will allow you to view details of all _slots_ in the current week!
-
-3. View the day view of a particular day in the academic semester. +
-Format: `view day [DATE_OR_DAY_OF_WEEK]`
 
 [TIP]
 You may omit `[WEEK]`/`[DATE_OR_DAY_OF_WEEK]` to view the calendar with respect to the current date! +
