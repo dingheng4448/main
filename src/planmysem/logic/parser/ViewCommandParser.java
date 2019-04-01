@@ -98,7 +98,6 @@ public class ViewCommandParser implements Parser<ViewCommand> {
                     date = getNearestDayOfWeek(LocalDate.now(Clock.get()), day);
                 }
 
-                viewArgs[1] = date.toString();
                 return new ViewCommand(viewArgs);
             }
 

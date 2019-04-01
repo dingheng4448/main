@@ -1,6 +1,7 @@
 package planmysem.logic.commands;
 
 import static planmysem.common.Messages.MESSAGE_DATE_OUT_OF_BOUNDS;
+import static planmysem.common.Utils.getNearestDayOfWeek;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import planmysem.common.Clock;
 import planmysem.common.Utils;
 import planmysem.logic.CommandHistory;
 import planmysem.model.Model;
@@ -292,14 +294,26 @@ public class ViewCommand extends Command {
         HashMap<LocalDate, Day> allDays = currentSemester.getDays();
         StringBuilder sb = new StringBuilder();
 
+        // Parse different formats of given day/date.
         LocalDate givenDate;
         if (dateOrDay == null) {
             givenDate = LocalDate.now();
         } else {
-            givenDate = LocalDate.parse(dateOrDay);
+            int day = -1;
+            givenDate = Utils.parseDate(dateOrDay);
+            if (givenDate == null) {
+                day = Utils.parseDay(dateOrDay);
+            }
+            if (day == -1 && givenDate == null) {
+                return MESSAGE_USAGE;
+            }
+            if (day != -1) {
+                givenDate = getNearestDayOfWeek(LocalDate.now(Clock.get()), day);
+            }
         }
 
-        if (givenDate.isAfter(currentSemester.getStartDate()) && givenDate.isBefore(currentSemester.getEndDate())) {
+        if (givenDate.isAfter(currentSemester.getStartDate().minusDays(1))
+                && givenDate.isBefore(currentSemester.getEndDate().plusDays(1))) {
             sb.append(givenDate.getDayOfWeek().name() + " , " + givenDate + "\n\n");
         } else {
             return MESSAGE_DATE_OUT_OF_BOUNDS;
