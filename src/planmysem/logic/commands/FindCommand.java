@@ -29,7 +29,7 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
     public static final String COMMAND_WORD_SHORT = "f";
-    private static final String MESSAGE_SUCCESS = "%1$s Slots found.\n%2$s";
+    private static final String MESSAGE_SUCCESS = "%1$s Slots listed.\n%2$s";
     private static final String MESSAGE_SUCCESS_NONE = "0 Slots listed.\n";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Finds all slots whose name "
             + "contains the specified keywords (case-sensitive).\n\t"
@@ -38,8 +38,6 @@ public class FindCommand extends Command {
 
     private final String keyword;
     private final boolean isFindByName;
-
-    private int minDistance = Integer.MAX_VALUE;
 
     private Queue<WeightedName> weightedNames = new PriorityQueue<>(new Comparator<>() {
         @Override
@@ -84,7 +82,7 @@ public class FindCommand extends Command {
             return new CommandResult(MESSAGE_SUCCESS_NONE);
         }
 
-        while (!weightedNames.isEmpty() && weightedNames.peek().getDist() < minDistance + 1) {
+        while (!weightedNames.isEmpty() && weightedNames.peek().getDist() < 10) {
             selectedSlots.add(weightedNames.poll());
         }
 
@@ -106,17 +104,21 @@ public class FindCommand extends Command {
     */
     private void generateDiscoveredNames(String keyword, String compareString,
                                          Map.Entry<LocalDate, Day> entry, Slot slot) {
-        if (compareString == null) {
+        if (compareString.length() + 3 < keyword.length()) {
             return;
         }
 
         int dist = Utils.getLevenshteinDistance(keyword, compareString);
-        if (dist < minDistance) {
-            minDistance = dist;
-        }
-        //System.out.println(compareString + " vs key: " + keyword + " dist: " + dist);
         WeightedName distNameTrie = new WeightedName(entry, slot, dist);
 
         weightedNames.add(distNameTrie);
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public boolean getIsFindByName() {
+        return isFindByName;
     }
 }
