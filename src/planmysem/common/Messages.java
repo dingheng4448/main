@@ -137,6 +137,26 @@ public class Messages {
     }
 
     /**
+     * Craft selected message via weighted Set of Pairs.
+     */
+    public static String craftSelectedMessagePair(Set<WeightedName> pairs) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the closest matching names/tags: \n");
+
+        int count = 1;
+        for (WeightedName p : pairs) {
+            sb.append(count);
+            sb.append(".\t");
+            sb.append(p.getName());
+            sb.append("\n");
+            count++;
+        }
+        sb.append("\nEnter 'list n/{name} OR t/{tag}' to list all slots related to the name/tag\n");
+
+        return sb.toString();
+    }
+
+    /**
      * Craft selected message.
      */
     private static String getSelectedMessage(Map<LocalDate,

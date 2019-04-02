@@ -308,13 +308,16 @@ Delete the second _slot_ shown via the `list` command.
 
 [[list]]
 === Listing Slots: `list` / `l`
-Lists all _slots_ whose name directly matches the specified keyword (not case-sensitive). +
+Lists all _slots_ whose name/tag directly matches the specified keyword (not case-sensitive). +
 Format: `list n/NAME`
 
 Examples:
 
 * `list n/CS2113T` +
 List all _slots_ that is named `CS2113T` in the planner.
+
+* `list t/Tutorial` +
+List all _slots_ that contains tags named `Tutorial` in the planner.
 
 [#img-list]
 .[.underline]#Output after entering `list n/CS2113T`#
@@ -325,13 +328,20 @@ image::List_Command_Output_1.png[width="790"]
 
 [[find]]
 === Locating Slots: `find` / `f`
-Find all _slots_ whose part of their name contains the specified keyword and displays them as a list. +
+Find all _slots_ whose name closely matches the specified keyword and displays them as a list. +
 Format: `find n/KEYWORD`
+
+[NOTE]
+The `find` command will attempt to return the closest matching `Slot` in the event that a match is not found.
+Do not be surprised to _eg. enter `find n/ABC` and get a `Slot` named `XYZ`_ in return.
 
 Example:
 
 * `find n/CS` +
-Find all _slots_ whose name contains `CS` (eg. CS2101, CS2113T, SOCSMeet)
+Find all _slots_ whose name closely matches `CS` (eg. CS2101, CS2113T, SOCSMeet)
+
+* `find t/Tut` +
+Find all _slots_ that contains tags whose names closely matches `Tut` (eg. Tutorial, Tutorship)
 
 [#img-find]
 .[.underline]#Output after entering `find n/CS`#
@@ -418,7 +428,7 @@ Planner data is automatically encrypted before saving and decrypted before loadi
 {zwsp}
 
 [[import]]
-=== Importing .ics formatted files
+=== Importing .ics formatted files `import`
 You can import an .ics file into the planner.
 Format: `import filename`
 [NOTE]
@@ -589,7 +599,7 @@ Commands to view _slots_:
 {zwsp}
 
 === Import/Exporting the Planner
-Commands to view _slots_:
+Commands:
 [width="100%",cols="20%,<30%,<20%,<30",options="header"]
 |=======================================================================
 |Task |Purpose |Command |Example
@@ -597,7 +607,7 @@ Commands to view _slots_:
 |_<<export, Export your planner>>_ |Export all your slots into a .ics file|
 `export` | `export`
 |_<<import, Import into your planner>>_ |Import into your planner from a .ics file |
-`import` | `import`
+`import` | `import PlanMySem.ics`
 |=======================================================================
 {zwsp}
 
