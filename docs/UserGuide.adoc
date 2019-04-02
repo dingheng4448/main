@@ -368,6 +368,11 @@ E.g. `view week details` will allow you to view details of all _slots_ in the cu
 [TIP]
 You may omit `[WEEK]`/`[DATE_OR_DAY_OF_WEEK]` to view the calendar with respect to the current date! +
 E.g. `view week` will allow you to view the current week and `view day` will allow you to view the current day!
+The expected output after successfully running `view week` is shown in the figure below.
+
+[#img-view]
+.[.underline]#Output after entering `view week`#
+image::Ui.png[width="790"]
 
 Examples:
 
@@ -385,10 +390,6 @@ View planner for week 7 of the academic calendar.
 View planner for recess week of the academic calendar.
 * `view month` +
 View planner for the months of the current academic semester.
-
-[#img-view]
-.[.underline]#Output after entering `view month`#
-image::Ui.png[width="790"]
 {zwsp}
 
 {zwsp}

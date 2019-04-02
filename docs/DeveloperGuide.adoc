@@ -396,54 +396,15 @@ Semester 1 of the academic year starts with an orientation week and will always 
 
 Each week of the year will correspond to an academic week and this information will be stored in a `HashMap`. This
 `HashMap` can be used to determine the academic week given a date (by finding out the week of the year for that date).
-Table 1 shows an example of the relation between academic week and the week of the year for academic year 2018/2019.
+The figures below shows an example of the relation between academic week and the week of the year for academic year 2018/2019.
 
-.Weeks in academic year 2018/2019.
-[width="100%",cols="5%,5%,<10%",options="header"]
-|=======================================================================
-|Academic Week |Example (Week of the year) |Example (Period)
-|Orientation Week |32 |6 Aug 2018 (First Monday of Aug 2018) - 12 Aug 2018
-|Week 1 |33 |13 Aug 2018 - 19 Aug 2018
-|Week 2 |34 |20 Aug 2018 - 26 Aug 2018
-|Week 3 |35 |27 Aug 2018 - 2 Sep 2018
-|Week 4 |36 |3 Sep 2018 - 9 Sep 2018
-|Week 5 |37 |10 Sep 2018 - 16 Sep 2018
-|Week 6 |38 |17 Sep 2018 - 23 Sep 2018
-|Recess Week|39 |24 Sep 2018 - 30 Sep 2018
-|Week 7 |40 |1 Oct 2018 - 7 Oct 2018
-|Week 8 |41 |8 Oct 2018 - 14 Oct 2018
-|Week 9 |42 |15 Oct 2018 - 21 Oct 2018
-|Week 10 |43 |22 Oct 2018 - 28 Oct 2018
-|Week 11 |44 |29 Oct 2018 - 4 Nov 2018
-|Week 12 |45 |5 Nov 2018 - 11 Nov 2018
-|Week 13 |46 |12 Nov 2018 - 18 Nov 2018
-|Reading Week |47 |19 Nov 2018 - 25 Nov 2018
-|Examination Week |48 |26 Nov 2018 - 2 Dec 2018
-|Examination Week |49 |3 Dec 2018 - 9 Dec 2018
-|Vacation |50 |10 Dec 2018 - 16 Dec 2018
-|Vacation |51 |17 Dec 2018 - 23 Dec 2018
-|Vacation |52 |24 Dec 2018 - 30 Dec 2018
-|Vacation |1 |31 Dec 2018 - 6 Jan 2019
-|Vacation |2 |7 Jan 2019 - 13 Jan 2019
-|Week 1 |3 |14 Jan 2019 - 20 Jan 2019
-|Week 2 |4 |21 Jan 2019 - 27 Jan 2019
-|Week 3 |5 |28 Jan 2019 - 3 Feb 2019
-|Week 4 |6 |4 Feb 2019 - 10 Feb 2019
-|Week 5 |7 |11 Feb 2019 - 17 Feb 2019
-|Week 6 |8 |18 Feb 2019 - 24 Feb 2019
-|Recess Week|9 |25 Feb 2019 - 3 Mar 2019
-|Week 7 |10 |4 Mar 2019 - 10 Mar 2019
-|Week 8 |11 |11 Mar 2019 - 17 Mar 2019
-|Week 9 |12 |18 Mar 2019 - 24 Mar 2019
-|Week 10 |13 |25 Mar 2019 - 31 Mar 2019
-|Week 11 |14 |1 Apr 2019 - 7 Apr 2019
-|Week 12 |15 |8 Apr 2019 - 14 Apr 2019
-|Week 13 |16 |15 Apr 2019 - 21 Apr 2019
-|Reading Week |17 |22 Apr 2019 - 28 Apr 2019
-|Examination Week |18 |29 Apr 2019 - 5 May 2019
-|Examination Week |19 |6 May 2019 - 12 May 2019
-|Vacation |20 - 31 |12 weeks duration
-|=======================================================================
+[#img-view]
+.[.underline]#Weeks in academic year 2018/2019, Semester 1.#
+image::Sem1.png[width="790"]
+
+[#img-view]
+.[.underline]#Weeks in academic year 2018/2019, Semester 2.#
+image::Sem2.png[width="790"]
 
 Hence, the information listed below can be determined from the current date.
 
