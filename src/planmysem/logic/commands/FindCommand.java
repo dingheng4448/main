@@ -95,7 +95,7 @@ public class FindCommand extends Command {
         model.setLastShownList(lastShownList);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, selectedSlots.size(),
-                Messages.craftListMessage(selectedSlots)));
+                Messages.craftListMessageWeighted(selectedSlots)));
     }
 
     /**

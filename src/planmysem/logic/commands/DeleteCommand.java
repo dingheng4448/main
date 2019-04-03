@@ -58,7 +58,7 @@ public class DeleteCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory commandHistory) throws CommandException {
-        Map<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> selectedSlots = new TreeMap<>();
+        final Map<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> selectedSlots = new TreeMap<>();
         String messageSelected;
         String messageSlots;
 

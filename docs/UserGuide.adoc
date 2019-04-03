@@ -7,13 +7,13 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
-:experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 :important-caption: :heavy_exclamation_mark:
 :caution-caption: :fire:
 :warning-caption: :warning:
+:experimental:
 endif::[]
 :repoURL: https://github.com/CS2113-AY1819S2-T08-3/main
 
@@ -173,43 +173,6 @@ E.g. `nt/NEW_TAG` signifies new tags in which you want to replace existing tags 
 [CAUTION]
 While table 1 shows you all the identifiers and parameters that *PlanMySem* uses, there are some commands that do not make use of identifiers nor parameters.
 The view command is one such exception that make use of keywords that must be typed in a specific order.
-
-//
-//[horizontal]
-//====
-//*Parameter*:: *Description*
-//`n/`:: *Name of a _slot_.*
-//`d/`:: *Date / Day of week.* +
-//    Format: +
-//    * Dates: `01-01`, `2019-01-02`
-//    * Day of Week: `Monday`, `mon`, `1`
-//`st/`:: *Start Time.* +
-//    Format: +
-//    * 24-Hour in the form of “hh:mm”. E.g. `23:00`
-//    * 12-Hour in the form of `hh:mm+AM|PM`. E.g. `12:30 AM`
-//`et/`:: *End Time / duration.* +
-//    Format: +
-//    * 24-Hour in the form of “hh:mm”. E.g. `23:00`
-//    * 12-Hour in the form of `hh:mm+AM|PM`. E.g. `12:30 AM`
-//    * Duration of the event in minutes. E.g. `60` represents 60 minutes
-//`r/`:: *Specify recurrence of a _slot_.* +
-//    Format: +
-//    * Select normal weeks: `normal`
-//    * Select recess week: `recess`
-//    * Select reading week: `reading`
-//    * Select examination weeks: `exam`
-//    * Select past dates: `past`
-//`l/`:: *Location.*
-//`des/`:: *Description.*
-//`t/`:: *Tag.*
-//`nn/`:: *New name of a _slot_.*
-//`nd/`:: *New Date.*
-//`nst/`:: *New Start Time.*
-//`net/`:: *New End Time.*
-//`nl/`:: *New Location.*
-//`ndes/`:: *New Description.*
-//====
-//Table 1. Parameters and their descriptions
 {zwsp}
 
 {zwsp}
@@ -234,15 +197,15 @@ Format: `add n/NAME d/DATE_OR_DAY_OF_WEEK st/START_TIME et/END_TIME_OR_DURATION 
 
 Examples:
 
-* `add n/CS2113T Tutorial d/mon st/08:00 et/09:00 des/Topic: Sequence Diagram t/CS2113T t/Tutorial` +
-Add a _slot_, named "CS2113T Tutorial" on the coming monday, from 0800hrs to 0900hrs with the tags "CS2113T" and "Tutorial".
+* `add n/CS2113T Tutorial d/mon st/8:00 am et/9:00 am des/Topic: Sequence Diagram t/CS2113T t/Tutorial` +
+Add a single _slot_, named "CS2113T Tutorial" on the coming monday, from 0800hrs to 0900hrs with the tags "CS2113T" and "Tutorial".
 
 [#img-add]
 .[.underline]#Output after entering `add n/CS2113T Tutorial d/mon st/08:00 et/09:00 des/Topic: Sequence Diagram t/CS2113T t/Tutorial`#
 image::Add_Command_Output_1.png[width="790"]
 
 * `add n/CS2113T Tutorial d/mon st/08:00 et/09:00 des/Topic: Sequence Diagram t/CS2113T t/Tutorial r/recess r/reading` +
-Do the same but additionally, recurse the _slot_ on recess and reading week.
+Do the same but additionally, recurse the _slot_ on both recess and reading week.
 
 * `add n/CS2113T Tutorial d/mon st/08:00 et/09:00 des/Topic: Sequence Diagram t/CS2113T t/Tutorial r/normal` +
 Do the same but recurse the _slot_ on "normal", instructional, weeks.

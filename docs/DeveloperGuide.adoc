@@ -19,7 +19,6 @@ endif::[]
 
 By: `T08-3`      Since: `Jan 2019`      Licence: `MIT`
 
-
 == Introduction
 Welcome to *PlanMySem*!
 
