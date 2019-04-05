@@ -198,7 +198,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public Map<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> getSlots(Set<String> tags) {
+        public List<Pair<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>>> getSlots(Set<String> tags) {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -3,10 +3,10 @@ package planmysem.logic.commands;
 import static planmysem.common.Messages.MESSAGE_INVALID_SLOT_DISPLAYED_INDEX;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Map;
+import java.util.List;
 import java.util.Set;
-import java.util.TreeMap;
 
 import javafx.util.Pair;
 import planmysem.common.Messages;
@@ -58,12 +58,12 @@ public class DeleteCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory commandHistory) throws CommandException {
-        final Map<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> selectedSlots = new TreeMap<>();
+        final List<Pair<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>>> selectedSlots = new ArrayList<>();
         String messageSelected;
         String messageSlots;
 
         if (targetIndex == -1) {
-            selectedSlots.putAll(model.getSlots(tags));
+            selectedSlots.addAll(model.getSlots(tags));
 
             if (selectedSlots.size() == 0) {
                 throw new CommandException(String.format(MESSAGE_SUCCESS_NO_CHANGE,
@@ -71,7 +71,7 @@ public class DeleteCommand extends Command {
             }
 
             // perform deletion of slots from the planner
-            for (Map.Entry<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> entry : selectedSlots.entrySet()) {
+            for (Pair<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> entry : selectedSlots) {
                 model.removeSlot(entry.getKey(), entry.getValue().getValue());
             }
             messageSelected = Messages.craftSelectedMessage(tags);
@@ -85,7 +85,7 @@ public class DeleteCommand extends Command {
                     throw new CommandException(MESSAGE_SLOT_NOT_IN_PLANNER);
                 }
 
-                selectedSlots.put(target.getKey(), target.getValue());
+                selectedSlots.add(target);
 
                 model.removeSlot(target);
 

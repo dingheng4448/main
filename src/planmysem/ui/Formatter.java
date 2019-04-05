@@ -1,7 +1,7 @@
 package planmysem.ui;
 
 import java.time.LocalDate;
-import java.util.Map;
+import java.util.List;
 
 import javafx.util.Pair;
 import planmysem.common.Messages;
@@ -37,7 +37,7 @@ public class Formatter {
     /**
      * Formats the given list of slots for displaying to the user.
      */
-    public String formatSlots(Map<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> slots) {
+    public String formatSlots(List<Pair<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>>> slots) {
         return Messages.craftListMessage(slots);
     }
 

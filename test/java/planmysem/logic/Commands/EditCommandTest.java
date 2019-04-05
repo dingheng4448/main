@@ -10,11 +10,11 @@ import static planmysem.logic.commands.EditCommand.MESSAGE_SUCCESS_NO_CHANGE;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Map;
+import java.util.List;
 import java.util.Set;
-import java.util.TreeMap;
 
 import javafx.util.Pair;
 import org.junit.Before;
@@ -95,11 +95,11 @@ public class EditCommandTest {
         model.addSlot(LocalDate.of(2019, 02, 03), slotBuilder.generateSlot(3));
         model.addSlot(LocalDate.of(2019, 02, 04), slotBuilder.generateSlot(3));
 
-        Map<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> list = new TreeMap<>();
-        list.put(pair4.getKey(), pair4.getValue());
-        list.put(pair3.getKey(), pair3.getValue());
-        list.put(pair2.getKey(), pair2.getValue());
-        list.put(pair1.getKey(), pair1.getValue());
+        final List<Pair<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>>> list = new ArrayList<>();
+        list.add(new Pair<>(pair1.getKey(), pair1.getValue()));
+        list.add(new Pair<>(pair2.getKey(), pair2.getValue()));
+        list.add(new Pair<>(pair3.getKey(), pair3.getValue()));
+        list.add(new Pair<>(pair4.getKey(), pair4.getValue()));
         model.setLastShownList(list);
 
         expectedModel = new ModelManager();
@@ -113,9 +113,9 @@ public class EditCommandTest {
 
     @Test
     public void execute_validTag_success() {
-        Map<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> selectedSlots = new TreeMap<>();
-        selectedSlots.put(pair3.getKey(), pair3.getValue());
-        selectedSlots.put(pair4.getKey(), pair4.getValue());
+        final List<Pair<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>>> selectedSlots = new ArrayList<>();
+        selectedSlots.add(new Pair<>(pair4.getKey(), pair4.getValue()));
+        selectedSlots.add(new Pair<>(pair3.getKey(), pair3.getValue()));
         Set<String> selectTags = pair3.getValue().getValue().getTags();
 
         // values to edit
@@ -226,9 +226,9 @@ public class EditCommandTest {
 
     @Test
     public void execute_validIndex_success() {
-        Map<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> selectedSlots = new TreeMap<>();
+        final List<Pair<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>>> selectedSlots = new ArrayList<>();
         Pair<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> slot = model.getLastShownItem(1);
-        selectedSlots.put(slot.getKey(), slot.getValue());
+        selectedSlots.add(slot);
 
         // values to edit
         String name = "new name";
@@ -274,9 +274,9 @@ public class EditCommandTest {
 
     @Test
     public void execute_validIndexEmptyValues_success() {
-        Map<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> selectedSlots = new TreeMap<>();
+        final List<Pair<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>>> selectedSlots = new ArrayList<>();
         Pair<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> slot = model.getLastShownItem(1);
-        selectedSlots.put(slot.getKey(), slot.getValue());
+        selectedSlots.add(new Pair<>(slot.getKey(), slot.getValue()));
 
         // values to edit
         String name = "";

@@ -1,7 +1,7 @@
 package planmysem.ui;
 
 import java.time.LocalDate;
-import java.util.Map;
+import java.util.List;
 import java.util.Optional;
 
 import javafx.fxml.FXML;
@@ -85,7 +85,7 @@ public class MainWindow {
      */
     public void displayResult(CommandResult result) {
         clearOutputConsole();
-        final Optional<Map<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>>> resultDays = result.getRelevantSlots();
+        final Optional<List<Pair<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>>>> resultDays = result.getRelevantSlots();
         if (resultDays.isPresent()) {
             display(resultDays.get());
         }
@@ -104,8 +104,8 @@ public class MainWindow {
      * Displays the list of slots in the output display area, formatted as an indexed list.
      * Private contact details are hidden.
      */
-    private void display(Map<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> slots) {
-        display(new Formatter().formatSlots(slots));
+    private void display(List<Pair<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>>> list) {
+        display(new Formatter().formatSlots(list));
     }
 
     /**

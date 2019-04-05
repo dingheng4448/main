@@ -126,7 +126,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Map<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> getSlots(Set<String> tags) {
+    public List<Pair<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>>> getSlots(Set<String> tags) {
         return versionedPlanner.getSlots(tags);
     }
 

@@ -11,10 +11,9 @@ import static planmysem.logic.commands.DeleteCommand.MESSAGE_SUCCESS_NO_CHANGE;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
-import java.util.TreeMap;
 
 import javafx.util.Pair;
 import org.junit.Before;
@@ -96,11 +95,11 @@ public class DeleteCommandTest {
         model.addSlot(LocalDate.of(2019, 02, 03), slotBuilder.generateSlot(3));
         model.addSlot(LocalDate.of(2019, 02, 04), slotBuilder.generateSlot(3));
 
-        Map<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> list = new HashMap<>();
-        list.put(pair1.getKey(), pair1.getValue());
-        list.put(pair2.getKey(), pair2.getValue());
-        list.put(pair3.getKey(), pair3.getValue());
-        list.put(pair4.getKey(), pair4.getValue());
+        final List<Pair<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>>> list = new ArrayList<>();
+        list.add(pair1);
+        list.add(pair2);
+        list.add(pair3);
+        list.add(pair4);
         model.setLastShownList(list);
 
         expectedModel = new ModelManager();
@@ -120,9 +119,9 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validTag_success() {
-        Map<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> selectedSlots = new TreeMap<>();
-        selectedSlots.put(pair3.getKey(), pair3.getValue());
-        selectedSlots.put(pair4.getKey(), pair4.getValue());
+        final List<Pair<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>>> selectedSlots = new ArrayList<>();
+        selectedSlots.add(pair4);
+        selectedSlots.add(pair3);
         Set<String> tags = pair4.getValue().getValue().getTags();
         DeleteCommand deleteCommand = new DeleteCommand(tags);
 
@@ -139,9 +138,9 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndex_success() {
-        Map<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> selectedSlots = new TreeMap<>();
+        final List<Pair<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>>> selectedSlots = new ArrayList<>();
         Pair<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> slot = model.getLastShownItem(1);
-        selectedSlots.put(slot.getKey(), slot.getValue());
+        selectedSlots.add(slot);
         DeleteCommand deleteCommand = new DeleteCommand(1);
 
         String expectedMessage = String.format(MESSAGE_SUCCESS,
@@ -176,7 +175,7 @@ public class DeleteCommandTest {
         String expectedMessage = MESSAGE_SLOT_NOT_IN_PLANNER;
 
         // removed slots with of index 1 in lastShownSlot, so the exception will occur
-        model.removeSlot(pair4);
+        model.removeSlot(pair1);
 
         assertCommandFailure(deleteCommand, model, commandHistory, expectedMessage);
     }

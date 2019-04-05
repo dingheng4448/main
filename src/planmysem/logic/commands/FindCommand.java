@@ -52,6 +52,8 @@ public class FindCommand extends Command {
             } else {
                 return n1.compareTo(n2);
             }
+            // TODO: marcus, i think you should put date into your weighted name so
+            //  that if they are the same names as well then you need to sort by date
         }
     });
 
@@ -71,6 +73,9 @@ public class FindCommand extends Command {
                     generateDiscoveredNames(keyword, slot.getName(), entry, slot);
                 } else {
                     Set<String> tagSet = slot.getTags();
+                    // TODO: marcus, i think that this is double adding tags
+                    //  the logic here is not sound, you are comparing the slot multiple times
+                    //  if it has multiple tags
                     for (String tag : tagSet) {
                         generateDiscoveredNames(keyword, tag, entry, slot);
                     }

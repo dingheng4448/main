@@ -197,18 +197,19 @@ Format: `add n/NAME d/DATE_OR_DAY_OF_WEEK st/START_TIME et/END_TIME_OR_DURATION 
 
 Examples:
 
-* `add n/CS2113T Tutorial d/mon st/8:00 am et/9:00 am des/Topic: Sequence Diagram t/CS2113T t/Tutorial` +
-Add a single _slot_, named "CS2113T Tutorial" on the coming monday, from 0800hrs to 0900hrs with the tags "CS2113T" and "Tutorial".
+* `add n/CS2113T Lecture d/mon st/8:00 am et/9:00 am des/Topic: Software Engineering t/CS2113T t/Lecture r/normal r/past` +
+Add a single _slot_, named "CS2113T Lecture" with description "Software Engineering" on all mondays, from 0800hrs to 0900hrs with the tags "CS2113T" and "Tutorial".
+Here, the recursion parameters enable a single command to place 13 slots on all "normal" weeks that lectures take place on.
 
 [#img-add]
-.[.underline]#Output after entering `add n/CS2113T Tutorial d/mon st/08:00 et/09:00 des/Topic: Sequence Diagram t/CS2113T t/Tutorial`#
+.[.underline]#Output after entering `add n/CS2113T Lecture d/mon st/8:00 am et/9:00 am des/Topic: Software Engineering t/CS2113T t/Lecture r/normal r/past`#
 image::Add_Command_Output_1.png[width="790"]
 
-* `add n/CS2113T Tutorial d/mon st/08:00 et/09:00 des/Topic: Sequence Diagram t/CS2113T t/Tutorial r/recess r/reading` +
-Do the same but additionally, recurse the _slot_ on both recess and reading week.
+* `add n/CS2113T Lecture d/mon st/8:00 am et/9:00 am des/Topic: Software Engineering t/CS2113T t/Lecture r/recess r/reading r/past` +
+Do the same but instead of "normal" weeks, do the opposite of the norm and recurse the _slot_ on both recess and reading week.
 
-* `add n/CS2113T Tutorial d/mon st/08:00 et/09:00 des/Topic: Sequence Diagram t/CS2113T t/Tutorial r/normal` +
-Do the same but recurse the _slot_ on "normal", instructional, weeks.
+* `add n/CS2113T Lecture d/mon st/8:00 am et/9:00 am des/Topic: Software Engineering t/CS2113T t/Lecture` +
+Do the same but without any recursion, instead place the _slot_ the coming monday.
 
 [TIP]
 You may add single _slots_ by omitting the `r/` identifiers and its parameters.
@@ -221,9 +222,9 @@ You may add single _slots_ by omitting the `r/` identifiers and its parameters.
 Edit _slot(s)_.
 
 1. Edit _slot(s)_ which contains certain _tag_(s). +
-Format: `edit t/TAG... [nn/NEW_NAME] [nst/NEW_START_TIME] [net/NEW_END_TIME|DURATION] [nl/NEW_LOCATION] [nd/NEW_DESCRIPTION] [nt/NEW_TAG]...`
+Format: `edit t/TAG... [nn/NEW_NAME] [nst/NEW_START_TIME] [net/NEW_END_TIME|DURATION] [nl/NEW_LOCATION] [ndes/NEW_DESCRIPTION] [nt/NEW_TAG]...`
 2. Edit specific _slot_ via the `list` command. +
-Format: `edit INDEX [nn/NEW_NAME] [nd/NEW_DATE] [nst/NEW_START_TIME] [net/NEW_END_TIME|DURATION] [nl/NEW_LOCATION] [nd/NEW_DESCRIPTION] [nt/NEW_TAG]...`
+Format: `edit INDEX [nn/NEW_NAME] [nd/NEW_DATE] [nst/NEW_START_TIME] [net/NEW_END_TIME|DURATION] [nl/NEW_LOCATION] [ndes/NEW_DESCRIPTION] [nt/NEW_TAG]...`
 
 [NOTE]
 You will not be able to edit a _slot_'s date when editing via _tags_. +
@@ -231,15 +232,15 @@ To edit a _slot_'s date, you may use the `list` or `find` command and edit speci
 
 Examples:
 
-* `edit t/CS2113T t/Tutorial nl/COM2 04-01` +
-Edit _slots_ that contain tags "CS2113T" and "Tutorial", set these _slot's_ location to "COM2 04-01".
+* `edit t/CS2113T t/Lecture nl/COM2 04-01` +
+Edit _slots_ that contain tags "Lecture" and "Tutorial", set these _slot's_ location to "COM2 04-01".
 
 [#img-edit]
-.[.underline]#Output after entering `edit t/CS2113T t/Tutorial nl/COM2 04-01`#
+.[.underline]#Output after entering `edit t/CS2113T t/Lecture nl/COM2 04-01`#
 image::Edit_Command_Output_1.png[width="790"]
 
-* `edit 1 des/Topic: Sequence Diagram` +
-Edit the first item from the previous result of the `list` or `find` command.
+* `edit 1 nl/ICube` +
+Edit the first item from the previous result of the `list` or `find` command, replace it's location with "ICube".
 {zwsp}
 
 {zwsp}
@@ -256,12 +257,15 @@ You may delete a specific _slot_ by using the `list` or `find` command and selec
 
 Examples:
 
-* `delete t/CS2113T t/Tutorial` +
-Delete _slots_ that contain tags "CS2113T" and "Tutorial".
+* `delete t/CS2113T t/Lecture` +
+Delete _slots_ that contain both tags "CS2113T" and "Lecture".
 
 [#img-delete]
-.[.underline]#Output after entering `delete t/CS2113T t/Tutorial`#
-image::Delete_Command_Output.png[width="790"]
+.[.underline]#Output after entering `delete t/CS2113T t/Lecture`#
+image::Delete_Command_Output_1.png[width="790"]
+
+* `delete t/Lecture` +
+Delete _slots_ that contain the tag "Lecture".
 
 * `delete 2` +
 Delete the second _slot_ shown via the `list` command.
@@ -276,14 +280,14 @@ Format: `list n/NAME`
 
 Examples:
 
-* `list n/CS2113T` +
-List all _slots_ that is named `CS2113T` in the planner.
+* `list n/CS2113T Lecture` +
+List all _slots_ that is named `CS2113T Lecture`.
 
-* `list t/Tutorial` +
-List all _slots_ that contains tags named `Tutorial` in the planner.
+* `list t/Lecture` +
+List all _slots_ that contains the tag `Lecture`.
 
 [#img-list]
-.[.underline]#Output after entering `list n/CS2113T`#
+.[.underline]#Output after entering `list t/Lecture`#
 image::List_Command_Output_1.png[width="790"]
 {zwsp}
 
@@ -303,9 +307,10 @@ Example:
 * `find n/CS` +
 Find all _slots_ whose name closely matches `CS` (eg. CS2101, CS2113T, SOCSMeet)
 
-* `find t/Tut` +
-Find all _slots_ that contains tags whose names closely matches `Tut` (eg. Tutorial, Tutorship)
+* `find t/2113T` +
+Find all _slots_ that contain tags that closely matches `2113T`.
 
+// TODO: need to change picture
 [#img-find]
 .[.underline]#Output after entering `find n/CS`#
 image::Find_Command_Output_1.png[width="790"]
@@ -420,15 +425,13 @@ image::Export_Command_Output_1.png[width="420"]
 ====
 The exported file is named "PlanMySem.ics" and is saved in the main directory.
 The .ics file can be imported into other calendar apps that support .ics files such as Google Calendar. +
-
-====
-[WARNING]
-Exporting will REMOVE all tags in the planner.
-
 [#img-exportFile]
 .[.underline]#Location of PlanMySem.ics file#
 image::Export_Command_Directory_1.png[width="790"]
 ====
+
+[WARNING]
+Exporting will REMOVE all tags in the planner.
 
 [TIP]
 A file with the ICS file extension is an iCalendar file.

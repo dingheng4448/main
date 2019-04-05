@@ -2,7 +2,7 @@ package planmysem.logic.parser;
 
 import static planmysem.common.Messages.MESSAGE_ILLEGAL_WEEK_VALUE;
 import static planmysem.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static planmysem.common.Messages.MESSAGE_INVALID_DATE;
+import static planmysem.common.Messages.MESSAGE_INVALID_DATE_OR_DAY;
 
 import static planmysem.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static planmysem.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -145,15 +145,15 @@ public class ViewCommandParserTest {
     public void parse_invalidDayArgs_failure() {
         assertParseFailure(parser,
                 "day 0",
-                String.format(MESSAGE_INVALID_DATE, ViewCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_DATE_OR_DAY, ViewCommand.MESSAGE_USAGE));
 
         assertParseFailure(parser,
                 "day 32",
-                String.format(MESSAGE_INVALID_DATE, ViewCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_DATE_OR_DAY, ViewCommand.MESSAGE_USAGE));
 
         assertParseFailure(parser,
                 "day test",
-                String.format(MESSAGE_INVALID_DATE, ViewCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_DATE_OR_DAY, ViewCommand.MESSAGE_USAGE));
     }
 
 }

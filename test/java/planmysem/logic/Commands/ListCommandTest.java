@@ -10,6 +10,8 @@ import static planmysem.logic.commands.ListCommand.MESSAGE_SUCCESS_NONE;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -193,15 +195,15 @@ public class ListCommandTest {
     }
 
     @Test
-    public void execute_slotAcceptedByModel_ListNameSuccessful() throws Exception {
+    public void execute_slotAcceptedByModel_ListNameSuccessful() {
         CommandResult commandResult = new ListCommand(slotBuilder.generateSlot(1).getName(), null).execute(model, commandHistory);
 
-        Map<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> selectedSlots = new TreeMap<>();
+        final List<Pair<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>>> selectedSlots = new ArrayList<>();
 
         for (Map.Entry<LocalDate, Day> entry : model.getDays().entrySet()) {
             for (Slot slot : entry.getValue().getSlots()) {
                 if (slot.getName().equalsIgnoreCase(slotBuilder.generateSlot(1).getName())) {
-                    selectedSlots.put(entry.getKey(), new Pair<>(entry.getValue(), slot));
+                    selectedSlots.add(new Pair<>(entry.getKey(), new Pair<>(entry.getValue(), slot)));
                 }
             }
         }
@@ -217,14 +219,14 @@ public class ListCommandTest {
 
         CommandResult commandResult = new ListCommand(null, tagToTest).execute(model, commandHistory);
 
-        Map<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> selectedSlots = new TreeMap<>();
+        final List<Pair<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>>> selectedSlots = new ArrayList<>();
 
         for (Map.Entry<LocalDate, Day> entry : model.getDays().entrySet()) {
             for (Slot slot : entry.getValue().getSlots()) {
                 Set<String> tagSet = slot.getTags();
                 for (String tag : tagSet) {
                     if (tag.equalsIgnoreCase(tagToTest)) {
-                        selectedSlots.put(entry.getKey(), new Pair<>(entry.getValue(), slot));
+                        selectedSlots.add(new Pair<>(entry.getKey(), new Pair<>(entry.getValue(), slot)));
                     }
                 }
             }
@@ -240,12 +242,12 @@ public class ListCommandTest {
 
         CommandResult commandResult = new ListCommand(nameToTest, null).execute(model, commandHistory);
 
-        Map<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> selectedSlots = new TreeMap<>();
+        final List<Pair<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>>> selectedSlots = new ArrayList<>();
 
         for (Map.Entry<LocalDate, Day> entry : model.getDays().entrySet()) {
             for (Slot slot : entry.getValue().getSlots()) {
                 if (slot.getName().equalsIgnoreCase(nameToTest)) {
-                    selectedSlots.put(entry.getKey(), new Pair<>(entry.getValue(), slot));
+                    selectedSlots.add(new Pair<>(entry.getKey(), new Pair<>(entry.getValue(), slot)));
                 }
             }
         }
@@ -260,14 +262,14 @@ public class ListCommandTest {
 
         CommandResult commandResult = new ListCommand(null, tagToTest).execute(model, commandHistory);
 
-        Map<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> selectedSlots = new TreeMap<>();
+        final List<Pair<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>>> selectedSlots = new ArrayList<>();
 
         for (Map.Entry<LocalDate, Day> entry : model.getDays().entrySet()) {
             for (Slot slot : entry.getValue().getSlots()) {
                 Set<String> tagSet = slot.getTags();
                 for (String tag : tagSet) {
                     if (tag.equalsIgnoreCase(tagToTest)) {
-                        selectedSlots.put(entry.getKey(), new Pair<>(entry.getValue(), slot));
+                        selectedSlots.add(new Pair<>(entry.getKey(), new Pair<>(entry.getValue(), slot)));
                     }
                 }
             }

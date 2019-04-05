@@ -2,12 +2,12 @@ package planmysem.logic.commands;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Map;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.StringJoiner;
-import java.util.TreeMap;
 
 import javafx.util.Pair;
 import planmysem.common.Messages;
@@ -24,7 +24,6 @@ public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
     public static final String COMMAND_WORD_SHORT = "e";
-
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edit single or multiple slots in the Planner."
             + "\n\tParameters: "
             + "\n\t\tMandatory: t/TAG... or INDEX"
@@ -88,12 +87,12 @@ public class EditCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory commandHistory) throws CommandException {
-        final Map<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> selectedSlots = new TreeMap<>();
+        final List<Pair<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>>> selectedSlots = new ArrayList<>();
         String messageSelected;
         String messageSlots;
 
         if (targetIndex == -1) {
-            selectedSlots.putAll(model.getSlots(tags));
+            selectedSlots.addAll(model.getSlots(tags));
 
             if (selectedSlots.size() == 0) {
                 throw new CommandException(String.format(MESSAGE_SUCCESS_NO_CHANGE,
@@ -103,7 +102,7 @@ public class EditCommand extends Command {
             // Need to craft success message earlier to get original instead of edited Slots
             messageSlots = craftSuccessMessage(selectedSlots);
 
-            for (Map.Entry<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> entry : selectedSlots.entrySet()) {
+            for (Pair<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> entry : selectedSlots) {
                 model.editSlot(entry.getKey(), entry.getValue().getValue(), date,
                         startTime, duration, name, location, description, newTags);
             }
@@ -112,7 +111,7 @@ public class EditCommand extends Command {
         } else {
             try {
                 final Pair<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> target = model.getLastShownItem(targetIndex);
-                selectedSlots.put(target.getKey(), target.getValue());
+                selectedSlots.add(target);
 
                 // Need to craft success message earlier to get original instead of edited Slots
                 messageSlots = craftSuccessMessage(selectedSlots);
@@ -135,7 +134,7 @@ public class EditCommand extends Command {
     /**
      * Craft success message.
      */
-    public String craftSuccessMessage(Map<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> selectedSlots) {
+    public String craftSuccessMessage(List<Pair<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>>> selectedSlots) {
         StringBuilder sb = new StringBuilder();
 
         sb.append("Details Edited: ");

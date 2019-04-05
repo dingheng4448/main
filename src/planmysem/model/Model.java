@@ -92,7 +92,7 @@ public interface Model {
     /**
      * gets all slots in the Planner containing all specified tags.
      */
-    Map<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>> getSlots(Set<String> tags);
+    List<Pair<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>>> getSlots(Set<String> tags);
 
     /**
      * Returns true if the model has previous Planner states to restore.

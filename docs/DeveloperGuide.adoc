@@ -280,6 +280,8 @@ image::ModelClassDiagram.png[width="400"]
 {zwsp}
 
 *API* : link:{repoURL}/src/planmysem/model/Model.java[`Model.java`]
+
+`Model` holds the data involved with the application.
 {zwsp}
 
 {zwsp}
@@ -496,6 +498,12 @@ Additional keywords are purposefully *not* handled to provide ease of use and ca
 
 ==== Design Considerations
 
+Here are the considerations that led to the new parsing system.
+The choices made were largely due to the fact that they provide a better user experience and ease of use.
+{zwsp}
+
+{zwsp}
+
 ===== Aspect: Handling repeated parameters
 
 * *Alternative 1 (current choice):* Accept and ignore repeated parameters when possible.
@@ -518,6 +526,9 @@ Additional keywords are purposefully *not* handled to provide ease of use and ca
 * *Alternative 2:* Accept only a specific ordering of parameters.
 ** Pros: Less computationally expensive and short development process, able to use existing regex solutions in AB3.
 ** Cons: Greatly hinder user experience as order of parameters have no relation to meaning of commands.
+
+Alternative 1 was chosen due to the team's priority in providing a better user experience and allow ease of use.
+
 {zwsp}
 
 {zwsp}
@@ -567,6 +578,12 @@ The `Edit` and `Delete` command then makes use of the _tagging_ system to then s
 
 ==== Design Considerations
 
+Here are the considerations regarding slot management.
+The choices made were largely due to computation effectiveness.
+{zwsp}
+
+{zwsp}
+
 ===== Aspect: Wrapping of primitive data types in `Slot`
 
 * *Alternative 1 (current choice):* Use of "primitive" data types instead of creating and utilising wrapped objects. +
@@ -578,10 +595,9 @@ E.g. `name`, `location` amd `description` are not wrapped but "primitive".
 ** Pros: Less errors in handling invalid values.
 ** Cons: May cause inflexibility in writing code to account for flexible parsing.
 
-In summary, in this cause of *PlanMySem*, there is a need to achieve varied and flexible commands and as such,
+Alternative 1 was chosen as, in this case of *PlanMySem*, there is a need to achieve varied and flexible commands and as such,
 it is not necessary to handle invalid values with the innate `Model` objects as these are taken care of when parsing.
 
-Additionally, doing these actions when parsing, though bloats code, allows for more varied responses to the user and improves user experience.
 {zwsp}
 
 {zwsp}
@@ -595,6 +611,10 @@ Additionally, doing these actions when parsing, though bloats code, allows for m
 * *Alternative 2:* Store `Slots` in a huge list.
 ** Pros: Allows for easier access by "index" and offers flexibility, for example, in the time of slots.
 ** Cons: Expensive to access, add and remove items. Furthermore, it is extremely expensive to collect slots that occur in a day, a very important and most likely to be a commonly used feature.
+
+Alternative 1 was chosen as the benefits of quick and easy access to days outweigh the disadvantages involve with forbidding slots than span over a day.
+After all, there are few cases of slots crossing the boundaries of a day, over midnight.
+
 {zwsp}
 
 {zwsp}

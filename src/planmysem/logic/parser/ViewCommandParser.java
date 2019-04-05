@@ -2,7 +2,7 @@ package planmysem.logic.parser;
 
 import static planmysem.common.Messages.MESSAGE_ILLEGAL_WEEK_VALUE;
 import static planmysem.common.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static planmysem.common.Messages.MESSAGE_INVALID_DATE;
+import static planmysem.common.Messages.MESSAGE_INVALID_DATE_OR_DAY;
 
 import java.time.LocalDate;
 
@@ -90,7 +90,7 @@ public class ViewCommandParser implements Parser<ViewCommand> {
                     day = Utils.parseDay(viewArgs[1]);
                 }
                 if (day == -1 && date == null) {
-                    throw new ParseException(String.format(MESSAGE_INVALID_DATE, ViewCommand.MESSAGE_USAGE));
+                    throw new ParseException(String.format(MESSAGE_INVALID_DATE_OR_DAY, ViewCommand.MESSAGE_USAGE));
                 }
 
                 return new ViewCommand(viewArgs);

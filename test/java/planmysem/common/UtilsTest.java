@@ -86,8 +86,8 @@ public class UtilsTest {
 
         assertEquals(Utils.parseDay("Tuesday"), 2);
         assertEquals(Utils.parseDay("tuesday "), 2);
-        assertEquals(Utils.parseDay("Tues"), 2);
-        assertEquals(Utils.parseDay("tues"), 2);
+        assertEquals(Utils.parseDay("Tue"), 2);
+        assertEquals(Utils.parseDay("tue"), 2);
         assertEquals(Utils.parseDay("2"), 2);
 
         assertEquals(Utils.parseDay("Wednesday"), 3);
@@ -97,8 +97,8 @@ public class UtilsTest {
 
         assertEquals(Utils.parseDay("Thursday"), 4);
         assertEquals(Utils.parseDay(" thursday"), 4);
-        assertEquals(Utils.parseDay("Thurs"), 4);
-        assertEquals(Utils.parseDay("thurs"), 4);
+        assertEquals(Utils.parseDay("Thu"), 4);
+        assertEquals(Utils.parseDay("thu"), 4);
         assertEquals(Utils.parseDay("4"), 4);
 
         assertEquals(Utils.parseDay("Friday"), 5);
@@ -162,7 +162,7 @@ public class UtilsTest {
     public void parse_time_unsuccessful() {
         assertNull(Utils.parseTime("14:00 am"));
         assertNull(Utils.parseTime("16:00 pm"));
-        assertNull(Utils.parseTime("24:00"));
+        assertNull(Utils.parseTime("-00:20"));
     }
 
     @Test
