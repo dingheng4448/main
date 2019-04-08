@@ -21,6 +21,8 @@ public class Utils {
     public static final Pattern INTEGER_FORMAT =
             Pattern.compile("\\d+");
 
+    private static final int MAXIMUM_DISTANCE = 20;
+
     /**
      * Checks whether any of the given items are null.
      */
@@ -223,7 +225,7 @@ public class Utils {
         }
 
         // cost for transforming each letter in String rhs
-        for (int j = 1; j < rhs.length() + 1 && j < 20; j++) {
+        for (int j = 1; j < rhs.length() + 1 && j < MAXIMUM_DISTANCE; j++) {
             // initial cost in String rhs
             newCost[0] = j;
 
