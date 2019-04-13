@@ -1617,12 +1617,14 @@ Use case ends.
 
 === Use Case: View all slots in a Day
 * MSS:
+
 1. User inputs the command to view all slots along with the specific day or date in the current semester.
 2. System displays all the slots for that specified day or date.
 +
 Use case ends.
+
 * Extensions:
-** 1a. Specified day or date does not exist in the current semester.
+** Specified day or date does not exist in the current semester.
 *** 1a1. System outputs error message.
 +
 Use case ends.
