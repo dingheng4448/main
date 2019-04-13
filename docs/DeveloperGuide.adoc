@@ -208,8 +208,6 @@ Each of the four components
 //image::OverallClassDiagram.png[width="800"]
 {zwsp}
 
-{zwsp}
-
 [discrete]
 ==== How the architecture components interact with each other
 
@@ -233,8 +231,8 @@ image::UiComponentClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/planmysem/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of just `commandInput` and `outputConsole`.
-This application is mainly a text-based application, hence here are not many components here.
+The UI consists of a `MainWindow` that is made up of just a TextField `commandInput` and a TextArea `outputConsole`.
+This application is mainly a text-based application, hence there are not many components here.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder.
 For example, the layout of the link:{repoURL}/src/planmysem/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
@@ -260,7 +258,7 @@ link:{repoURL}/src/planmysem/logic/Logic.java[`Logic.java`]
 
 the `Logic` component,
 
-.  uses the `parser` class to parse the user command.
+.  Uses the `Parser` class to parse the user command.
 **  This results in a `Command` object which is executed.
 .  The command execution can affect the `Model` (e.g. adding a _Slot_).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to `Ui`.
@@ -285,7 +283,7 @@ image::ModelComponentClassDiagram.png[width="800"]
 
 The `Model` component
 
-* stores the Planner data.
+* stores the `Planner` data.
 * does not depend on any of the other three components.
 {zwsp}
 
@@ -302,7 +300,6 @@ In summary, JAXB allows storing and retrieving data in memory in any XML format.
 More information about JAXB can be obtain from https://docs.oracle.com/javase/tutorial/jaxb/intro/index.html[Oracle].
 
 To represents XML content as Java objects, "adapted" classes are used to represent and allow conversion of un-mappable objects into mappable objects.
-
 {zwsp}
 
 {zwsp}
@@ -357,6 +354,19 @@ Semester 1 of the academic year starts with an orientation week and will always 
 Each week of the year will correspond to an academic week and this information will be stored in a `HashMap`. This
 `HashMap` can be used to determine the academic week given a date (by finding out the week of the year for that date).
 The figures below shows an example of the relation between academic week and the week of the year for academic year 2018/2019.
+
+.Weeks in academic year 2018/2019, Semester 1.
+|=======================================================================
+|Academic Week |Example (Week of the year) |Example (Period)
+|Orientation Week |32 |6 Aug 2018 (First Monday of Aug 2018) - 12 Aug 2018
+|Week 1 - 6 |33 - 38 |13 Aug 2018 - 23 Sep 2018
+|Recess Week |39 |24 Sep 2018 - 30 Sep 2018
+|Week 7 - 13 |40 - 46 |1 Oct 2018 - 18 Nov 2018
+|Reading Week |47 |19 Nov 2018 - 25 Nov 2018
+|Examination Week |48 - 49 |26 Nov 2018 - 9 Dec 2018
+|Vacation |50 - 52 |10 Dec 2018 - 30 Dec 2018
+|Vacation |1 - 2 |31 Dec 2018 - 13 Jan 2019
+|=======================================================================
 
 [#img-view]
 .[.underline]#Weeks in academic year 2018/2019, Semester 1.#
