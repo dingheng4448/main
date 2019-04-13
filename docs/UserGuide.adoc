@@ -356,6 +356,8 @@ the expected output shown in the figure below.
 image::Ui.png[width="790"]
 {zwsp}
 
+The following are some examples of the `view` command which you can try to run.
+
 Month view example:
 
 * `view month` +
