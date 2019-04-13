@@ -283,7 +283,7 @@ image::ModelComponentClassDiagram.png[width="800"]
 
 The `Model` component
 
-* stores the `Planner` data.
+* stores the Planner data.
 * does not depend on any of the other three components.
 {zwsp}
 
