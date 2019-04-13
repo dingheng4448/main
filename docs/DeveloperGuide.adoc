@@ -678,21 +678,24 @@ a sequence of events is executed. For clarity, the sequence of events will be in
 of a `view month` command. A graphical representation is also included in the Sequence Diagram below for your reference
 when following through the sequence of events. The sequence of events are as follows:
 
-1. Upon calling the `execute` method of the `Logic` component, the `Logic` component would then parse the `view month`
-command.
+1. Firstly, the `view month` command is passed into the `execute` function of `LogicManager` to be parsed.
+2. `LogicManager` then invokes the `parseCommand` function of `ParserManager`.
+3. `ParserManager` in turn invokes the `parse` function of the appropriate parser for the `view` command which in this case,
+is `ViewCommandParser`.
 [NOTE]
 The `view` command can be parsed into only 3 general types of views which are the month, week or day view as
 specified in the command parameter.
-2. This results in a `ViewCommand` object which is executed with the `month` parameter passed in.
-3. The command execution will call the `displayMonthView` method of the `ViewCommand` object which retrieves data from the
-`Model` component (i.e. retrieving data from the current `Semester`).
-4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to `Ui`.
-5. In addition, the `CommandResult` object can also instruct the `Ui` to display results, such as displaying help to
-the user.
+4. After parsing is done, `ViewCommandParser` would instantiate the `ViewCommand` object which would be returned to the `LogicManager`.
+5. `LogicManager` is then able to invoke the `execute` function of the returned `ViewCommand` object.
+6. In the `execute` function of the `ViewCommand` object, data will be retrieved from the `Model` component (i.e. retrieving data from the current `Semester`).
+7. Now that the `ViewCommand` object has the data of the current semester, it is able to invoke the `displayMonthView` method.
+8. With the output returned from the `displayMonthView`, the `CommandResult` object will be instantiated.
+9. This `CommandResult` object would be returned to the `LogicManager` which then returns the same `CommandResult` object
+back to the `UI` component.
+10. Finally, the `UI` component would display the contents of the `CommandResult` object to the user. In this `view month`
+command, the displayed result would be the monthly calendar view of all months in the current semester.
 
-Given below is the Sequence Diagram upon executing the `view month` command.
-
-.Interactions between components for the `view month` Command
+.Sequence Diagram upon executing the `view month` command.
 image::ViewMonthSequenceDiagram.png[width="900"]
 {zwsp}
 
