@@ -692,7 +692,7 @@ specified in the command parameter.
 8. With the output returned from the `displayMonthView`, the `CommandResult` object will be instantiated.
 9. This `CommandResult` object would be returned to the `LogicManager` which then returns the same `CommandResult` object
 back to the `UI` component.
-10. Finally, the `UI` component would display the contents of the `CommandResult` object to the user. In this `view month`
+10. Finally, the `UI` component would display the contents of the `CommandResult` object to the user. For this `view month`
 command, the displayed result would be the monthly calendar view of all months in the current semester.
 
 .Sequence Diagram upon executing the `view month` command.
