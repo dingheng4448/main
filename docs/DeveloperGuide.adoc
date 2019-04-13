@@ -1764,6 +1764,21 @@ These instructions only provide a starting point for testers to work on; testers
 
 {zwsp}
 
+=== Viewing the planner
+
+. View all _slots_ for the current week
+
+.. Prerequisites: Add _slots_ using the `add` command for any day of the current week.
+.. Test case: `view week` +
+   Expected: A weekly calendar view with all added _slots_ for the current week with a summarised title.
+.. Test case: `view week details` +
+   Expected: A detailed view of all added _slots_ for the current week.
+.. Other incorrect view commands to try: `view`, `view week 0` +
+   Expected: Error message returned which shows proper command usage or indicating an invalid input.
+{zwsp}
+
+{zwsp}
+
 === Saving data
 
 . Dealing with missing/corrupted data files
