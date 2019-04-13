@@ -5,6 +5,8 @@ import static org.junit.Assert.assertNotEquals;
 
 import org.junit.Test;
 
+import planmysem.common.exceptions.IllegalValueException;
+
 public class EncryptorTest {
 
     @Test
@@ -12,9 +14,8 @@ public class EncryptorTest {
         String testString = Encryptor.encrypt("Hello World!");
         assertNotEquals(testString, "HellO World!");
     }
-
     @Test
-    public void decrypt_valid() {
+    public void decrypt_valid() throws IllegalValueException {
         String testString = Encryptor.encrypt("Hello World!");
         assertEquals(Encryptor.decrypt(testString), "Hello World!");
     }
