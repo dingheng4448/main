@@ -1542,8 +1542,8 @@ For all use cases below, the *System* is `PlanMySem` and the *Actor* is the `use
 
 === Use Case: Add a slot
 * MSS:
-. User inputs add command followed by all the mandatory parameters.
-. System reflects the additions to the planner.
+1. User inputs add command followed by all the mandatory parameters.
+2. System reflects the additions to the planner.
 +
 Use case ends.
 * Extensions:
@@ -1562,8 +1562,8 @@ Use case ends.
 
 === Use Case: List slots
 * MSS:
-. User inputs the command to list slots followed by the tag or name of the slot.
-. System displays all slots with the specified name or tag with their indexes.
+1. User inputs the command to list slots followed by the tag or name of the slot.
+2. System displays all slots with the specified name or tag with their indexes.
 +
 Use case ends.
 * Extensions:
@@ -1581,8 +1581,8 @@ Use case ends.
 
 === Use Case: Delete a slot
 * MSS:
-. User inputs the delete command followed by the index or tag of the intended slot.
-. System deletes the intended slot from the planner and outputs confirmation message.
+1. User inputs the delete command followed by the index or tag of the intended slot.
+2. System deletes the intended slot from the planner and outputs confirmation message.
 +
 Use case ends.
 * Extensions:
@@ -1596,9 +1596,9 @@ Use case ends.
 
 === Use Case: Edit a slot
 * MSS:
-. User inputs command to edit a slot along with the tag or index, followed by the parameters to be changed.
-. System changes the specified parameters for the slot.
-. System reflects the slots as well as the perimeters changed.
+1. User inputs command to edit a slot along with the tag or index, followed by the parameters to be changed.
+2. System changes the specified parameters for the slot.
+3. System reflects the slots as well as the perimeters changed.
 +
 Use case ends.
 * Extensions:
@@ -1617,8 +1617,8 @@ Use case ends.
 
 === Use Case: View all slots in a Day
 * MSS:
-. User inputs the command to view all slots along with the specific day or date in the current semester.
-. System displays all the slots for that specified day or date.
+1. User inputs the command to view all slots along with the specific day or date in the current semester.
+2. System displays all the slots for that specified day or date.
 +
 Use case ends.
 * Extensions:
@@ -1637,10 +1637,10 @@ Use case ends.
 
 === Use Case: Export planner
 * MSS:
-. User inputs command to export the planner.
-. System converts planner to .ics format.
-. System saves .ics file in the main directory as "PlanMySem.ics".
-. System displays confirmation message.
+1. User inputs command to export the planner.
+2. System converts planner to .ics format.
+3. System saves .ics file in the main directory as "PlanMySem.ics".
+4. System displays confirmation message.
 +
 Use case ends.
 
