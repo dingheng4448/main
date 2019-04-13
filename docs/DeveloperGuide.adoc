@@ -1542,10 +1542,11 @@ For all use cases below, the *System* is `PlanMySem` and the *Actor* is the `use
 
 === Use Case: Add a slot
 * MSS:
-1. User inputs add command followed by all the mandatory parameters.
-2. System reflects the additions to the planner.
+** 1. User inputs add command followed by all the mandatory parameters.
+** 2. System reflects the additions to the planner.
 +
 Use case ends.
+
 * Extensions:
 ** 1a. System detects an error in the entered data.
 *** 1a1. System outputs error message.
@@ -1562,16 +1563,18 @@ Use case ends.
 
 === Use Case: List slots
 * MSS:
-1. User inputs the command to list slots followed by the tag or name of the slot.
-2. System displays all slots with the specified name or tag with their indexes.
+** 1. User inputs the command to list slots followed by the tag or name of the slot.
+** 2. System displays all slots with the specified name or tag with their indexes.
 +
 Use case ends.
+
 * Extensions:
 ** 1a. Planner is empty.
 *** 1a1. System outputs error message.
 +
 Use case ends.
-** 1b. Tag or name does not exist in the planner. +
+
+** 1b. Tag or name does not exist in the planner.
 *** 1b1. System outputs error message.
 +
 Use case ends.
@@ -1581,10 +1584,11 @@ Use case ends.
 
 === Use Case: Delete a slot
 * MSS:
-1. User inputs the delete command followed by the index or tag of the intended slot.
-2. System deletes the intended slot from the planner and outputs confirmation message.
+** 1. User inputs the delete command followed by the index or tag of the intended slot.
+** 2. System deletes the intended slot from the planner and outputs confirmation message.
 +
 Use case ends.
+
 * Extensions:
 ** 1a. Tag or index does not exist in the planner.
 *** 1a1. System outputs error message.
@@ -1596,11 +1600,12 @@ Use case ends.
 
 === Use Case: Edit a slot
 * MSS:
-1. User inputs command to edit a slot along with the tag or index, followed by the parameters to be changed.
-2. System changes the specified parameters for the slot.
-3. System reflects the slots as well as the perimeters changed.
+** 1. User inputs command to edit a slot along with the tag or index, followed by the parameters to be changed.
+** 2. System changes the specified parameters for the slot.
+** 3. System reflects the slots as well as the perimeters changed.
 +
 Use case ends.
+
 * Extensions:
 ** 1a. Tag or index does not exist in the planner.
 *** 1a1. System outputs error message.
@@ -1638,10 +1643,10 @@ Use case ends.
 
 === Use Case: Export planner
 * MSS:
-1. User inputs command to export the planner.
-2. System converts planner to .ics format.
-3. System saves .ics file in the main directory as "PlanMySem.ics".
-4. System displays confirmation message.
+** 1. User inputs command to export the planner.
+** 2. System converts planner to .ics format.
+** 3. System saves .ics file in the main directory as "PlanMySem.ics".
+** 4. System displays confirmation message.
 +
 Use case ends.
 
