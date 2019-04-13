@@ -665,14 +665,15 @@ will be polled into the output list. +
 [[view]]
 === View feature
 
-This feature presents the planner in different formats to the user. This section will detail how this feature is implemented.
+This feature presents the planner in different formats to the user. The available formats are the month view, week view,
+and the day view. This section will detail how this feature is implemented.
 {zwsp}
 
 {zwsp}
 
 ==== Current Implementation
 
-Upon entering the `view` command with valid parameters (refer to <<UserGuide#view, UserGuide.adoc>> for `view` usage),
+Upon invoking the `view` command with valid parameters (refer to <<UserGuide#view, UserGuide.adoc>> for `view` usage),
 a sequence of events is executed. For clarity, the sequence of events will be in reference to the execution
 of a `view month` command. A graphical representation is also included in the Sequence Diagram below for your reference
 when following through the sequence of events. The sequence of events are as follows:
