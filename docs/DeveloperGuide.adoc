@@ -1546,14 +1546,14 @@ For all use cases below, the *System* is `PlanMySem` and the *Actor* is the `use
 . System reflects the additions to the planner.
 +
 Use case ends.
-* Extensions:
-:: 1a. System detects an error in the entered data.
+* Extensions: +
+:: 1a. System detects an error in the entered data. +
 :::: 1a1. System outputs error message.
 +
-Use case ends.
+Use case ends. +
 
-:: 1a. System detects insufficient parameters in the entered data.
-:::: 1a1. System outputs error message.
+:: 1b. System detects insufficient parameters in the entered data. +
+:::: 1b1. System outputs error message.
 +
 Use case ends.
 {zwsp}
@@ -1566,12 +1566,12 @@ Use case ends.
 . System displays all slots with the specified name or tag with their indexes.
 +
 Use case ends.
-* Extensions:
-:: 1b. Planner is empty.
-:::: 1b1. System outputs error message.
+* Extensions: +
+:: 1a. Planner is empty. +
+:::: 1a1. System outputs error message.
 +
-Use case ends.
-:: 1b. Tag or name does not exist in the planner.
+Use case ends. +
+:: 1b. Tag or name does not exist in the planner. +
 :::: 1b1. System outputs error message.
 +
 Use case ends.
@@ -1585,8 +1585,8 @@ Use case ends.
 . System deletes the intended slot from the planner and outputs confirmation message.
 +
 Use case ends.
-* Extensions:
-:: 1a. Tag or index does not exist in the planner.
+* Extensions: +
+:: 1a. Tag or index does not exist in the planner. +
 :::: 1a1. System outputs error message.
 +
 Use case ends.
@@ -1601,13 +1601,13 @@ Use case ends.
 . System reflects the slots as well as the perimeters changed.
 +
 Use case ends.
-* Extensions:
-:: 1a. Tag or index does not exist in the planner.
+* Extensions: +
+:: 1a. Tag or index does not exist in the planner. +
 :::: 1a1. System outputs error message.
 +
-Use case ends.
+Use case ends. +
 
-:: 1b. System detects an error in the entered data.
+:: 1b. System detects an error in the entered data. +
 :::: 1b1. System outputs error message.
 +
 Use case ends.
@@ -1621,13 +1621,13 @@ Use case ends.
 . System displays all the slots for that specified day or date.
 +
 Use case ends.
-* Extensions:
-:: 1a. Specified day or date does not exist in the current semester.
+* Extensions: +
+:: 1a. Specified day or date does not exist in the current semester. +
 :::: 1a1. System outputs error message.
 +
-Use case ends.
+Use case ends. +
 
-:: 1b. System detects an error in the entered data.
+:: 1b. System detects an error in the entered data. +
 :::: 1b1. System outputs error message.
 +
 Use case ends.
