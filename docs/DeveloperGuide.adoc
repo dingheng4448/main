@@ -258,7 +258,7 @@ link:{repoURL}/src/planmysem/logic/Logic.java[`Logic.java`]
 
 the `Logic` component,
 
-.  Uses the `Parser` class to parse the user command.
+.  Uses the `parser` class to parse the user command.
 **  This results in a `Command` object which is executed.
 .  The command execution can affect the `Model` (e.g. adding a _Slot_).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to `Ui`.
@@ -353,9 +353,10 @@ Semester 1 of the academic year starts with an orientation week and will always 
 
 Each week of the year will correspond to an academic week and this information will be stored in a `HashMap`. This
 `HashMap` can be used to determine the academic week given a date (by finding out the week of the year for that date).
-The figures below shows an example of the relation between academic week and the week of the year for academic year 2018/2019.
+The tables below shows an example of the relation between academic week and the week of the year for academic year 2018/2019.
 
 .Weeks in academic year 2018/2019, Semester 1.
+[width="100%",cols="5%,5%,<10%",options="header"]
 |=======================================================================
 |Academic Week |Example (Week of the year) |Example (Period)
 |Orientation Week |32 |6 Aug 2018 (First Monday of Aug 2018) - 12 Aug 2018
@@ -367,13 +368,27 @@ The figures below shows an example of the relation between academic week and the
 |Vacation |50 - 52 |10 Dec 2018 - 30 Dec 2018
 |Vacation |1 - 2 |31 Dec 2018 - 13 Jan 2019
 |=======================================================================
+{zwsp}
 
-[#img-view]
-.[.underline]#Weeks in academic year 2018/2019, Semester 1.#
-image::Sem1.png[width="790"]
+.Weeks in academic year 2018/2019, Semester 2.
+[width="100%",cols="5%,5%,<10%",options="header"]
+|=======================================================================
+|Academic Week |Example (Week of the year) |Example (Period)
+|Week 1 - 6 |3 - 8 |14 Jan 2019 - 24 Feb 2019
+|Recess Week|9 |25 Feb 2019 - 3 Mar 2019
+|Week 7 - 13 |10 - 16 |4 Mar 2019 - 21 Apr 2019
+|Reading Week |17 |22 Apr 2019 - 28 Apr 2019
+|Examination Week |18 - 19 |29 Apr 2019 - 12 May 2019
+|Vacation |20 - 31 |12 weeks duration
+|=======================================================================
+{zwsp}
 
-.[.underline]#Weeks in academic year 2018/2019, Semester 2.#
-image::Sem2.png[width="790"]
+//[#img-view]
+//.[.underline]#Weeks in academic year 2018/2019, Semester 1.#
+//image::Sem1.png[width="790"]
+//
+//.[.underline]#Weeks in academic year 2018/2019, Semester 2.#
+//image::Sem2.png[width="790"]
 
 Hence, the information listed below can be determined from the current date.
 
