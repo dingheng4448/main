@@ -446,8 +446,8 @@ Arguments are then parsed via 2 different methods/techniques according to the fo
 
 Hence, parameters in *PlanMySem* can be categorised into 2 categories:
 
-1. Prefixed parameters such as `n/NAME`, `st/START_TIME`, `des/DESCRIPTION`, etc.
-2. Non-Prefixed parameters, A.K.A. keywords, such as `INDEX`, `TYPE_OF_VIEW`. etc.
+. Prefixed parameters such as `n/NAME`, `st/START_TIME`, `des/DESCRIPTION`, etc.
+. Non-Prefixed parameters, A.K.A. keywords, such as `INDEX`, `TYPE_OF_VIEW`. etc.
 {zwsp}
 
 {zwsp}
@@ -600,7 +600,7 @@ After all, there are few cases of slots crossing the boundaries of a day, over m
 
 ==== Future Implementation
 
-===== Create a class to hold `Days`, instead of utilising a `HashMap`
+===== Create a class to represent `Days`, instead of utilising a `HashMap`
 
 Currently, `Days` are held in a HashMap of key `LocalDate` and value `Day`. While this works without any loss in performance, this causes duplication of code and removes some key concepts of abstraction.
 For example, there are code blocks dedicated to retrieving days or slots that could have been placed into this new class. This is an issue as these code have nothing to do with for instance, `Semester` but they are placed there.

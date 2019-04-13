@@ -97,10 +97,10 @@ Using tags to tag _slots_ will make tasks easier for you in the future. Performi
 
 Recommended uses for tags:
 
-1. Tag modules. E.g. "CS2113T", "CS2101".
-2. Tag type of lesson. E.g. "Lecture", "Tutorial", "Lab".
-3. Tag type of activities. E.g. "Sports", "Seminar", "Talk".
-4. Tag difficulty of task. E.g. "Tough", "Simple", "Trivial".
+. Tag modules. E.g. "CS2113T", "CS2101".
+. Tag type of lesson. E.g. "Lecture", "Tutorial", "Lab".
+. Tag type of activities. E.g. "Sports", "Seminar", "Talk".
+. Tag difficulty of task. E.g. "Tough", "Simple", "Trivial".
 
 *Recursion System*
 
@@ -430,7 +430,7 @@ The exported file is named "PlanMySem.ics" and is saved in the main directory.
 The .ics file can be imported into other calendar apps that support .ics files such as Google Calendar. +
 [#img-exportFile]
 .[.underline]#Location of PlanMySem.ics file#
-image::Export_Command_Directory_1.png[width="790"]
+image::Export_Command_Directory_1.png[width="800"]
 ====
 
 [WARNING]
