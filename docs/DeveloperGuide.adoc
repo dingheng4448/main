@@ -1804,6 +1804,38 @@ These instructions only provide a starting point for testers to work on; testers
 
 {zwsp}
 
+=== Adding a slot
+
+. Deleting a _slot_ while all _slots_ are listed
+
+.. Prerequisites: Add a single or multiple _slot(s)_ using the `add` command.
+.. Test case: `add n/CS2113T Lecture d/mon st/8:00 am et/9:00 am des/Topic: Software Engineering t/CS2113T t/Lecture r/normal r/past` +
+   Expected: Add a single slot, named "CS2113T Lecture" with description "Software Engineering" on all mondays, from 0800hrs to 0900hrs with the tags "CS2113T" and "Tutorial". Total of 13 _slots_ are added to the planner.
+.. Test case: `add n/CS2113T Lecture d/mon st/8:00 am et/9:00 am des/Topic: Software Engineering t/CS2113T t/Lecture` +
+   Expected: Add a single slot, named "CS2113T Lecture" with description "Software Engineering" on the coming monday, from 0800hrs to 0900hrs with the tags "CS2113T" and "Tutorial". A single _slot_ is added to the planner.
+.. Test case: `add n/ Lecture d/mon st/8:00 am et/9:00 am des/Topic: Software Engineering t/CS2113T t/Lecture` +
+   Expected: No _Slot_ is added. Error details shown in the status message.
+.. Other incorrect add commands to try include invalid or unspecified dates, days and or time +
+   Expected: Similar to previous.
+{zwsp}
+
+{zwsp}
+
+=== Editing a slot
+
+. Editing a _slot_ while all _slots_ are listed
+
+.. Prerequisites: List all _slot_ using the `list` command. Multiple _slots_ in the list.
+.. Test case: `edit 1 nl/ICube` +
+   Expected: The first slot shown in the list is edited such that it's location is replaced with "ICube". The selected slot and the edited details, in this case only "location", is displayed.
+.. Test case: `edit 0` +
+   Expected: No _Slot_ is edited. Error details shown in the status message.
+.. Other incorrect edit commands to try: `edit`, `edit x` (where x is larger than the list size) _{give more}_ +
+   Expected: Similar to previous.
+{zwsp}
+
+{zwsp}
+
 === Deleting a slot
 
 . Deleting a _slot_ while all _slots_ are listed
