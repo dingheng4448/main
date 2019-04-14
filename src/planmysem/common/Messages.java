@@ -108,7 +108,7 @@ public class Messages {
             sb.append("\n");
             count++;
         }
-        sb.append("\n To view more information about the slot, try the 'view day' command!");
+        sb.append("\n To view more information about a particular slot, try the 'view day' command!");
         return sb.toString();
     }
 
@@ -116,8 +116,6 @@ public class Messages {
      * Craft list message.
      */
     public static String craftListMessage(List<Pair<LocalDate, Pair<ReadOnlyDay, ReadOnlySlot>>> selectedSlots) {
-        selectedSlots.sort((p1, p2) -> p1.getKey().compareTo(p2.getKey()));
-
         StringBuilder sb = new StringBuilder();
 
         int count = 1;
@@ -138,7 +136,7 @@ public class Messages {
             sb.append("\n");
             count++;
         }
-        sb.append("\n To view more information about the slot, try the 'view day' command!");
+        sb.append("\n To view more information about a particular slot, try the 'view day' command!");
         return sb.toString();
     }
 

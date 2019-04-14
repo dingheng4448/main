@@ -10,7 +10,6 @@ import java.util.Set;
 import javafx.util.Pair;
 import planmysem.common.Messages;
 import planmysem.logic.CommandHistory;
-import planmysem.logic.parser.exceptions.ParseException;
 import planmysem.model.Model;
 import planmysem.model.semester.Day;
 import planmysem.model.semester.ReadOnlyDay;
@@ -44,7 +43,7 @@ public class ListCommand extends Command {
         this.isListAll = false;
     }
 
-    public ListCommand(String option) throws ParseException {
+    public ListCommand() {
         this.keyword = null;
         this.isListByName = false;
         this.isListAll = true;
@@ -76,7 +75,7 @@ public class ListCommand extends Command {
         if (selectedSlots.isEmpty()) {
             return new CommandResult(MESSAGE_SUCCESS_NONE);
         }
-
+        selectedSlots.sort((p1, p2) -> p1.getKey().compareTo(p2.getKey()));
         model.setLastShownList(selectedSlots);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, selectedSlots.size(),
