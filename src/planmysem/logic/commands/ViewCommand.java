@@ -197,6 +197,7 @@ public class ViewCommand extends Command {
         } else {
             HashMap<Integer, String> acadCal = currentSemester.getAcadCal();
             String key;
+            week = givenWeek;
 
             if ("Recess".equals(week) || "Reading".equals(week) || "Examination".equals(week)
                     || "Orientation".equals(week)) {
