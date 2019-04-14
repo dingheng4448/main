@@ -43,9 +43,8 @@ public class Semester implements ReadOnlySemester {
     /**
      * Constructs a Semester from given details of a semester.
      */
-    public Semester(String name, String academicYear, HashMap<LocalDate, Day> days,
-                    LocalDate startDate, LocalDate endDate, int noOfWeeks,
-                    Set<LocalDate> recessDays, Set<LocalDate> readingDays,
+    public Semester(String name, String academicYear, HashMap<LocalDate, Day> days, LocalDate startDate,
+                    LocalDate endDate, int noOfWeeks, Set<LocalDate> recessDays, Set<LocalDate> readingDays,
                     Set<LocalDate> normalDays, Set<LocalDate> examDays) {
 
         this.name = name;
