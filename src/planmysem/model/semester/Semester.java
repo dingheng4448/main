@@ -4,6 +4,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Month;
 import java.time.temporal.TemporalAdjusters;
 import java.time.temporal.WeekFields;
 import java.util.HashMap;
@@ -20,12 +21,12 @@ import planmysem.model.slot.ReadOnlySlot;
 import planmysem.model.slot.Slot;
 
 /**
- * A list of days. Does not allow null elements or duplicates.
- *
- * @see Day#equals(Object)
+ * Wraps all data of an academic semester.
  */
 public class Semester implements ReadOnlySemester {
     private static HashMap<Integer, String> acadCal = new HashMap<>();
+
+    // These variables hold the necessary details of a semester.
     private final String name;
     private final String academicYear;
     private final HashMap<LocalDate, Day> days = new HashMap<>();
@@ -33,18 +34,20 @@ public class Semester implements ReadOnlySemester {
     private final LocalDate endDate;
     private final int noOfWeeks;
 
-    // These variables aid in making searches more effective
+    // These variables aid in making searches more effective.
     private final Set<LocalDate> recessDays = new HashSet<>();
     private final Set<LocalDate> readingDays = new HashSet<>();
     private final Set<LocalDate> normalDays = new HashSet<>();
     private final Set<LocalDate> examDays = new HashSet<>();
 
     /**
-     * Constructs a semester with the given Days.
+     * Constructs a Semester from given details of a semester.
      */
-    public Semester(String name, String academicYear, HashMap<LocalDate, Day> days, LocalDate startDate,
-                    LocalDate endDate, int noOfWeeks, Set<LocalDate> recessDays, Set<LocalDate> readingDays,
+    public Semester(String name, String academicYear, HashMap<LocalDate, Day> days,
+                    LocalDate startDate, LocalDate endDate, int noOfWeeks,
+                    Set<LocalDate> recessDays, Set<LocalDate> readingDays,
                     Set<LocalDate> normalDays, Set<LocalDate> examDays) {
+
         this.name = name;
         this.academicYear = academicYear;
         this.days.putAll(days);
@@ -59,14 +62,16 @@ public class Semester implements ReadOnlySemester {
     }
 
     /**
-     * Constructs a shallow copy of the Semester.
+     * Constructs a shallow copy of a given Semester or generate a new Semester.
      */
     public Semester(Semester source) {
+
+        // Generate a new semester if the current date does not exist in the source semseter.
         LocalDate startDateFromFile = source.startDate;
         LocalDate endDateFromFile = source.endDate;
-        if (LocalDate.now(Clock.get()).isBefore(startDateFromFile)
-                || LocalDate.now(Clock.get()).isAfter(endDateFromFile)) {
-            source = generateSemester(LocalDate.now(Clock.get()));
+        LocalDate currentDate = LocalDate.now(Clock.get());
+        if (currentDate.isBefore(startDateFromFile) || currentDate.isAfter(endDateFromFile)) {
+            source = generateSemester(currentDate);
         }
 
         this.name = source.getName();
@@ -80,41 +85,42 @@ public class Semester implements ReadOnlySemester {
         this.readingDays.addAll(source.readingDays);
         this.normalDays.addAll(source.normalDays);
         this.examDays.addAll(source.examDays);
-
     }
 
     /**
-     * Generates current semester based on current date.
+     * Generates current Semester based on current date.
      * As long as the current date falls within a semester, the generated semester is always the same.
      *
      * @param currentDate the current date when the program is run
-     * @return the current semester object
+     * @return the current Semester object
      */
     public static Semester generateSemester(LocalDate currentDate) {
         String acadSem;
         String acadYear;
-        String[] semesterDetails;
-        int noOfWeeks;
+        HashMap<LocalDate, Day> days = new HashMap<>();
         LocalDate startDate;
         LocalDate endDate;
-        List<LocalDate> datesList;
-        HashMap<Integer, String> acadCalMap;
-        HashMap<LocalDate, Day> days = new HashMap<>();
+        int noOfWeeks;
+
         Set<LocalDate> recessDays = new HashSet<>();
         Set<LocalDate> readingDays = new HashSet<>();
         Set<LocalDate> normalDays = new HashSet<>();
         Set<LocalDate> examDays = new HashSet<>();
 
+        HashMap<Integer, String> acadCalMap;
         acadCalMap = generateAcademicCalMap(currentDate);
         acadCal = acadCalMap;
+
+        String[] semesterDetails;
         semesterDetails = getSemesterDetails(currentDate, acadCalMap);
-        acadSem = semesterDetails[1];
-        acadYear = semesterDetails[2];
-        noOfWeeks = Integer.parseInt(semesterDetails[3]);
-        startDate = LocalDate.parse(semesterDetails[4]);
-        endDate = LocalDate.parse(semesterDetails[5]);
+        acadSem = semesterDetails[0];
+        acadYear = semesterDetails[1];
+        noOfWeeks = Integer.parseInt(semesterDetails[2]);
+        startDate = LocalDate.parse(semesterDetails[3]);
+        endDate = LocalDate.parse(semesterDetails[4]);
 
         // Initialise HashMap and Sets of all days in current semester
+        List<LocalDate> datesList;
         datesList = startDate.datesUntil(endDate.plusDays(1)).collect(Collectors.toList());
         for (LocalDate date: datesList) {
             int weekOfYear = date.get(WeekFields.ISO.weekOfWeekBasedYear());
@@ -148,40 +154,37 @@ public class Semester implements ReadOnlySemester {
      */
     private static HashMap<Integer, String> generateAcademicCalMap(LocalDate date) {
         HashMap<Integer, String> acadCalMap = new HashMap<>();
+
+        // Determine dates of semester 1 and 2 based on the given month.
+        final int august = Month.AUGUST.getValue();
+        int givenMonth = date.getMonthValue();
+        int givenYear = date.getYear();
         LocalDate semOneStartDate = date;
         LocalDate semTwoEndDate = date;
-        int currentMonth = date.getMonthValue();
-        int currentYear = date.getYear();
         int semOneStartWeek;
-        int semTwoStartWeek;
         int semTwoEndWeek;
-        int acadWeekNo;
-        int noOfWeeksInYear;
-        int vacationWeekNo;
-
-        if (currentMonth < 8) {
-            // Academic Year beginning from August of previous year
-            semOneStartDate = semOneStartDate.withYear(currentYear - 1).withMonth(8)
+        if (givenMonth < august) {
+            semOneStartDate = semOneStartDate.withYear(givenYear - 1).withMonth(august)
                     .with(TemporalAdjusters.firstInMonth(DayOfWeek.MONDAY));
             semOneStartWeek = semOneStartDate.get(WeekFields.ISO.weekOfWeekBasedYear());
-            semTwoEndDate = semTwoEndDate.withYear(currentYear).withMonth(8)
+            semTwoEndDate = semTwoEndDate.withYear(givenYear).withMonth(august)
                     .with(TemporalAdjusters.firstInMonth(DayOfWeek.MONDAY)).minusDays(1);
             semTwoEndWeek = semTwoEndDate.get(WeekFields.ISO.weekOfWeekBasedYear());
         } else {
-            // Academic Year beginning from August of current year
-            semOneStartDate = semOneStartDate.withYear(currentYear).withMonth(8)
+            semOneStartDate = semOneStartDate.withYear(givenYear).withMonth(august)
                     .with(TemporalAdjusters.firstInMonth(DayOfWeek.MONDAY));
             semOneStartWeek = semOneStartDate.get(WeekFields.ISO.weekOfWeekBasedYear());
-            semTwoEndDate = semTwoEndDate.withYear(currentYear + 1).withMonth(8)
+            semTwoEndDate = semTwoEndDate.withYear(givenYear + 1).withMonth(august)
                     .with(TemporalAdjusters.firstInMonth(DayOfWeek.MONDAY)).minusDays(1);
             semTwoEndWeek = semTwoEndDate.get(WeekFields.ISO.weekOfWeekBasedYear());
         }
 
+        // The following code assigns each week of the year to the appropriate academic week for the academic year.
         // Sem 1 - Orientation Week
         acadCalMap.put(semOneStartWeek, "Orientation Week_Sem 1");
 
         // Sem 1 - Week 1 to 6
-        acadWeekNo = 1;
+        int acadWeekNo = 1;
         for (int i = semOneStartWeek + 1; i < semOneStartWeek + 7; i++) {
             acadCalMap.put(i, "Week " + acadWeekNo + "_Sem 1");
             acadWeekNo++;
@@ -203,8 +206,9 @@ public class Semester implements ReadOnlySemester {
         acadCalMap.put(semOneStartWeek + 17, "Examination Week_Sem 1");
 
         // Sem 1 - Vacation
-        noOfWeeksInYear = (int) semOneStartDate.range(WeekFields.ISO.weekOfWeekBasedYear()).getMaximum();
-        vacationWeekNo = semOneStartWeek + 18;
+        int noOfWeeksInYear = (int) semOneStartDate.range(WeekFields.ISO.weekOfWeekBasedYear()).getMaximum();
+        int vacationWeekNo = semOneStartWeek + 18;
+        int semTwoStartWeek;
         semTwoStartWeek = 1;
         for (int i = 0; i < 5; i++) {
             if ((vacationWeekNo + i) <= noOfWeeksInYear) {
@@ -242,29 +246,24 @@ public class Semester implements ReadOnlySemester {
             acadCalMap.put(vacationWeekNo++, "Vacation_Sem 2");
         }
 
-        //System.out.println(acadCalMap); //why does this print twice?
         return acadCalMap;
     }
 
     /**
-     * Initialises current semester's details.
+     * Initialises and returns details of an academic semester from a given date and academic calendar.
      *
-     * @param date the current date when the program is run
-     * @param acadCalMap used to determine current academic week
-     * @return an array of Strings of the current semester's details
+     * @param date used to determine academic year
+     * @param acadCalMap used to determine academic week
+     * @return an array of Strings of an academic semester's details
      */
     private static String[] getSemesterDetails(LocalDate date, HashMap<Integer, String> acadCalMap) {
-        String acadWeek;
         String acadSem;
         String acadYear = null;
-        String noOfWeeks = null;
-        String[] acadWeekDetails;
         LocalDate startDate = date;
         LocalDate endDate = date;
-        int currentYear = date.getYear();
-        int currentWeekOfYear = date.get(WeekFields.ISO.weekOfWeekBasedYear());
+        String noOfWeeks = null;
 
-        // Initialise week numbers for certain weeks.
+        // Get week numbers for semester 1 and 2 from the academic calendar map.
         int firstWeekSemOne = 0;
         int firstWeekSemOneHol = 0;
         int lastWeekSemOneHol = 0;
@@ -283,18 +282,20 @@ public class Semester implements ReadOnlySemester {
             }
         }
 
-        // Set semester details.
-        acadWeekDetails = acadCalMap.get(currentWeekOfYear).split("_");
-        acadWeek = acadWeekDetails[0];
+        // Get semester details from given date, academic calendar map and the week numbers retrieved above.
+        int givenYear = date.getYear();
+        int givenWeekOfYear = date.get(WeekFields.ISO.weekOfWeekBasedYear());
+        String[] acadWeekDetails = acadCalMap.get(givenWeekOfYear).split("_");
+        String acadWeek = acadWeekDetails[0];
         acadSem = acadWeekDetails[1];
         if ("Vacation".equals(acadWeek) && "Sem 1".equals(acadSem)) {
             noOfWeeks = "5";
-            if (currentWeekOfYear < 4) {
-                acadYear = "AY" + (currentYear - 1) + "/" + currentYear;
-                startDate = startDate.withYear(currentYear - 1);
+            if (givenWeekOfYear < 4) {
+                acadYear = "AY" + (givenYear - 1) + "/" + givenYear;
+                startDate = startDate.withYear(givenYear - 1);
             } else {
-                acadYear = "AY" + currentYear + "/" + (currentYear + 1);
-                endDate = endDate.withYear(currentYear + 1);
+                acadYear = "AY" + givenYear + "/" + (givenYear + 1);
+                endDate = endDate.withYear(givenYear + 1);
             }
             startDate = startDate.with(WeekFields.ISO.weekOfWeekBasedYear(), firstWeekSemOneHol);
             startDate = startDate.with(WeekFields.ISO.dayOfWeek(), 1);
@@ -302,44 +303,28 @@ public class Semester implements ReadOnlySemester {
             endDate = endDate.with(WeekFields.ISO.dayOfWeek(), 7);
         } else if ("Vacation".equals(acadWeek) && "Sem 2".equals(acadSem)) {
             noOfWeeks = "12";
-            acadYear = "AY" + (currentYear - 1) + "/" + currentYear;
+            acadYear = "AY" + (givenYear - 1) + "/" + givenYear;
             startDate = startDate.with(WeekFields.ISO.weekOfWeekBasedYear(), firstWeekSemTwoHol);
             startDate = startDate.with(WeekFields.ISO.dayOfWeek(), 1);
             endDate = endDate.with(WeekFields.ISO.weekOfWeekBasedYear(), firstWeekSemTwoHol + 11);
             endDate = endDate.with(WeekFields.ISO.dayOfWeek(), 7);
         } else if ("Sem 1".equals(acadSem)) {
             noOfWeeks = "18";
-            acadYear = "AY" + currentYear + "/" + (currentYear + 1);
+            acadYear = "AY" + givenYear + "/" + (givenYear + 1);
             startDate = startDate.with(WeekFields.ISO.weekOfWeekBasedYear(), firstWeekSemOne);
             startDate = startDate.with(WeekFields.ISO.dayOfWeek(), 1);
             endDate = endDate.with(WeekFields.ISO.weekOfWeekBasedYear(), firstWeekSemOne + 17);
             endDate = endDate.with(WeekFields.ISO.dayOfWeek(), 7);
         } else if ("Sem 2".equals(acadSem)) {
             noOfWeeks = "17";
-            acadYear = "AY" + (currentYear - 1) + "/" + currentYear;
+            acadYear = "AY" + (givenYear - 1) + "/" + givenYear;
             startDate = startDate.with(WeekFields.ISO.weekOfWeekBasedYear(), firstWeekSemTwo);
             startDate = startDate.with(WeekFields.ISO.dayOfWeek(), 1);
             endDate = endDate.with(WeekFields.ISO.weekOfWeekBasedYear(), firstWeekSemTwo + 16);
             endDate = endDate.with(WeekFields.ISO.dayOfWeek(), 7);
         }
-        return new String[] {acadWeek, acadSem, acadYear, noOfWeeks, startDate.toString(), endDate.toString()};
-    }
 
-    /**
-     * Get set of slots which contain all specified tags.
-     */
-    public Map<LocalDateTime, ReadOnlySlot> getSlots(Set<String> tags) {
-        Map<LocalDateTime, ReadOnlySlot> selectedSlots = new TreeMap<>();
-
-        for (Map.Entry<LocalDate, Day> day : days.entrySet()) {
-            for (Slot slot : day.getValue().getSlots()) {
-                if (slot.getTags().containsAll(tags)) {
-                    selectedSlots.put(LocalDateTime.of(day.getKey(), slot.getStartTime()), slot);
-                }
-            }
-        }
-
-        return selectedSlots;
+        return new String[] {acadSem, acadYear, noOfWeeks, startDate.toString(), endDate.toString()};
     }
 
     /**
@@ -353,13 +338,6 @@ public class Semester implements ReadOnlySemester {
         }
         days.get(date).addSlot(slot);
         return days.get(date);
-    }
-
-    /**
-     * Removes a Slot to the Semester.
-     */
-    public void removeSlot(LocalDate date, ReadOnlySlot slot) {
-        days.get(date).removeSlot(slot);
     }
 
     /**
@@ -389,6 +367,30 @@ public class Semester implements ReadOnlySemester {
         if (tags.size() > 0) {
             editingSlot.setTags(tags);
         }
+    }
+
+    /**
+     * Get set of slots which contain all specified tags.
+     */
+    public Map<LocalDateTime, ReadOnlySlot> getSlots(Set<String> tags) {
+        Map<LocalDateTime, ReadOnlySlot> selectedSlots = new TreeMap<>();
+
+        for (Map.Entry<LocalDate, Day> day : days.entrySet()) {
+            for (Slot slot : day.getValue().getSlots()) {
+                if (slot.getTags().containsAll(tags)) {
+                    selectedSlots.put(LocalDateTime.of(day.getKey(), slot.getStartTime()), slot);
+                }
+            }
+        }
+
+        return selectedSlots;
+    }
+
+    /**
+     * Removes a Slot to the Semester.
+     */
+    public void removeSlot(LocalDate date, ReadOnlySlot slot) {
+        days.get(date).removeSlot(slot);
     }
 
     /**
@@ -422,6 +424,11 @@ public class Semester implements ReadOnlySemester {
     }
 
     @Override
+    public HashMap<Integer, String> getAcadCal() {
+        return acadCal;
+    }
+
+    @Override
     public String getName() {
         return name;
     }
@@ -438,6 +445,11 @@ public class Semester implements ReadOnlySemester {
         for (Map.Entry<LocalDate, Day> entry : days.entrySet()) {
             this.days.put(entry.getKey(), new Day(entry.getValue()));
         }
+    }
+
+    @Override
+    public HashMap<LocalDate, Day> getDays() {
+        return days;
     }
 
     @Override
@@ -473,16 +485,6 @@ public class Semester implements ReadOnlySemester {
     @Override
     public Set<LocalDate> getExamDays() {
         return examDays;
-    }
-
-    @Override
-    public HashMap<LocalDate, Day> getDays() {
-        return days;
-    }
-
-    @Override
-    public HashMap<Integer, String> getAcadCal() {
-        return acadCal;
     }
 
     @Override
