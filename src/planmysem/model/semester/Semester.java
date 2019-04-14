@@ -69,21 +69,24 @@ public class Semester implements ReadOnlySemester {
         LocalDate startDateFromFile = source.startDate;
         LocalDate endDateFromFile = source.endDate;
         LocalDate currentDate = LocalDate.now(Clock.get());
+        Semester semester;
         if (currentDate.isBefore(startDateFromFile) || currentDate.isAfter(endDateFromFile)) {
-            source = generateSemester(currentDate);
+            semester = generateSemester(currentDate);
+        } else {
+            semester = source;
         }
 
-        this.name = source.getName();
-        this.academicYear = source.getAcademicYear();
-        this.days.putAll(source.days);
-        this.startDate = source.startDate;
-        this.endDate = source.endDate;
-        this.noOfWeeks = source.noOfWeeks;
+        this.name = semester.getName();
+        this.academicYear = semester.getAcademicYear();
+        this.days.putAll(semester.days);
+        this.startDate = semester.startDate;
+        this.endDate = semester.endDate;
+        this.noOfWeeks = semester.noOfWeeks;
 
-        this.recessDays.addAll(source.recessDays);
-        this.readingDays.addAll(source.readingDays);
-        this.normalDays.addAll(source.normalDays);
-        this.examDays.addAll(source.examDays);
+        this.recessDays.addAll(semester.recessDays);
+        this.readingDays.addAll(semester.readingDays);
+        this.normalDays.addAll(semester.normalDays);
+        this.examDays.addAll(semester.examDays);
     }
 
     /**

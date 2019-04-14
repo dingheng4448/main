@@ -179,15 +179,16 @@ public class ViewCommand extends Command {
     /**
      * Display all slots for a given week in a formatted view.
      */
-    private String displayWeekView(Semester currentSemester, String week) {
+    private String displayWeekView(Semester currentSemester, String givenWeek) {
         HashMap<LocalDate, Day> allDays = currentSemester.getDays();
         List<LocalDate> datesList;
         LocalDate weekStart;
         LocalDate weekEnd;
         int[] weekOfYear = {0, 0};
+        String week = "";
         StringBuilder sb = new StringBuilder();
 
-        if (week == null) {
+        if (givenWeek == null) {
             week = allDays.get(LocalDate.now(Clock.get())).getType() + " of " + currentSemester.getName();
 
             weekStart = LocalDate.now(Clock.get()).with(WeekFields.ISO.dayOfWeek(), 1);
