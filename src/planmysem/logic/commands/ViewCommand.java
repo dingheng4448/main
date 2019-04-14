@@ -346,17 +346,26 @@ public class ViewCommand extends Command {
             sb.append(Utils.getEndTime(slot.getStartTime(), slot.getDuration()));
 
             sb.append("\n\t" + slot.getName() + "\n");
-            sb.append("\t" + "Location: " + slot.getLocation() + "\n");
-            sb.append("\t" + "Description: " + slot.getDescription() + "\n");
-            sb.append("\n\tTags: \n");
 
-            int count = 1;
-            for (String tag : slot.getTags()) {
-                sb.append("\t");
-                sb.append(count);
-                sb.append(". ");
-                sb.append(tag);
-                count++;
+            if (slot.getLocation() != null) {
+                sb.append("\t" + "Location: " + slot.getLocation() + "\n");
+            }
+
+            if (slot.getDescription() != null) {
+                sb.append("\t" + "Description: " + slot.getDescription() + "\n");
+            }
+
+            if (!slot.getTags().isEmpty()) {
+                sb.append("\n\tTags: \n");
+
+                int count = 1;
+                for (String tag : slot.getTags()) {
+                    sb.append("\t");
+                    sb.append(count);
+                    sb.append(". ");
+                    sb.append(tag);
+                    count++;
+                }
             }
 
             sb.append("\n\n");
