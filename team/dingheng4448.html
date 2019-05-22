@@ -1,0 +1,628 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>Lim Ding Heng - Project Portfolio</title><link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="../index.html">PlanMySem</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="../DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link active" href="../AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="../ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/CS2113-AY1819S2-T08-3/main"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Lim Ding Heng - Project Portfolio</h1></div><div id="content"><div class="sect1">
+<h2 id="project-planmysem"><a class="link" href="#project-planmysem">PROJECT: PlanMySem</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Hello there! I am Lim Ding Heng, a Year 2 Information Security undergraduate at the National University of Singapore and
+will be graduating in 2020. This portfolio documents my contributions to the project,
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main"><strong>PlanMySem</strong></a>, which was developed together with my team;
+<a href="marcus-pzj.html">Marcus</a>, <a href="macchazuki.html">Julian</a>, and <a href="seanieyap.html">Sean</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="overview"><a class="link" href="#overview">Overview</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>My team and I have morphed the original <a href="https://github.com/nusCS2113-AY1819S2/addressbook-level3">AddressBook (Level 3)</a>
+into <strong>PlanMySem</strong> for our Software Engineering project. <strong>PlanMySem</strong> is a text-based (Command Line Interface)
+scheduling/calendar application that caters to NUS students and staff who prefer to use a desktop application for
+managing their schedule/calendar efficiently. <strong>PlanMySem</strong> offers the following features and benefits:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Automatic creation of a planner that is synchronized to the NUS academic calendar for the current semester so you will
+not have to waste time manually doing so.</p>
+</li>
+<li>
+<p>Flexible commands to facilitate easy creation, editing and deleting of items so you would enjoy a smooth experience
+while using the application.</p>
+</li>
+<li>
+<p>A unique recursion system which takes into account special weeks such as recess week or reading week so as to allow
+you to add recurring items efficiently.</p>
+</li>
+<li>
+<p>An intuitive tagging system for you to manage items productively.</p>
+</li>
+<li>
+<p>Optimized for you if you prefer to work with a Command Line Interface (CLI) and/or are learning to work more
+efficiently with CLI tools.</p>
+</li>
+<li>
+<p>Utilizes minimal resources on your machine while still allowing you to view your schedules swiftly.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="about-this-portfolio"><a class="link" href="#about-this-portfolio">About this Portfolio</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>My role was to implement the automatic synchronization of <strong>PlanMySem</strong> with the academic calendar as well as the <code>view</code>
+feature. The following sections illustrate my implementations in more detail, as well as the relevant sections I have
+contributed to the user and developer guides in relation to my implementations.</p>
+</div>
+<div class="paragraph">
+<p>For ease of communication, this document will refer to lessons/activities/events/appointments that you might add into
+the planner as <em>slots</em>.</p>
+</div>
+<div class="paragraph">
+<p>Throughout this portfolio, there will be various icons used as described below.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+This is a tip. Follow these suggested tips to make your life much simpler when using <strong>PlanMySem</strong>!
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This is a note. These are things for you to take note of when using <strong>PlanMySem</strong>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="summary-of-contributions"><a class="link" href="#summary-of-contributions">Summary of contributions</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section shows a summary of my coding, documentation, and other helpful contributions to the team project.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Main feature</strong>: I implemented the automatic synchronization of <strong>PlanMySem</strong> with the academic calendar.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does: Upon running <strong>PlanMySem</strong>, the planner is automatically initialized and synchronized with details
+pertaining to the current academic semester. The current academic semester is dynamically generated based on the current
+date. This enhancement allows <strong>PlanMySem</strong> to function as intended; as a planner for the academics.</p>
+</li>
+<li>
+<p>Justification: This enhancement is required as the other commands in <strong>PlanMySem</strong>, including the <code>view</code> command,
+rely on the proper initialization of the current academic semester for their command functionalities. The current
+academic semester is dynamically generated from the current date so as to ensure <strong>PlanMySem</strong> continues to work in the future.</p>
+</li>
+<li>
+<p>Highlights: This enhancement is critical to existing commands and commands to be added in future. Hence, it required
+an in-depth analysis of design alternatives pertaining to the aspect of academic calendar generation. The chosen
+implementation must be reliable indefinitely.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Minor features</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>I added the <code>view</code> command and implemented the various types of planner views which will allow the user to view the
+planner in different viewing formats.</p>
+</li>
+<li>
+<p>I also enhanced the parsing for <code>view</code> command to allow for more flexibility with the command parameters.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Code contributed</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Please click this link to view my code contributions on RepoSense
+: [<a href="https://nuscs2113-ay1819s2.github.io/dashboard-beta/#search=dingheng4448&amp;sort=displayName&amp;since=2019-02-10&amp;until=2019-04-14&amp;timeframe=day&amp;reverse=false&amp;groupSelect=groupByRepos&amp;breakdown=false&amp;tabAuthor=dingheng4448&amp;tabRepo=CS2113-AY1819S2-T08-3_main_master">Contributed code</a>]</p>
+</li>
+<li>
+<p>Please click this link to view my contributed pull requests
+: [<a href="https://github.com/CS2113-AY1819S2-T08-3/main/pulls?q=is%3Apr+author%3Adingheng4448+is%3Aclosed">Contributed pull requests</a>]</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Other contributions</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Enhancements to existing features:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Wrote JUnit tests for existing features to increase overall coverage. I have ensured that the coverage of my
+contributed code is at 100%.
+(Pull requests <a href="https://github.com/CS2113-AY1819S2-T08-3/main/pull/76">#76</a>,
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main/pull/116">#116</a>,
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main/pull/129">#129</a>,
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main/pull/139">#139</a>,
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main/pull/145">#145</a>,
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main/pull/147">#147</a>,
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main/pull/150">#150</a>,
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main/pull/151">#151</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Documentation:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Review and edit existing contents of the User Guide:
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main/pull/81">#81</a>,
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main/pull/99">#99</a>,
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main/pull/106">#106</a>,
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main/pull/108">#108</a>,
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main/pull/124">#124</a>,
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main/pull/129">#129</a>,
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main/pull/138">#138</a>,
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main/pull/190">#190</a></p>
+</li>
+<li>
+<p>Review and edit existing contents of the Developer Guide:
+(Commits
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main/commit/de375295c2b10b2ef08d38f885a1ebfbde972a66#diff-d23c8091515dc18149f4f2e759e1e288">#1</a>,
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main/commit/55fa543bef202fd44f91b64882de4ac2c161e0ed#diff-d23c8091515dc18149f4f2e759e1e288">#2</a>,
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main/commit/e7b9300902116c781f983c36edf87848dc33f678#diff-d23c8091515dc18149f4f2e759e1e288">#3</a>,
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main/commit/791f22409245076f70303658de9fb60a72f95a4f#diff-d23c8091515dc18149f4f2e759e1e288">#4</a>)
+(Pull requests
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main/pull/81">#81</a>,
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main/pull/116">#116</a>,
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main/pull/117">#117</a>,
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main/pull/124">#124</a>,
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main/pull/134">#134</a>,
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main/pull/135">#135</a>,
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main/pull/137">#137</a>,
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main/pull/138">#138</a>,
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main/pull/151">#151</a>,
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main/pull/154">#154</a>,
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main/pull/190">#190</a>,
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main/pull/193">#193</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Community:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>PRs reviewed (with non-trivial review comments):
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main/pull/12">#12</a>,
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main/pull/98">#98</a>,
+<a href="https://github.com/CS2113-AY1819S2-T08-3/main/pull/109">#109</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-user-guide"><a class="link" href="#contributions-to-the-user-guide">Contributions to the User Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>This section includes a segment which I contributed to the User Guide and it showcases my ability to write
+documentation suitable for end-users.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Links to my contributed sections in the User Guide:<br>
+- <a href="https://github.com/CS2113-AY1819S2-T08-3/main/blob/master/docs/UserGuide.adoc#view">View the Planner : view / v</a></p>
+</div>
+<div class="sect2">
+<h3 id="view-the-planner-code-view-code-code-v-code"><a class="link" href="#view-the-planner-code-view-code-code-v-code">View the Planner : <code>view</code> / <code>v</code></a></h3>
+<div class="paragraph">
+<p>View the planner in a month/week/day view.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>View the monthly calendar view of the current academic semester.<br>
+Format: <code>view month</code></p>
+</li>
+<li>
+<p>View the weekly calendar view of the current academic week.<br>
+Format: <code>view week [WEEK]</code><br>
+<code>[WEEK]</code> is valid if it is:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Any number from 1 to 13 (as there is only week 1 to 13 in a semester).</p>
+</li>
+<li>
+<p>Any of the following text (case-insensitive): recess, reading, exam, examination.</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You may add in the parameter <code>details</code> after <code>[WEEK]</code> to view the details of all <em>slots</em> with respect to the <code>[WEEK]</code>.<br>
+E.g. <code>view week 13 details</code> will allow you to view details of all <em>slots</em> in week 13!
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>View the day view of a particular day in the academic semester.<br>
+Format: <code>view day [DATE_OR_DAY_OF_WEEK]</code><br>
+<code>[DATE_OR_DAY_OF_WEEK]</code> is valid if it is:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Any number from 1 to 7 (the numbers 1 to 7 corresponds to the days Monday to Sunday respectively).</p>
+</li>
+<li>
+<p>Any of the following text (case-insensitive): Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday.<br>
+The three-letter abbreviation of the days (e.g. mon, tue) is accepted as well.</p>
+</li>
+<li>
+<p>A date in the format of "dd-mm" or "dd-mm-yyyy" (e.g. 16-04 or 16-04-2019). The date must exist in the current semester.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You may omit <code>[WEEK]</code>/<code>[DATE_OR_DAY_OF_WEEK]</code> to view the calendar with respect to the current date!<br>
+E.g. <code>view week</code> will allow you to view the current week and <code>view day</code> will allow you to view the current day!<br>
+If you have added <em>slots</em> to the planner, the expected output after successfully running <code>view week</code> will be similar to
+the expected output shown in the figure below.
+</td>
+</tr>
+</table>
+</div>
+<div id="img-view" class="imageblock">
+<div class="content">
+<img src="../images/Ui.png" alt="Ui" width="790">
+</div>
+<div class="title">Figure 1. <span class="underline">Expected output after entering <code>view week</code></span></div>
+</div>
+<div class="paragraph">
+<p>&#8203;</p>
+</div>
+<div class="paragraph">
+<p>The following are some examples of the <code>view</code> command which you can try to run.</p>
+</div>
+<div class="paragraph">
+<p>Month view example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>view month</code><br>
+View planner for the months of the current academic semester.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Week view examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>view week details</code><br>
+View planner for current week of the academic calendar with details of all <em>slots</em>.</p>
+</li>
+<li>
+<p><code>view week 7</code><br>
+View planner for week 7 of the academic calendar.</p>
+</li>
+<li>
+<p><code>view week recess</code><br>
+View planner for recess week of the academic calendar.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Day view examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>view day</code><br>
+View planner for the current date.</p>
+</li>
+<li>
+<p><code>view day 01-03-2019</code><br>
+View planner for the first of March.</p>
+</li>
+<li>
+<p><code>view day monday</code><br>
+View planner for the upcoming Monday.
+&#8203;</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>&#8203;</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-developer-guide"><a class="link" href="#contributions-to-the-developer-guide">Contributions to the Developer Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>This section includes a segment which I contributed to the Developer Guide and it showcases my ability to write
+  technical documentation and the technical depth of my contributions to the project.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Links to my contributed sections in the Developer Guide:<br>
+- <a href="https://github.com/CS2113-AY1819S2-T08-3/main/blob/master/docs/DeveloperGuide.adoc#Planner-Initialization">Initialization of the Planner and its Semester</a><br>
+- <a href="https://github.com/CS2113-AY1819S2-T08-3/main/blob/master/docs/DeveloperGuide.adoc#view">View feature</a></p>
+</div>
+<div class="sect2">
+<h3 id="view-feature"><a class="link" href="#view-feature">View feature</a></h3>
+<div class="paragraph">
+<p>This feature presents the planner in different formats to the user. The available formats are the month view, week view,
+and the day view. This section will detail how this feature is implemented.
+&#8203;</p>
+</div>
+<div class="paragraph">
+<p>&#8203;</p>
+</div>
+<div class="sect3">
+<h4 id="current-implementation"><a class="link" href="#current-implementation">Current Implementation</a></h4>
+<div class="paragraph">
+<p>Upon invoking the <code>view</code> command with valid parameters (refer to <a href="https://github.com/CS2113-AY1819S2-T08-3/main/blob/master/docs/UserGuide.adoc#view">UserGuide.adoc</a> for <code>view</code> usage),
+a sequence of events is executed. For clarity, the sequence of events will be in reference to the execution
+of a <code>view month</code> command. A graphical representation is also included in the Sequence Diagram below for your reference
+when following through the sequence of events. The sequence of events are as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Firstly, the <code>view month</code> command is passed into the <code>execute</code> function of <code>LogicManager</code> to be parsed.</p>
+</li>
+<li>
+<p><code>LogicManager</code> then invokes the <code>parseCommand</code> function of <code>ParserManager</code>.</p>
+</li>
+<li>
+<p><code>ParserManager</code> in turn invokes the <code>parse</code> function of the appropriate parser for the <code>view</code> command which in this case,
+is <code>ViewCommandParser</code>.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The <code>view</code> command can be parsed into only 3 general types of views which are the month, week or day view as
+specified in the command parameter.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>After parsing is done, <code>ViewCommandParser</code> would instantiate the <code>ViewCommand</code> object which would be returned to the <code>LogicManager</code>.</p>
+</li>
+<li>
+<p><code>LogicManager</code> is then able to invoke the <code>execute</code> function of the returned <code>ViewCommand</code> object.</p>
+</li>
+<li>
+<p>In the <code>execute</code> function of the <code>ViewCommand</code> object, data will be retrieved from the <code>Model</code> component (i.e. retrieving data from the current <code>Semester</code>).</p>
+</li>
+<li>
+<p>Now that the <code>ViewCommand</code> object has the data of the current semester, it is able to invoke the <code>displayMonthView</code> method.</p>
+</li>
+<li>
+<p>With the output returned from the <code>displayMonthView</code>, the <code>CommandResult</code> object will be instantiated.</p>
+</li>
+<li>
+<p>This <code>CommandResult</code> object would be returned to the <code>LogicManager</code> which then returns the same <code>CommandResult</code> object
+back to the <code>UI</code> component.</p>
+</li>
+<li>
+<p>Finally, the <code>UI</code> component would display the contents of the <code>CommandResult</code> object to the user. For this <code>view month</code>
+command, the displayed result would be the monthly calendar view of all months in the current semester.</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ViewMonthSequenceDiagram.png" alt="ViewMonthSequenceDiagram" width="900">
+</div>
+<div class="title">Figure 2. Sequence Diagram upon executing the <code>view month</code> command.</div>
+</div>
+<div class="paragraph">
+<p>&#8203;</p>
+</div>
+<div class="paragraph">
+<p>The 3 general types of view (month, week, day) are generated by the methods <code>displayMonthView</code>, <code>displayWeekView</code>,
+<code>displayDetailedWeekView</code>, <code>displayDayView</code> from the <code>ViewCommand</code> class and the implementation of these methods is
+explained below.</p>
+</div>
+<div class="paragraph">
+<p><code>displayMonthView</code> method displays all the months of the current semester in a monthly calendar format. Each academic week
+of the semester is also indicated in the display. The implementation of this method can be
+broken down into 3 parts:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Print month header (e.g. January 2019) and calculate required amount of whitespace before the 1st of the month.</p>
+</li>
+<li>
+<p>Print all days of the month using a loop.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Append academic week after each Saturday or last day of month.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Repeat parts 1 and 2 for every month in the semester.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><code>displayWeekView</code> method displays the weekly calendar format of a specified week. The implementation of this method can be
+broken down into the following steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Print academic week header (e.g. Week 13 of Sem 2).</p>
+</li>
+<li>
+<p>Retrieve all days of the week and for each day, retrieve its <em>slots</em> into an <code>ArrayList</code>.</p>
+</li>
+<li>
+<p>For each day, print the <em>slot</em> details (only start time, end time and a shortened title) and remove the <em>slot</em> from
+the <code>ArrayList</code>.</p>
+</li>
+<li>
+<p>Repeat step 3 until the <code>ArrayList</code> of <em>slots</em> for each day is empty.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><code>displayDayView</code> method displays the details of all <em>slots</em> of a specified day. The implementation of this method can be
+broken down into 2 parts:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Retrieve all <em>slots</em> for the specified day.</p>
+</li>
+<li>
+<p>Print all details of each <em>slot</em> found.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><code>displayDetailedWeekView</code> method displays the details of all <em>slots</em> of a specified week since <code>displayWeekView</code> only shows
+ a formatted and summarised week view. The implementation of this method can be broken down into the following steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Print academic week header (e.g. Week 13 of Sem 2).</p>
+</li>
+<li>
+<p>Retrieve all days of the week.</p>
+</li>
+<li>
+<p>For each day, print all details of all <em>slots</em> via the <code>displayDayView</code> method.
+&#8203;</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>&#8203;</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
+<div class="paragraph">
+<p>This section details our considerations for the implementation of the <code>view</code> feature.</p>
+</div>
+<div class="sect4">
+<h5 id="aspect-functionality-of-code-view-week-code-command"><a class="link" href="#aspect-functionality-of-code-view-week-code-command">Aspect: Functionality of <code>view week</code> command</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Option for user to display a formatted summarised week view or a detailed week view.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: The formatted summarised week view is uncluttered. User given the choice and flexibility for the week view.</p>
+</li>
+<li>
+<p>Cons: User is required to spend a little more time to specify an additional parameter in the <code>view week</code> command.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Only a single formatted week view which displays details of all <em>slots</em> in the specified week.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Efficient for the user as user is only required to enter a single command to view all details of all <em>slots</em>.</p>
+</li>
+<li>
+<p>Cons: The formatted week view will be too cluttered as there are too many <em>slots</em> and lots of details. Formatting is
+an issue as well as details of each <em>slot</em> can be of varying lengths.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Alternative 1 was chosen to be implemented as it gives the user freedom of choice to select the degree of details to be
+displayed in the output of the <code>view week</code> command. The output of alternative 1 is also less cluttered than alternative 2
+and thus enhances the presentability of <strong>PlanMySem</strong>.
+&#8203;</p>
+</div>
+<div class="paragraph">
+<p>&#8203;</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-05-22 14:53:04 UTC</div></div></div></body></html>
